@@ -68,9 +68,9 @@ function dev(name, callback) {
     });
 }
 gulp.task('pack', function (callback) {
-    build('web/index');
+    build('src/index');
 });
-gulp.task('web', function (callback) {
-    dev('web/index', callback);
+gulp.task('dev', function (callback) {
+    dev('src/index', callback);
 });
 //# sourceMappingURL=pack.js.map

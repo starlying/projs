@@ -6,7 +6,6 @@ var webpack = require('webpack')
 var WebpackDevServer = require("webpack-dev-server")
 
 function build(name: string) {
-
   var arr = name.split('/')
   var filename = _.kebabCase(name.split('/')[0]) + '.js'
   if (arr.length === 3) {
@@ -73,9 +72,9 @@ function dev(name: string, callback: () => void) {
 }
 
 gulp.task('pack', function(callback) {
-  build('web/index')
+  build('src/index')
 })
 
-gulp.task('web', function(callback) {
-  dev('web/index', callback)
+gulp.task('dev', function(callback) {
+  dev('src/index', callback)
 })
