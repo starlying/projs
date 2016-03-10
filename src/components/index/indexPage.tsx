@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Loading} from '../lib/components'
+import {Loading} from '../../lib/components'
 import Message from "./message"
 import Info from "./info"
 import Yewu from "./yewu"

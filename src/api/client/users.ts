@@ -1,14 +1,11 @@
 import * as http from '../http'
 import * as models from '../models'
-import Tokens from './users_tokens'
 
 export default class Users {
   private request: http.APIRequest
-  public tokens: Tokens
 
   constructor(request: http.APIRequest) {
     this.request = request
-    this.tokens = new Tokens(this.request)
   }
 
   delete(password: string, cb?: (err: models.Error, res: {}) => void) {
@@ -22,12 +19,21 @@ export default class Users {
   }
 
   login(username: string, password: string, cb?: (err: models.Error, res: {
+    token: string
     user: models.User
-    accessToken: string
   }) => void) {
     this.request.post('/users/actions/login', {
       username: username,
       password: password
+    }, cb)
+  }
+
+  search(idCardNumber: string, cb?: (err: models.Error, res: {
+    users: Array<models.User>
+    members: Array<models.Member>
+  }) => void) {
+    this.request.post('/users/actions/search', {
+      idCardNumber: idCardNumber,
     }, cb)
   }
 

@@ -1,8 +1,9 @@
 import * as React from 'react'
-import Location from "../components/location"
+import { Link } from 'react-router';
+import Location from "../../components/location"
 import Nav from "./nav"
 
-export default class PartyMemberPage extends React.Component<{}, {}> {
+export default class MemberPage extends React.Component<{}, {}> {
   render() {
     return (
       <div className="main2">
@@ -16,7 +17,7 @@ export default class PartyMemberPage extends React.Component<{}, {}> {
           <span className="m2fm_ss1 m2fm_ss2">至</span>
           <input type="text" name="" className="m2fm_int m2fm_int2" placeholder="2016-01-20" />
           <input type="submit" name="" className="m2submit" value="" />
-          <a href="/party-member/add" className="m2addBtn"><img src="/assets/images/m2btn.jpg" width="76" height="32" /></a>
+          <Link to="/member/add" className="m2addBtn"><img src="/assets/images/m2btn.jpg" width="76" height="32" /></Link>
         </div>
         <div className="m2fm_tabBox m2fm_tabBox2">
           <table width="100%">

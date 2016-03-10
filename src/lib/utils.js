@@ -6,30 +6,11 @@ const uuid = require('node-uuid');
 const moment = require('moment');
 const _ = require('lodash');
 const mustache = require('mustache');
-const http = require('../api/http');
 const models = require('../api/models');
 const base64 = require('./utils/base64');
 const utf8 = require('./utils/utf8');
 const client_1 = require('./client');
 const release_1 = require('./release');
-class Segment {
-    static identify(user) {
-        if (window['analytics']) {
-            analytics.identify(user.id, {
-                name: user.username,
-                email: user.email
-            });
-        }
-    }
-    static track(type) {
-        if (window['analytics']) {
-            analytics.track(type);
-        }
-    }
-}
-Segment.SIGNUP = "Signup";
-Segment.LOGIN = "Login";
-exports.Segment = Segment;
 class Component {
     static triggerEditor(value, onChange) {
         Component.lastEditorID = "ueditor_" + Math.random();
@@ -73,66 +54,6 @@ class Component {
     }
 }
 exports.Component = Component;
-class UploadProps {
-    static getImageProps(from, appPath, location, success, fail) {
-        const url = client_1.default.apps.files.getUploadUrl(appPath, location);
-        return UploadProps.getProps(url, false, "image/*", success, fail);
-    }
-    static getFilesProps(from, appPath, location, success, fail) {
-        const url = client_1.default.apps.files.getUploadUrl(appPath, location);
-        return UploadProps.getProps(url, true, "", success, fail);
-    }
-    static getAvatarProps(username, success, fail) {
-        const url = client_1.default._private.getUploadAvatarUrl(username);
-        return UploadProps.getProps(url, false, "image/*", success, fail);
-    }
-    static getProps(url, multi, accept, success, fail) {
-        const props = {
-            action: url,
-            headers: {
-                'X-Get3W-Access-Token': Page.getCookie(models.Const.ACCESS_TOKEN)
-            },
-            multiple: multi,
-            dataType: 'json',
-            accept: accept,
-            maxFileSize: 5000000,
-            withCredentials: true,
-            onStart(files) {
-                DOM.loading(true);
-            },
-            onSuccess(ret) {
-                DOM.loading(false);
-                success(http.parseSnake(JSON.stringify(ret)));
-            },
-            onProgress(step, file) {
-                DOM.loading(true);
-            },
-            onError(err) {
-                console.log('onError', err);
-                DOM.loading(false);
-                fail ? fail(err.message) : Tips.error(err.message);
-            },
-        };
-        return props;
-    }
-}
-exports.UploadProps = UploadProps;
-class Ace {
-    static newEditor(editorType, value) {
-        Ace.editor = ace.edit('ace-editor');
-        Ace.editor.setTheme('ace/theme/monokai');
-        Ace.editor.getSession().setMode('ace/mode/' + editorType);
-        Ace.editor.getSession().setUseWrapMode(true);
-        Ace.editor["$blockScrolling"] = Infinity;
-        Ace.editor.setValue(value);
-        setTimeout(() => {
-            Ace.editor.focus();
-            Ace.editor.gotoLine(1);
-        }, 100);
-        return Ace.editor;
-    }
-}
-exports.Ace = Ace;
 class DOM {
     static stop(e) {
         if (e) {
@@ -342,6 +263,8 @@ class Swal {
                 title: title,
                 text: text,
                 timer: 2000,
+                confirmButtonText: '确认',
+                cancelButtonText: '取消',
                 html: true
             });
         }
@@ -349,6 +272,8 @@ class Swal {
             swal({
                 title: title,
                 text: text,
+                confirmButtonText: '确认',
+                cancelButtonText: '取消',
                 html: true
             });
         }
@@ -359,6 +284,8 @@ class Swal {
                 title: title,
                 text: text,
                 type: "success",
+                confirmButtonText: '确认',
+                cancelButtonText: '取消',
                 html: true
             }, onClick);
         }
@@ -367,6 +294,8 @@ class Swal {
                 title: title,
                 text: text,
                 type: "success",
+                confirmButtonText: '确认',
+                cancelButtonText: '取消',
                 timer: 2000,
                 html: true
             }, onClick);
@@ -377,6 +306,8 @@ class Swal {
             title: err.message,
             text: '',
             type: "error",
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
             html: true
         }, callback);
     }
@@ -386,6 +317,8 @@ class Swal {
                 title: title,
                 text: text,
                 type: "warning",
+                confirmButtonText: '确认',
+                cancelButtonText: '取消',
                 html: true
             });
         }
@@ -395,6 +328,8 @@ class Swal {
                 text: text,
                 type: "warning",
                 timer: 2000,
+                confirmButtonText: '确认',
+                cancelButtonText: '取消',
                 html: true
             });
         }
@@ -809,48 +744,7 @@ class Addr {
 }
 exports.Addr = Addr;
 class Auth {
-    static locale() {
-        var lang = Page.getUrlVar('locale');
-        if (lang) {
-            var user = Auth.getUser();
-            if (user) {
-                if (user.locale !== lang) {
-                    client_1.default.users.edit({
-                        locale: lang
-                    }, (err, user) => {
-                        if (!err) {
-                            Auth.cacheUser(user);
-                        }
-                    });
-                }
-            }
-            else {
-                Page.setCookie('locale', lang);
-            }
-        }
-        if (!lang) {
-            var user = Auth.getUser();
-            if (user && user.locale) {
-                lang = user.locale;
-            }
-        }
-        if (!lang) {
-            lang = Page.getCookie('locale');
-        }
-        if (!lang) {
-            if (navigator["languages"]) {
-                lang = navigator["languages"][0];
-            }
-            else if (navigator.userLanguage) {
-                lang = navigator.userLanguage;
-            }
-            else {
-                lang = navigator.language;
-            }
-        }
-        return lang;
-    }
-    static getAccessToken() {
+    static getToken() {
         var cookie = Page.getCookie(models.Const.ACCESS_TOKEN);
         return (cookie && cookie !== 'undefined' && cookie !== 'null') ? cookie : '';
     }
@@ -858,29 +752,16 @@ class Auth {
         var cookie = Page.getCookie(models.Const.USER);
         return Translate.base64IsValid(cookie) ? JSON.parse(Translate.base64ForUrlDecode(cookie)) : null;
     }
-    static isAnonymous() {
-        var token = Auth.getAccessToken();
-        if (!token)
-            return true;
-        var user = Auth.getUser();
-        if (!user || !user.id)
-            return true;
-        return false;
-    }
-    static login(accessToken) {
+    static cache(accessToken, user) {
         client_1.default.setToken(accessToken);
         Page.setCookie(models.Const.ACCESS_TOKEN, accessToken, 7);
         Ajax.setHeader(accessToken);
-        Segment.track(Segment.LOGIN);
-    }
-    static cacheUser(user) {
         Page.setCookie(models.Const.USER, Translate.base64ForUrlEncode(JSON.stringify(user)), 7);
     }
-    static signout() {
+    static removeCache() {
         Page.removeCookie(models.Const.ACCESS_TOKEN);
         Page.removeCookie(models.Const.USER);
         Ajax.setHeader('');
-        Page.reload();
     }
 }
 exports.Auth = Auth;

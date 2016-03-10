@@ -4,6 +4,10 @@ body>div>div>div, body>div>div>div>div {margin:0 auto}
   text-align: center;
 }
 
+.sa-button-container {
+  text-align: center;
+}
+
 .g3w-windows-mask {
   position: fixed;
   top: 0;

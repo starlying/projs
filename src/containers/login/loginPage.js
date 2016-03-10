@@ -4,17 +4,16 @@ const ReactDOM = require('react-dom');
 const redux_1 = require('redux');
 const react_redux_1 = require('react-redux');
 const react_router_1 = require('react-router');
-const components_1 = require('../lib/components');
-const utils = require('../lib/utils');
-const client_1 = require('../lib/client');
-const actions = require('../actions/authActions');
+const components_1 = require('../../lib/components');
+const utils = require('../../lib/utils');
+const client_1 = require('../../lib/client');
+const actions = require('../../actions/authActions');
 class LoginPage extends React.Component {
     componentDidMount() {
         var userNameNode = ReactDOM.findDOMNode(this.refs["userName"]);
         userNameNode.focus();
     }
     componentWillReceiveProps(props) {
-        console.log(props);
         if (!props.appState.isAnonymous) {
             const path = `/`;
             react_router_1.browserHistory.push(path);
@@ -29,16 +28,14 @@ class LoginPage extends React.Component {
             client_1.default.users.login(userName, password, (err, res) => {
                 utils.DOM.loading(false);
                 if (!err) {
-                    utils.Auth.login(res.accessToken);
-                    utils.Auth.cacheUser(res.user);
-                    this.props.actions.login(res.user);
+                    this.props.actions.login(res.token, res.user);
                     const path = `/`;
                     react_router_1.browserHistory.push(path);
                 }
                 else {
                     utils.Swal.error({
                         status: 404,
-                        message: err.message
+                        message: "登录失败，用户名或者密码不正确"
                     });
                 }
             });
@@ -60,13 +57,7 @@ class LoginPage extends React.Component {
                             React.createElement("img", {className: "lgIcon", src: "/assets/images/lg_icon1.jpg", width: "30", height: "22"})), 
                         React.createElement("li", null, 
                             React.createElement("input", {ref: "password", className: "lg_int1 lg_int1b", name: "", type: "password"}), 
-                            React.createElement("img", {className: "lgIcon", src: "/assets/images/lg_icon2.jpg", width: "30", height: "22"})), 
-                        React.createElement("li", null, 
-                            React.createElement("input", {placeholder: "验证码", className: "lg_int1 lg_int2 lg_int1c", name: "", type: "text"}), 
-                            React.createElement("img", {className: "lgIcon", src: "/assets/images/lg_icon3.jpg", width: "30", height: "22"}), 
-                            React.createElement("a", {className: "lg_vcoder", href: "#"}, 
-                                React.createElement("img", {src: "/assets/images/vcoder.jpg", width: "100", height: "32"})
-                            ))), 
+                            React.createElement("img", {className: "lgIcon", src: "/assets/images/lg_icon2.jpg", width: "30", height: "22"}))), 
                     React.createElement("a", {href: "javascript:;", className: "lg_btn", onClick: this.onSubmit.bind(this)}, "登录"))
             ), 
             React.createElement("div", {className: "lg_bd hidden"}, 

@@ -1,8 +1,9 @@
 "use strict";
 const React = require('react');
-const location_1 = require("../components/location");
+const react_router_1 = require('react-router');
+const location_1 = require("../../components/location");
 const nav_1 = require("./nav");
-class PartyMemberPage extends React.Component {
+class MemberPage extends React.Component {
     render() {
         return (React.createElement("div", {className: "main2"}, 
             React.createElement(location_1.default, null), 
@@ -15,7 +16,7 @@ class PartyMemberPage extends React.Component {
                 React.createElement("span", {className: "m2fm_ss1 m2fm_ss2"}, "至"), 
                 React.createElement("input", {type: "text", name: "", className: "m2fm_int m2fm_int2", placeholder: "2016-01-20"}), 
                 React.createElement("input", {type: "submit", name: "", className: "m2submit", value: ""}), 
-                React.createElement("a", {href: "/party-member/add", className: "m2addBtn"}, 
+                React.createElement(react_router_1.Link, {to: "/member/add", className: "m2addBtn"}, 
                     React.createElement("img", {src: "/assets/images/m2btn.jpg", width: "76", height: "32"})
                 )), 
             React.createElement("div", {className: "m2fm_tabBox m2fm_tabBox2"}, 
@@ -127,5 +128,5 @@ class PartyMemberPage extends React.Component {
     }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = PartyMemberPage;
-//# sourceMappingURL=partyMemberPage.js.map
+exports.default = MemberPage;
+//# sourceMappingURL=membersPage.js.map

@@ -3,12 +3,12 @@ import * as ReactDOM from 'react-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import {Loading} from '../lib/components'
-import * as models from '../api/models';
-import * as utils from '../lib/utils';
-import client from '../lib/client';
-import * as types from '../constants/actionTypes';
-import * as actions from '../actions/authActions';
+import {Loading} from '../../lib/components'
+import * as models from '../../api/models';
+import * as utils from '../../lib/utils';
+import client from '../../lib/client';
+import * as types from '../../constants/actionTypes';
+import * as actions from '../../actions/authActions';
 
 interface P {
   actions?: any,
@@ -22,7 +22,6 @@ class LoginPage extends React.Component<P, {}> {
   }
 
   componentWillReceiveProps(props) {
-    console.log(props)
     if (!props.appState.isAnonymous) {
       const path = `/`
       browserHistory.push(path)
@@ -44,23 +43,26 @@ class LoginPage extends React.Component<P, {}> {
       client.users.login(userName, password, (err, res) => {
         utils.DOM.loading(false)
         if (!err) {
-          utils.Auth.login(res.accessToken)
-          utils.Auth.cacheUser(res.user)
-
-          this.props.actions.login(res.user)
-
+          this.props.actions.login(res.token, res.user)
           const path = `/`
           browserHistory.push(path)
-          //utils.Page.redirect(utils.Addr.getReturnUrl())
         } else {
           utils.Swal.error({
             status: 404,
-            message: err.message
+            message: "登录失败，用户名或者密码不正确"
           })
         }
       })
     }
   }
+
+  // <li>
+  //   <input placeholder="验证码" className="lg_int1 lg_int2 lg_int1c" name="" type="text" />
+  //   <img className="lgIcon" src="/assets/images/lg_icon3.jpg" width="30" height="22" />
+  //   <a className="lg_vcoder" href="#">
+  //     <img src="/assets/images/vcoder.jpg" width="100" height="32" />
+  //   </a>
+  // </li>
 
   render() {
     return (
@@ -82,13 +84,6 @@ class LoginPage extends React.Component<P, {}> {
               <li>
                 <input ref="password" className="lg_int1 lg_int1b" name="" type="password" />
                 <img className="lgIcon" src="/assets/images/lg_icon2.jpg" width="30" height="22" />
-              </li>
-              <li>
-                <input placeholder="验证码" className="lg_int1 lg_int2 lg_int1c" name="" type="text" />
-                <img className="lgIcon" src="/assets/images/lg_icon3.jpg" width="30" height="22" />
-                <a className="lg_vcoder" href="#">
-                  <img src="/assets/images/vcoder.jpg" width="100" height="32" />
-                </a>
               </li>
             </ul>
             <a href="javascript:;" className="lg_btn" onClick={this.onSubmit.bind(this) }>登录</a>

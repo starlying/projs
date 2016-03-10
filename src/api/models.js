@@ -1,100 +1,14 @@
 "use strict";
-class App {
-    constructor() {
-    }
-}
-exports.App = App;
-class SiteStatus {
-    constructor() {
-        this.pagesStatus = {};
-        this.sectionsStatus = {};
-    }
-}
-exports.SiteStatus = SiteStatus;
-class Status {
-    constructor(lastModified) {
-        this.lastModified = lastModified;
-        this.hasUndo = false;
-        this.hasRedo = false;
-        this.shouldSave = false;
-        this.shouldSync = false;
-        this.configStatus = "";
-        this.sitesStatus = {};
-    }
-}
-exports.Status = Status;
-class SavePayload {
-    constructor(path, type, status, data) {
-        this.path = path;
-        this.type = type;
-        this.status = status;
-        this.data = data;
-    }
-}
-exports.SavePayload = SavePayload;
-class Config {
-    constructor() {
-    }
-}
-exports.Config = Config;
-class Site {
-    constructor(name, path, url, posts, pageSummaries, pages, sections, layouts) {
-        this.name = name;
-        this.path = path;
-        this.url = url;
-        this.posts = posts;
-        this.pageSummaries = pageSummaries;
-        this.pages = pages;
-        this.sections = sections;
-        this.layouts = layouts;
-    }
-}
-exports.Site = Site;
-class Post {
-    constructor() {
-    }
-}
-exports.Post = Post;
-class PageSummary {
-    constructor() {
-    }
-}
-exports.PageSummary = PageSummary;
-class Page {
-    constructor() {
-        this.children = [];
-    }
-}
-exports.Page = Page;
-class Section {
-    constructor() {
-    }
-}
-exports.Section = Section;
-class Layout {
-    constructor() {
-    }
-}
-exports.Layout = Layout;
-class File {
-    constructor(isDir, path, name, size) {
-        this.isDir = isDir;
-        this.path = path;
-        this.name = name;
-        this.size = size;
-    }
-}
-exports.File = File;
 class User {
     constructor() {
     }
 }
 exports.User = User;
-class Token {
+class Member {
     constructor() {
     }
 }
-exports.Token = Token;
+exports.Member = Member;
 class Upload {
     constructor() {
     }

@@ -1,9 +1,7 @@
 "use strict";
-const users_tokens_1 = require('./users_tokens');
 class Users {
     constructor(request) {
         this.request = request;
-        this.tokens = new users_tokens_1.default(this.request);
     }
     delete(password, cb) {
         this.request.delete('/users', {
@@ -17,6 +15,11 @@ class Users {
         this.request.post('/users/actions/login', {
             username: username,
             password: password
+        }, cb);
+    }
+    search(idCardNumber, cb) {
+        this.request.post('/users/actions/search', {
+            idCardNumber: idCardNumber,
         }, cb);
     }
     logout(cb) {

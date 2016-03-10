@@ -5,11 +5,11 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import * as utils from './lib/utils'
 import configureStore from './store/configureStore';
 import App from './containers/app'
-import IndexPage from './index/indexPage'
-import PartyMemberPage from './member/partyMemberPage'
-import PartyMemberAddPage from './member/add/partyMemberAddPage'
+import IndexPage from './components/index/indexPage'
+import MembersPage from './components/member/membersPage'
+import AddPage from './components/member/add/addPage'
 import NotFoundPage from './components/notFoundPage';
-import LoginPage from './containers/loginPage'
+import LoginPage from './containers/login/loginPage'
 
 utils.Page.xDomain()
 const store = configureStore();
@@ -19,8 +19,8 @@ render(
       <Route path="/login" component={LoginPage}/>
       <Route path="/" component={App}>
         <IndexRoute component={IndexPage} />
-        <Route path="/member" component={PartyMemberPage}/>
-        <Route path="/member/add" component={PartyMemberAddPage}/>
+        <Route path="/member" component={MembersPage}/>
+        <Route path="/member/add" component={AddPage}/>
         <Route path="*" component={NotFoundPage} />
       </Route>
     </Router>

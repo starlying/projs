@@ -10,27 +10,15 @@ function base64Encode(text: string): string {
   return base64.encode(bytes)
 }
 
-function snakeToCamelcase(key) {
-  return key.replace(/(_+[a-z0-9])/g, function(snip) {
-    return snip.toUpperCase().replace("_", "")
-  })
-}
-
-function camelToSnakecase(key) {
-  return key.replace(/([A-Z0-9])/g, function(snip) {
-    return "_" + snip.toLowerCase()
-  })
-}
-
-export function parseSnake(responseText) {
+export function parse(responseText) {
   if (!responseText) {
     return {}
   }
-  return JSON.parse(responseText.replace(/"([^"]*)"\s*:/g, snakeToCamelcase))
+  return JSON.parse(responseText)
 }
 
 function stringify(obj: Object) {
-  return JSON.stringify(obj).replace(/"([^"]*)"\s*:/g, camelToSnakecase)
+  return JSON.stringify(obj)
 }
 
 export class APIRequest {
@@ -57,9 +45,9 @@ export class APIRequest {
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4) {
           if (xhr.status < 400) {
-            cb(null, parseSnake(xhr.responseText), xhr.status)
+            cb(null, parse(xhr.responseText), xhr.status)
           } else {
-            var err = parseSnake(xhr.responseText)
+            var err = parse(xhr.responseText)
             cb({ status: xhr.status, message: err.message || models.ERestMethodUtils.errorCode(xhr.status) }, null, xhr.status)
           }
         }

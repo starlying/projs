@@ -22,18 +22,18 @@ class Top extends React.Component<P, {}> {
 
   onSignup(e: React.MouseEvent) {
     utils.DOM.stop(e)
-    utils.Page.redirect(utils.Addr.getSignupUrl())
+    this.props.actions.logout()
+    const path = `/login`
+    browserHistory.push(path)
   }
 
   render() {
-    if (this.props.appState.isAnonymous) {
-      browserHistory.push('/login')
-    }
+    const display = this.props.appState.user.userName
     return (
       <div className="topBg">
        <div className="wrapper">
-          <span className="fl">你好，<a href="#" className="cor_yellow">杜丽梅</a>，欢迎来到中国移动网上党校！</span>
-          <a href="/login" className="topOut">退出登录</a>
+          <span className="fl">你好，<a href="#" className="cor_yellow">{display}</a>，欢迎来到中国移动网上党校！</span>
+          <a href="javascript:;" className="topOut" onClick={this.onSignup.bind(this)}>退出登录</a>
           <a href="#" className="top_btn">进入宣传门户</a>
         </div>
       </div>

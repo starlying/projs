@@ -12,19 +12,19 @@ class Top extends React.Component {
     }
     onSignup(e) {
         utils.DOM.stop(e);
-        utils.Page.redirect(utils.Addr.getSignupUrl());
+        this.props.actions.logout();
+        const path = `/login`;
+        react_router_1.browserHistory.push(path);
     }
     render() {
-        if (this.props.appState.isAnonymous) {
-            react_router_1.browserHistory.push('/login');
-        }
+        const display = this.props.appState.user.userName;
         return (React.createElement("div", {className: "topBg"}, 
             React.createElement("div", {className: "wrapper"}, 
                 React.createElement("span", {className: "fl"}, 
                     "你好，", 
-                    React.createElement("a", {href: "#", className: "cor_yellow"}, "杜丽梅"), 
+                    React.createElement("a", {href: "#", className: "cor_yellow"}, display), 
                     "，欢迎来到中国移动网上党校！"), 
-                React.createElement("a", {href: "/login", className: "topOut"}, "退出登录"), 
+                React.createElement("a", {href: "javascript:;", className: "topOut", onClick: this.onSignup.bind(this)}, "退出登录"), 
                 React.createElement("a", {href: "#", className: "top_btn"}, "进入宣传门户"))
         ));
     }

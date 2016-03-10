@@ -14,28 +14,6 @@ import client from './client'
 import release from './release'
 
 declare var xdomain
-declare var process
-declare var analytics
-
-export class Segment {
-  static identify(user: models.User) {
-    if (window['analytics']) {
-      analytics.identify(user.id, {
-        name: user.username,
-        email: user.email
-      })
-    }
-  }
-
-  static SIGNUP = "Signup"
-  static LOGIN = "Login"
-
-  static track(type: string) {
-    if (window['analytics']){
-      analytics.track(type)
-    }
-  }
-}
 
 export class Component {
   private static lastEditorID: string
@@ -83,74 +61,6 @@ export class Component {
       }
     }
     return length
-  }
-}
-
-export class UploadProps {
-  static getImageProps(from: string, appPath: string, location: string, success: (files: Array<models.File>) => void, fail?: (message: string) => void) {
-    const url = client.apps.files.getUploadUrl(appPath, location)
-    return UploadProps.getProps(url, false, "image/*", success, fail)
-  }
-
-  static getFilesProps(from: string, appPath: string, location: string, success: (files: Array<models.File>) => void, fail?: (message: string) => void) {
-    const url = client.apps.files.getUploadUrl(appPath, location)
-    return UploadProps.getProps(url, true, "", success, fail)
-  }
-
-  static getAvatarProps(username: string, success: (result: {filename: string}) => void, fail?: (message: string) => void) {
-    const url = client._private.getUploadAvatarUrl(username)
-    return UploadProps.getProps(url, false, "image/*", success, fail)
-  }
-
-  static getProps(url: string, multi: boolean, accept: string, success: (obj: any) => void, fail?: (message: string) => void) {
-    const props = {
-      action: url,
-      headers: {
-        'X-Get3W-Access-Token': Page.getCookie(models.Const.ACCESS_TOKEN)
-      },
-      multiple: multi,
-      dataType: 'json',
-      accept: accept,
-      maxFileSize: 5000000, // 5 MB
-      withCredentials: true,
-      onStart(files) {
-        DOM.loading(true)
-      },
-      onSuccess(ret) {
-        DOM.loading(false)
-        success(http.parseSnake(JSON.stringify(ret)))
-      },
-      onProgress(step, file) {
-        DOM.loading(true)
-      },
-      onError(err) {
-        console.log('onError', err);
-        DOM.loading(false)
-        fail ? fail(err.message) : Tips.error(err.message)
-      },
-    }
-    return props
-  }
-}
-
-export class Ace {
-  private static editor: AceAjax.Editor
-
-  static newEditor(editorType: string, value: string): AceAjax.Editor {
-    Ace.editor = ace.edit('ace-editor')
-    Ace.editor.setTheme('ace/theme/monokai')
-    Ace.editor.getSession().setMode('ace/mode/' + editorType)
-    Ace.editor.getSession().setUseWrapMode(true)
-    Ace.editor["$blockScrolling"] = Infinity
-    //Ace.editor.session.setUseWorker(false)
-
-    Ace.editor.setValue(value)
-    setTimeout(() => {
-      Ace.editor.focus()
-      Ace.editor.gotoLine(1)
-    }, 100)
-
-    return Ace.editor
   }
 }
 
@@ -376,12 +286,16 @@ export class Swal {
               title: title,
               text: text,
               timer: 2000,
+              confirmButtonText: '确认',
+              cancelButtonText: '取消',
               html: true
           })
       } else {
           swal({
               title: title,
               text: text,
+              confirmButtonText: '确认',
+              cancelButtonText: '取消',
               html: true
           })
       }
@@ -393,6 +307,8 @@ export class Swal {
               title: title,
               text: text,
               type: "success",
+              confirmButtonText: '确认',
+              cancelButtonText: '取消',
               html: true
           }, onClick)
       } else {
@@ -400,6 +316,8 @@ export class Swal {
               title: title,
               text: text,
               type: "success",
+              confirmButtonText: '确认',
+              cancelButtonText: '取消',
               timer: 2000,
               html: true
           }, onClick)
@@ -411,6 +329,8 @@ export class Swal {
       title: err.message,
       text: '',
       type: "error",
+      confirmButtonText: '确认',
+      cancelButtonText: '取消',
       html: true
     }, callback)
   }
@@ -421,6 +341,8 @@ export class Swal {
         title: title,
         text: text,
         type: "warning",
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
         html: true
       })
     } else {
@@ -429,6 +351,8 @@ export class Swal {
         text: text,
         type: "warning",
         timer: 2000,
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
         html: true
       })
     }
@@ -898,79 +822,27 @@ export class Addr {
 }
 
 export class Auth {
-  static locale(): string {
-      var lang = Page.getUrlVar('locale')
-      if (lang) {
-          var user: models.User = Auth.getUser()
-          if (user) {
-              if (user.locale !== lang) {
-                  client.users.edit({
-                      locale: lang
-                  }, (err: models.Error, user: models.User) => {
-                      if (!err) {
-                          Auth.cacheUser(user)
-                      }
-                  })
-              }
-          } else {
-              Page.setCookie('locale', lang)
-          }
-      }
-      if (!lang) {
-          var user: models.User = Auth.getUser()
-          if (user && user.locale) {
-              lang = user.locale
-          }
-      }
-      if (!lang) {
-          lang = Page.getCookie('locale')
-      }
-      if (!lang) {
-          if (navigator["languages"]) {
-              lang = navigator["languages"][0]
-          } else if (navigator.userLanguage) {
-              lang = navigator.userLanguage
-          } else {
-              lang = navigator.language
-          }
-      }
-      return lang
-  }
-
-  static getAccessToken(): string {
-      var cookie = Page.getCookie(models.Const.ACCESS_TOKEN)
-      return (cookie && cookie !== 'undefined' && cookie !== 'null') ? cookie : ''
+  static getToken(): string {
+    var cookie = Page.getCookie(models.Const.ACCESS_TOKEN)
+    return (cookie && cookie !== 'undefined' && cookie !== 'null') ? cookie : ''
   }
 
   static getUser(): models.User {
-      var cookie = Page.getCookie(models.Const.USER)
-      return Translate.base64IsValid(cookie) ? JSON.parse(Translate.base64ForUrlDecode(cookie)) : null
+    var cookie = Page.getCookie(models.Const.USER)
+    return Translate.base64IsValid(cookie) ? JSON.parse(Translate.base64ForUrlDecode(cookie)) : null
   }
 
-  static isAnonymous(): boolean {
-      var token: string = Auth.getAccessToken()
-      if (!token) return true
-      var user: models.User = Auth.getUser()
-      if (!user || !user.id) return true
-      return false
-  }
-
-  static login(accessToken: string) {
+  static cache(accessToken: string, user: models.User) {
     client.setToken(accessToken)
     Page.setCookie(models.Const.ACCESS_TOKEN, accessToken, 7)
     Ajax.setHeader(accessToken)
-    Segment.track(Segment.LOGIN)
+    Page.setCookie(models.Const.USER, Translate.base64ForUrlEncode(JSON.stringify(user)), 7)
   }
 
-  static cacheUser(user: models.User) {
-      Page.setCookie(models.Const.USER, Translate.base64ForUrlEncode(JSON.stringify(user)), 7)
-  }
-
-  static signout() {
+  static removeCache() {
       Page.removeCookie(models.Const.ACCESS_TOKEN)
       Page.removeCookie(models.Const.USER)
       Ajax.setHeader('')
-      Page.reload()
   }
 }
 
