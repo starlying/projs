@@ -1,6 +1,5 @@
 "use strict";
 const http = require('./http');
-const user_1 = require('./client/user');
 const users_1 = require('./client/users');
 const members_1 = require('./client/members');
 class API {
@@ -8,7 +7,6 @@ class API {
         this.options = options;
         this.request = new http.WebRequest();
         var apiRequest = new http.APIRequest(options);
-        this.user = new user_1.default(apiRequest);
         this.users = new users_1.default(apiRequest);
         this.members = new members_1.default(apiRequest);
     }

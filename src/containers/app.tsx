@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import {Loading} from '../lib/components'
+import * as states from '../constants/states';
 import Top from "../containers/top"
 import Header from "../containers/header"
 import Nav from "../components/nav"
@@ -11,13 +12,13 @@ import * as actions from '../actions/authActions';
 
 interface P {
   actions?: any,
-  appState?: any,
+  authState?: any,
   children?: any
 }
 
 class App extends React.Component<P, {}> {
   componentWillMount() {
-    if (this.props.appState.isAnonymous) {
+    if (this.props.authState.isAnonymous) {
       browserHistory.push('/login')
     }
   }
@@ -36,9 +37,9 @@ class App extends React.Component<P, {}> {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: states.AllState) {
   return {
-    appState: state.authAppState
+    authState: state.authState
   };
 }
 

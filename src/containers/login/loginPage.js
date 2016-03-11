@@ -14,7 +14,7 @@ class LoginPage extends React.Component {
         userNameNode.focus();
     }
     componentWillReceiveProps(props) {
-        if (!props.appState.isAnonymous) {
+        if (!props.authState.isAnonymous) {
             const path = `/`;
             react_router_1.browserHistory.push(path);
         }
@@ -87,7 +87,7 @@ class LoginPage extends React.Component {
 }
 function mapStateToProps(state) {
     return {
-        appState: state.authAppState
+        authState: state.authState
     };
 }
 function mapDispatchToProps(dispatch) {

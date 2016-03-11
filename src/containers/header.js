@@ -16,7 +16,7 @@ class Header extends React.Component {
     }
     render() {
         var alertEl = null;
-        var accountEl = React.createElement(components_1.Input, {ref: "account", value: this.props.appState.account, className: 'email', required: true});
+        var accountEl = React.createElement(components_1.Input, {ref: "account", value: this.props.authState.account, className: 'email', required: true});
         var passwordEl = React.createElement(components_1.Input, {ref: 'password', className: 'password', required: true});
         return (React.createElement("div", {className: "header"}, 
             React.createElement("a", {className: "logo", href: "#"}, 
@@ -40,7 +40,7 @@ class Header extends React.Component {
 }
 function mapStateToProps(state) {
     return {
-        appState: state.authAppState
+        authState: state.authState
     };
 }
 function mapDispatchToProps(dispatch) {

@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
+import * as states from '../constants/states';
 import * as models from "../api/models"
 import * as utils from '../lib/utils'
 import {Alert, Input} from '../lib/components'
@@ -11,7 +12,7 @@ import * as actions from '../actions/authActions';
 
 interface P {
   actions?: any,
-  appState?: any
+  authState?: any
 }
 
 class Top extends React.Component<P, {}> {
@@ -28,7 +29,7 @@ class Top extends React.Component<P, {}> {
   }
 
   render() {
-    const display = this.props.appState.user.userName
+    const display = this.props.authState.user.userName
     return (
       <div className="topBg">
        <div className="wrapper">
@@ -41,9 +42,9 @@ class Top extends React.Component<P, {}> {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: states.AllState) {
   return {
-    appState: state.authAppState
+    authState: state.authState
   };
 }
 

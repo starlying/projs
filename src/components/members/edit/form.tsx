@@ -6,7 +6,7 @@ import * as utils from '../../../lib/utils';
 import client from '../../../lib/client';
 
 interface P {
-  user: models.User
+  user?: models.User
   member: models.Member
 }
 
@@ -30,26 +30,42 @@ export default class Form extends React.Component<P, S> {
     })
   }
 
-  onChange() { }
+  onChange(name: string, e) {
+    const member = this.state.member
+    member[name] = e.target.value
+    this.setState({member: member});
+  }
 
   onSubmit(e: React.MouseEvent) {
     utils.DOM.prevent(e)
 
     const userName = this.refs["userName"]["value"]
+    const idCardNumber = this.refs["idCardNumber"]["value"]
     if (userName) {
-      utils.DOM.loading(true)
-
       const member = this.state.member
       member.userName = userName
+      member.idCardNumber = idCardNumber
 
-      client.members.edit(member, (err, res) => {
-        utils.DOM.loading(false)
-        if (!err) {
-          browserHistory.push("/member")
-        } else {
-          utils.Swal.error(err)
-        }
-      })
+      utils.DOM.loading(true)
+      if (this.props.member) {
+        client.members.edit(member, (err, res) => {
+          utils.DOM.loading(false)
+          if (!err) {
+            browserHistory.push("/member")
+          } else {
+            utils.Swal.error(err)
+          }
+        })
+      } else {
+        client.members.create(member, (err, res) => {
+          utils.DOM.loading(false)
+          if (!err) {
+            browserHistory.push("/member")
+          } else {
+            utils.Swal.error(err)
+          }
+        })
+      }
     }
   }
 
@@ -70,7 +86,7 @@ export default class Form extends React.Component<P, S> {
           <ul>
             <li>
               <span className="m2fm_s1"><strong className="cor_red">*</strong> 登录名：</span>
-              <input ref="userName" value={member.userName} onChange={this.onChange} className="m2fm_int" type="text" />
+              <input ref="userName" value={member.userName} onChange={this.onChange.bind(this, 'userName')} className="m2fm_int" type="text" />
             </li>
             <li>
               <span className="m2fm_s1"><strong className="cor_red">*</strong> 密  码：</span>
@@ -89,7 +105,7 @@ export default class Form extends React.Component<P, S> {
               </div></li>
             <li>
               <span className="m2fm_s1"><strong className="cor_red">*</strong> 身份证号：</span>
-              <input className="m2fm_int" name="" type="text" /></li>
+              <input ref="idCardNumber" value={member.idCardNumber} onChange={this.onChange.bind(this, 'idCardNumber')} className="m2fm_int" name="" type="text" /></li>
             <li>
               <span className="m2fm_s1"><strong className="cor_red">*</strong> 出生年月：</span>
               <input placeholder="2016-01-20" className="m2fm_int m2fm_int2" name="" type="text" /></li>
@@ -174,7 +190,7 @@ export default class Form extends React.Component<P, S> {
           <div className="clear"></div>
         </div>
         <div className="m2fmSubmitBox">
-        <input className="m2fmSubmit" name="" type="reset" value="" />
+        <input onClick={this.onSubmit.bind(this)} className="m2fmSubmit" name="" type="reset" value="" />
         </div>
       </div>
     )

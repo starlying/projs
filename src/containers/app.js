@@ -11,7 +11,7 @@ const footer_1 = require("../components/footer");
 const actions = require('../actions/authActions');
 class App extends React.Component {
     componentWillMount() {
-        if (this.props.appState.isAnonymous) {
+        if (this.props.authState.isAnonymous) {
             react_router_1.browserHistory.push('/login');
         }
     }
@@ -27,7 +27,7 @@ class App extends React.Component {
 }
 function mapStateToProps(state) {
     return {
-        appState: state.authAppState
+        authState: state.authState
     };
 }
 function mapDispatchToProps(dispatch) {

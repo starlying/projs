@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
-class Nav extends React.Component<{}, {}> {
+class SubNav extends React.Component<{}, {}> {
   render() {
     return (
       <div className="m2fmNav">
@@ -16,4 +16,4 @@ class Nav extends React.Component<{}, {}> {
   }
 }
 
-export default Nav
+export default SubNav

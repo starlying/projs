@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import * as states from '../constants/states';
 import * as models from "../api/models"
 import * as utils from '../lib/utils'
 import {Alert, Input} from '../lib/components'
@@ -10,7 +11,7 @@ import * as actions from '../actions/authActions';
 
 interface P {
   actions?: any,
-  appState?: any
+  authState?: any
 }
 
 class Header extends React.Component<P, {}> {
@@ -29,7 +30,7 @@ class Header extends React.Component<P, {}> {
     // if (this.props.alert) {
     //   alertEl = <Alert alert={this.props.alert} />
     // }
-    var accountEl = <Input ref="account" value={this.props.appState.account} className='email' required={true} />
+    var accountEl = <Input ref="account" value={this.props.authState.account} className='email' required={true} />
     var passwordEl = <Input ref='password' className='password' required={true} />
 
     return (
@@ -50,9 +51,9 @@ class Header extends React.Component<P, {}> {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: states.AllState) {
   return {
-    appState: state.authAppState
+    authState: state.authState
   };
 }
 

@@ -1,12 +1,13 @@
 import * as _ from 'lodash';
 import * as types from '../constants/actionTypes';
+import * as states from '../constants/states';
 import * as utils from '../lib/utils';
 
 const token = utils.Auth.getToken();
 const user = utils.Auth.getUser();
 const isAnonymous = (token && user && user.id) ? false : true;
 
-const initialState = {
+const initialState: states.AuthState = {
   token: token,
   user: user,
   isAnonymous: isAnonymous

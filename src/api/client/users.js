@@ -3,6 +3,9 @@ class Users {
     constructor(request) {
         this.request = request;
     }
+    get(cb) {
+        this.request.get('/user', null, cb);
+    }
     delete(password, cb) {
         this.request.delete('/users', {
             password: password

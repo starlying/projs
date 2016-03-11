@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
+import * as states from '../../constants/states';
 import {Loading} from '../../lib/components'
 import * as models from '../../api/models';
 import * as utils from '../../lib/utils';
@@ -12,7 +13,7 @@ import * as actions from '../../actions/authActions';
 
 interface P {
   actions?: any,
-  appState?: any
+  authState?: any
 }
 
 class LoginPage extends React.Component<P, {}> {
@@ -22,7 +23,7 @@ class LoginPage extends React.Component<P, {}> {
   }
 
   componentWillReceiveProps(props) {
-    if (!props.appState.isAnonymous) {
+    if (!props.authState.isAnonymous) {
       const path = `/`
       browserHistory.push(path)
     }
@@ -107,9 +108,9 @@ class LoginPage extends React.Component<P, {}> {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: states.AllState) {
   return {
-    appState: state.authAppState
+    authState: state.authState
   };
 }
 

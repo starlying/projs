@@ -1,6 +1,6 @@
 "use strict";
 const React = require('react');
-class Nav extends React.Component {
+class SubNav extends React.Component {
     render() {
         return (React.createElement("div", {className: "m2fmNav"}, 
             React.createElement("ul", null, 
@@ -20,5 +20,5 @@ class Nav extends React.Component {
     }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = Nav;
-//# sourceMappingURL=nav.js.map
+exports.default = SubNav;
+//# sourceMappingURL=subNav.js.map

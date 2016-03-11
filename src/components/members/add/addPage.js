@@ -20,7 +20,7 @@ class AddPage extends React.Component {
             utils.DOM.loading(true);
             client_1.default.users.search(idCardNumber, (err, res) => {
                 utils.DOM.loading(false);
-                if (res.users && res.users.length > 0) {
+                if (!err && res.users && res.users.length > 0) {
                     this.setState({
                         isNotFound: false,
                         users: res.users,

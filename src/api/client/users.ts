@@ -8,6 +8,10 @@ export default class Users {
     this.request = request
   }
 
+  get(cb?: (err: models.Error, res: models.User) => void) {
+    this.request.get('/user', null, cb)
+  }
+
   delete(password: string, cb?: (err: models.Error, res: {}) => void) {
     this.request.delete('/users', {
       password: password

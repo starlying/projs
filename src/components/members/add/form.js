@@ -19,23 +19,42 @@ class Form extends React.Component {
             member: member
         });
     }
-    onChange() { }
+    onChange(name, e) {
+        const member = this.state.member;
+        member[name] = e.target.value;
+        this.setState({ member: member });
+    }
     onSubmit(e) {
         utils.DOM.prevent(e);
         const userName = this.refs["userName"]["value"];
+        const idCardNumber = this.refs["idCardNumber"]["value"];
         if (userName) {
-            utils.DOM.loading(true);
             const member = this.state.member;
             member.userName = userName;
-            client_1.default.members.edit(member, (err, res) => {
-                utils.DOM.loading(false);
-                if (!err) {
-                    react_router_1.browserHistory.push("/member");
-                }
-                else {
-                    utils.Swal.error(err);
-                }
-            });
+            member.idCardNumber = idCardNumber;
+            utils.DOM.loading(true);
+            if (this.props.member) {
+                client_1.default.members.edit(member, (err, res) => {
+                    utils.DOM.loading(false);
+                    if (!err) {
+                        react_router_1.browserHistory.push("/member");
+                    }
+                    else {
+                        utils.Swal.error(err);
+                    }
+                });
+            }
+            else {
+                client_1.default.members.create(member, (err, res) => {
+                    utils.DOM.loading(false);
+                    if (!err) {
+                        react_router_1.browserHistory.push("/member");
+                    }
+                    else {
+                        utils.Swal.error(err);
+                    }
+                });
+            }
         }
     }
     render() {
@@ -55,7 +74,7 @@ class Form extends React.Component {
                         React.createElement("span", {className: "m2fm_s1"}, 
                             React.createElement("strong", {className: "cor_red"}, "*"), 
                             " 登录名："), 
-                        React.createElement("input", {ref: "userName", value: member.userName, onChange: this.onChange, className: "m2fm_int", type: "text"})), 
+                        React.createElement("input", {ref: "userName", value: member.userName, onChange: this.onChange.bind(this, 'userName'), className: "m2fm_int", type: "text"})), 
                     React.createElement("li", null, 
                         React.createElement("span", {className: "m2fm_s1"}, 
                             React.createElement("strong", {className: "cor_red"}, "*"), 
@@ -80,7 +99,7 @@ class Form extends React.Component {
                         React.createElement("span", {className: "m2fm_s1"}, 
                             React.createElement("strong", {className: "cor_red"}, "*"), 
                             " 身份证号："), 
-                        React.createElement("input", {className: "m2fm_int", name: "", type: "text"})), 
+                        React.createElement("input", {ref: "idCardNumber", value: member.idCardNumber, onChange: this.onChange.bind(this, 'idCardNumber'), className: "m2fm_int", name: "", type: "text"})), 
                     React.createElement("li", null, 
                         React.createElement("span", {className: "m2fm_s1"}, 
                             React.createElement("strong", {className: "cor_red"}, "*"), 
@@ -161,7 +180,7 @@ class Form extends React.Component {
                         React.createElement("input", {placeholder: "2016-01-20", className: "m2fm_int m2fm_int2", name: "", type: "text"}))), 
                 React.createElement("div", {className: "clear"})), 
             React.createElement("div", {className: "m2fmSubmitBox"}, 
-                React.createElement("input", {className: "m2fmSubmit", name: "", type: "reset", value: ""})
+                React.createElement("input", {onClick: this.onSubmit.bind(this), className: "m2fmSubmit", name: "", type: "reset", value: ""})
             )));
     }
 }

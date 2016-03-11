@@ -17,7 +17,7 @@ class Top extends React.Component {
         react_router_1.browserHistory.push(path);
     }
     render() {
-        const display = this.props.appState.user.userName;
+        const display = this.props.authState.user.userName;
         return (React.createElement("div", {className: "topBg"}, 
             React.createElement("div", {className: "wrapper"}, 
                 React.createElement("span", {className: "fl"}, 
@@ -31,7 +31,7 @@ class Top extends React.Component {
 }
 function mapStateToProps(state) {
     return {
-        appState: state.authAppState
+        authState: state.authState
     };
 }
 function mapDispatchToProps(dispatch) {

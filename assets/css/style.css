@@ -243,3 +243,47 @@ a, area {blr:expression(this.onFocus=this.blur())}
 .lg_wx { text-align: center; padding-top: 10px; width: 272px; font-size: 15px; line-height: 30px; color: #000; }
 .lg_int1b { background: #f8f6f7 url(../images/lg_mm.jpg) no-repeat 40px center; }
 .lg_int1bb { background: #f8f6f7; }
+.mperL { background: #FAFAEE url(../images/mperLine.jpg) repeat-y 205px top; border: 2px solid #F8EBC8; position: relative; float: left; width: 850px; padding-bottom: 85px; border-radius:0.3em; }
+.mperCon { margin-top: 10px; padding: 0px 12px 0px 20px; }
+.main2_per { background: #FFF; width: 1025px; margin-bottom: 10px; padding: 10px 0px 50px; }
+.main2_per .m2pos { margin: 0px 0px 0px 56px; }
+.mper_back { background: url(../images/backBtn.jpg) no-repeat; height: 25px; width: 62px; position: absolute; right: 0px; top: -40px; display: block; }
+.mperMenu { float: right; width: 130px; margin-top: 24px; background: #FBFBF1; border-top: 1px solid #F9EDCC; border-right: 1px solid #F9EDCC; border-left: 1px solid #F9EDCC; }
+.mperMenu dl dt { line-height: 40px; background: #F9EFD3; height: 40px; padding-left: 13px; font-size: 15px; color: #83534f; border-bottom: 1px solid #F9EDCC; font-weight: bold; }
+.mperMenu dl dd { line-height: 40px; height: 40px; border-bottom: 1px solid #F9EDCC; }
+.mper_a1 { background: url(../images/per_icon1.jpg) no-repeat 115px center; display: block; font-size: 15px; line-height: 40px; color: #83534f; padding-left: 12px; }
+.mper_nav { float: left; width: 205px; }
+.mper_fm { float: right; width: 642px; color: #661717; }
+.mper_head { height: 234px; padding: 17px 0px 0px 35px; }
+.mper_head img { display: block; border: 3px solid #E9D8AB; border-radius:0.3em; }
+.mper_head p { font-size: 14px; color: #83534f; line-height: 26px; padding: 10px 0px 0px 22px; }
+.mper_t1 { line-height: 35px; background: #F8EBC8 url(../images/per_tbg.jpg) no-repeat right top; height: 35px; width: 167px; padding-left: 33px; font-size: 18px; color: #83534f; }
+.mper_nul li { line-height: 36px; border-bottom: 1px solid #EFE6C7; padding-left: 12px; }
+.mper_nul { padding: 0px 11px 10px 32px; }
+.mper_a2 { font-size: 14px; line-height: 36px; background: url(../images/per_icon2.jpg) no-repeat left center; display: block; padding-left: 22px; }
+.mper_stop { line-height: 52px; height: 52px; border-bottom: 1px solid #EFE6C7; padding: 11px 22px 0px 40px; font-size: 16px; }
+.mper_stop .fl { font-size: 22px; }
+.mper_fm .m2upLaod { padding: 25px 0px 0px 38px; height: 162px; }
+.mper_fm .m2fm_int{ width:165px;}
+.mper_fm .m2fm_s1{width:115px;font-size:12px;}
+.mper_fm .m2fm ul li{width:308px;}
+.mper_fm .m2fm{padding-left:6px; padding-right:0;}
+.mper_fm .m2fm_selBox{width:185px;}
+.m2per_btnBox { height: 42px; text-align: center; }
+.m2per_abtn { background: url(../images/mper_a1.png) no-repeat; height: 41px; width: 149px; line-height: 40px; font-size: 20px; color: #f8ebc8; text-align: center; display: inline-block; margin: 0px 8px; }
+.m2per_abtn2 { background: url(../images/mper_a2.png) no-repeat; height: 41px; width: 149px; line-height: 40px; font-size: 20px; color: #f8ebc8; text-align: center; display: inline-block; margin: 0px 8px; }
+.m2fm_int8 { width: 173px; float: left; }
+.m2fm_stop .m2fm_int9 { width: 65px; }
+.m2fm_stop .m2fm_selBox2 {width:85px;}
+.m2pdTab tr td{padding:0 10px;}
+.layerCon3a { height: 622px; width: 518px; margin-left: -259px; }
+.m2nadBox ul li { line-height: 38px; height: 38px; margin-bottom: 11px; padding-left: 70px; color: #83534f; font-size: 14px; }
+.m2nadBox ul li .lay_s1 { float: left; width: 92px; }
+.lay_s1a { float: left; padding-left: 32px; }
+.m2nadBox { padding-top: 18px; }
+.m2fm_int10 { width: 270px; }
+.layerCon3a .m2fm_selContent{float:left; position:relative;}
+.layerCon3a .m2fm_selBox{right:0;}
+.m2btnBox2 { padding: 22px 0px 0px 167px; height:40px; }
+.m2btn_a1,.m2btn_a1:hover { font-size: 16px; line-height: 40px; color: #FFF; background: url(../images/m2btn3.png) no-repeat; text-align: center; display: inline-block; height: 40px; width: 117px; margin: 0px 5px; }
+.m2btn_a2,.m2btn_a2:hover { font-size: 16px; line-height: 40px; color: #FFF; background: url(../images/m2btn4.png) no-repeat; text-align: center; display: inline-block; height: 40px; width: 117px; margin: 0px 5px; }
