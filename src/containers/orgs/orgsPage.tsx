@@ -16,32 +16,37 @@ interface P {
   actions?: any,
   authState?: states.AuthState,
   params: {
-    id: string
+    id: number
   }
 }
 
 interface S {
-  members: Array<models.Member>
-  id: string
+  orgs: Array<models.Org>
+  isWin: boolean
+  id: number
 }
 
 class OrgPage extends React.Component<P, S> {
   constructor(props) {
     super(props)
     this.state = {
-      members: null,
+      orgs: null,
+      isWin: false,
       id: null
     }
   }
 
   componentDidMount() {
-    client.members.list('14', (err: models.Error, res) => {
-      let members = []
-      if (!err && res.members) {
-        members = res.members
+    client.orgs.list(this.props.authState.member.orgID, (err: models.Error, res: {
+      orgs: Array<models.Org>
+    }) => {
+      let orgs = []
+      if (!err && res.orgs) {
+        orgs = res.orgs
       }
       this.setState({
-        members: members,
+        orgs: orgs,
+        isWin: false,
         id: null
       })
     })
@@ -49,42 +54,41 @@ class OrgPage extends React.Component<P, S> {
 
   onAdd(e) {
     this.setState({
-      members: this.state.members,
-      id: "-"
+      orgs: this.state.orgs,
+      isWin: true,
+      id: 0
     })
   }
 
   onEdit(id, e) {
     this.setState({
-      members: this.state.members,
+      orgs: this.state.orgs,
+      isWin: true,
       id: id
     })
   }
 
   onClose(e: React.MouseEvent) {
     this.setState({
-      members: this.state.members,
+      orgs: this.state.orgs,
+      isWin: false,
       id: null
     })
   }
 
   render() {
-    if (!this.state.members || this.state.members.length == 0) return <InnerLoading />
+    if (!this.state.orgs || this.state.orgs.length == 0) return <InnerLoading />
 
-    const listEl = this.state.members.map((member: models.Member) => {
+    const listEl = this.state.orgs.map((org: models.Org) => {
       return (
-        <tr key={member.id}>
-          <td><input className="lay-rad" name="" type="checkbox" value="" /></td>
-          <td><span className="cor_red">丁皓</span></td>
-          <td>男</td>
-          <td>政企分公司</td>
-          <td>2011年2月</td>
-          <td>4</td>
-          <td>1300989900</td>
+        <tr>
+          <td><span className="cor_red">{org.organizaName}</span></td>
+          <td>{org.organizaType}</td>
+          <td>{org.isCancel ? "否" : "是"}</td>
           <td>
-            <Link className="m2fm_abtn" to={"/member/edit/" + member.id}>编辑</Link>
-            <a className="m2fm_abtn" href="#">转出</a>
-            <a className="m2fm_abtn" href="#">列为积极分子</a>
+            <a className="m2fm_abtn" href="#">授权</a>
+            <a className="m2fm_abtn" href="#">删除</a>
+            <a className="m2fm_abtn" href="javascript:;" onClick={this.onEdit.bind(this, org.id)}>编辑</a>
           </td>
         </tr>
       )
@@ -109,8 +113,14 @@ class OrgPage extends React.Component<P, S> {
     // )
 
     let formEl = null
-    if (this.state.id) {
-      formEl = <Form member={new models.Member() } onClose={this.onClose.bind(this)} />
+    if (this.state.isWin) {
+      let org = null
+      this.state.orgs.forEach((o: models.Org) => {
+        if (this.state.id === o.id) {
+          org = o
+        }
+      })
+      formEl = <Form org={org} parentID={this.props.authState.member.orgID} onClose={this.onClose.bind(this)} />
     }
 
     return (
@@ -155,72 +165,10 @@ class OrgPage extends React.Component<P, S> {
                 <td width="24%">是否有效</td>
                 <td width="18%">操作</td>
               </tr>
-              <tr>
-                <td><span className="cor_red">政企分公司党委活动</span></td>
-                <td>党委</td>
-                <td>是</td>
-                <td>
-                  <a className="m2fm_abtn" href="#">授权</a>
-                  <a className="m2fm_abtn" href="#">删除</a>
-                  <a className="m2fm_abtn" href="javascript:;" onClick={this.onEdit.bind(this, "1")}>编辑</a>
-                </td>
-              </tr>
-              <tr>
-                <td><span className="cor_red">政企分公司党委活动</span></td>
-                <td>党委</td>
-                <td>是</td>
-                <td>
-                  <a className="m2fm_abtn" href="#">授权</a>
-                  <a className="m2fm_abtn" href="#">删除</a>
-                  <a className="m2fm_abtn" href="javascript:;" onClick={this.onEdit.bind(this, "1")}>编辑</a>
-                </td>
-              </tr>
-              <tr>
-                <td><span className="cor_red">政企分公司党委活动</span></td>
-                <td>党委</td>
-                <td>是</td>
-                <td>
-                  <a className="m2fm_abtn" href="#">授权</a>
-                  <a className="m2fm_abtn" href="#">删除</a>
-                  <a className="m2fm_abtn" href="javascript:;" onClick={this.onEdit.bind(this, "1")}>编辑</a>
-                </td>
-              </tr>
-              <tr>
-                <td><span className="cor_red">政企分公司党委活动</span></td>
-                <td>党委</td>
-                <td>是</td>
-                <td>
-                  <a className="m2fm_abtn" href="#">授权</a>
-                  <a className="m2fm_abtn" href="#">删除</a>
-                  <a className="m2fm_abtn" href="javascript:;" onClick={this.onEdit.bind(this, "1")}>编辑</a>
-                </td>
-              </tr>
-              <tr>
-                <td><span className="cor_red">政企分公司党委活动</span></td>
-                <td>党委</td>
-                <td>是</td>
-                <td>
-                  <a className="m2fm_abtn" href="#">授权</a>
-                  <a className="m2fm_abtn" href="#">删除</a>
-                  <a className="m2fm_abtn" href="javascript:;" onClick={this.onEdit.bind(this, "1")}>编辑</a>
-                </td>
-              </tr>
+              {listEl}
             </tbody>
           </table>
-          <div className="m2fm_page">
-            <a href="#" className="m2fmPage_a">＜</a>
-            <a href="#" className="m2fmPage_a on">1</a>
-            <a href="#" className="m2fmPage_a">2</a>
-            <a href="#" className="m2fmPage_a">3</a>
-            <a href="#" className="m2fmPage_a">4</a>
-            <a href="#" className="m2fmPage_a">5</a>
-            <a href="#" className="m2fmPage_a">6</a>
-            <a href="#" className="m2fmPage_a">7</a>
-            <span className="m2fmPage_a2">...</span>
-            <a href="#" className="m2fmPage_a">99</a>
-            <a href="#" className="m2fmPage_a">100</a>
-            <a href="#" className="m2fmPage_a">＞</a>
-          </div>
+          {pager}
         </div>
       </div>
     )

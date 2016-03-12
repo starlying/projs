@@ -10,6 +10,7 @@ import * as utils from '../../lib/utils';
 import client from '../../lib/client';
 import * as types from '../../constants/actionTypes';
 import * as actions from '../../actions/authActions';
+import * as links from '../../constants/links';
 
 interface P {
   actions?: any,
@@ -24,8 +25,7 @@ class LoginPage extends React.Component<P, {}> {
 
   componentWillReceiveProps(props) {
     if (!props.authState.isAnonymous) {
-      const path = `/`
-      browserHistory.push(path)
+      browserHistory.push(links.INDEX)
     }
   }
 
@@ -44,9 +44,15 @@ class LoginPage extends React.Component<P, {}> {
       client.users.login(userName, password, (err, res) => {
         utils.DOM.loading(false)
         if (!err) {
-          this.props.actions.login(res.token, res.user, res.member)
-          const path = `/`
-          browserHistory.push(path)
+          if (!res.member) {
+            utils.Swal.error({
+              status: 404,
+              message: "登录失败，用户名或者密码不正确"
+            })
+          } else {
+            this.props.actions.login(res.token, res.user, res.member)
+            browserHistory.push(links.INDEX)
+          }
         } else {
           utils.Swal.error({
             status: 404,

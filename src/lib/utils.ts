@@ -837,18 +837,25 @@ export class Auth {
     return Translate.base64IsValid(cookie) ? JSON.parse(Translate.base64ForUrlDecode(cookie)) : null
   }
 
-  static cache(accessToken: string, user: models.User, member: models.Member) {
+  static getOrg(): models.Org {
+    var cookie = Page.getCookie(models.Const.ORG)
+    return Translate.base64IsValid(cookie) ? JSON.parse(Translate.base64ForUrlDecode(cookie)) : null
+  }
+
+  static cache(accessToken: string, user: models.User, member: models.Member, org: models.Org) {
     client.setToken(accessToken)
     Ajax.setHeader(accessToken)
     Page.setCookie(models.Const.ACCESS_TOKEN, accessToken, 7)
     Page.setCookie(models.Const.USER, Translate.base64ForUrlEncode(JSON.stringify(user)), 7)
     Page.setCookie(models.Const.MEMBER, Translate.base64ForUrlEncode(JSON.stringify(member)), 7)
+    Page.setCookie(models.Const.ORG, Translate.base64ForUrlEncode(JSON.stringify(org)), 7)
   }
 
   static removeCache() {
       Page.removeCookie(models.Const.ACCESS_TOKEN)
       Page.removeCookie(models.Const.USER)
       Page.removeCookie(models.Const.MEMBER)
+      Page.removeCookie(models.Const.ORG)
       Ajax.setHeader('')
   }
 }

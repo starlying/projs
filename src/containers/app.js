@@ -9,10 +9,11 @@ const header_1 = require("../containers/header");
 const nav_1 = require("../components/nav");
 const footer_1 = require("../components/footer");
 const actions = require('../actions/authActions');
+const links = require('../constants/links');
 class App extends React.Component {
     componentWillMount() {
         if (this.props.authState.isAnonymous) {
-            react_router_1.browserHistory.push('/login');
+            react_router_1.browserHistory.push(links.LOGIN);
         }
     }
     render() {

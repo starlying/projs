@@ -1,6 +1,5 @@
 "use strict";
 const React = require('react');
-const react_router_1 = require('react-router');
 const redux_1 = require('redux');
 const react_redux_1 = require('react-redux');
 const components_1 = require('../../../lib/components');
@@ -11,48 +10,69 @@ class JGPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            members: null
+            orgs: null,
+            orgMap: {}
         };
     }
     componentDidMount() {
-        client_1.default.members.list('14', (err, res) => {
-            let members = [];
-            if (!err && res.members) {
-                members = res.members;
+        client_1.default.orgs.list(this.props.authState.member.orgID, (err, res) => {
+            let orgs = [];
+            if (!err && res.orgs) {
+                orgs = res.orgs;
             }
             this.setState({
-                members: members
+                orgs: orgs,
+                orgMap: {}
+            });
+            orgs.forEach((child) => {
+                if (child.childrenCount > 0) {
+                    client_1.default.orgs.list(this.props.authState.member.orgID, (err, res) => {
+                        this.state.orgMap[child.id] = orgs;
+                        this.setState({
+                            orgs: this.state.orgs,
+                            orgMap: this.state.orgMap
+                        });
+                    });
+                }
             });
         });
     }
     render() {
-        if (!this.state.members || this.state.members.length == 0)
+        if (!this.state.orgs || this.state.orgs.length == 0)
             return React.createElement(components_1.InnerLoading, null);
-        const listEl = this.state.members.map((member) => {
-            return (React.createElement("tr", {key: member.id}, 
-                React.createElement("td", null, 
-                    React.createElement("input", {className: "lay-rad", name: "", type: "checkbox", value: ""})
-                ), 
-                React.createElement("td", null, 
-                    React.createElement("span", {className: "cor_red"}, "丁皓")
-                ), 
-                React.createElement("td", null, "男"), 
-                React.createElement("td", null, "政企分公司"), 
-                React.createElement("td", null, "2011年2月"), 
-                React.createElement("td", null, "4"), 
-                React.createElement("td", null, "1300989900"), 
-                React.createElement("td", null, 
-                    React.createElement(react_router_1.Link, {className: "m2fm_abtn", to: "/member/edit/" + member.id}, "编辑"), 
-                    React.createElement("a", {className: "m2fm_abtn", href: "#"}, "转出"), 
-                    React.createElement("a", {className: "m2fm_abtn", href: "#"}, "列为积极分子"))));
+        let isLevel = false;
+        this.state.orgs.forEach((org) => {
+            if (org.childrenCount > 0) {
+                isLevel = true;
+            }
         });
-        let pager = null;
+        let listEl = null;
+        if (isLevel) {
+            listEl = this.state.orgs.map((org) => {
+                const childOrgs = this.state.orgMap[org.id];
+                const childEl = childOrgs.map((child) => {
+                    return React.createElement("a", {key: child.id, href: "#", className: "m2fm_a"}, child.organizaName);
+                });
+                return (React.createElement("div", {key: org.id}, 
+                    React.createElement("div", {className: "m2fm_t1"}, org.organizaName), 
+                    React.createElement("div", {className: "m2fm_alink"}, 
+                        childEl, 
+                        React.createElement("div", {className: "clear"}))));
+            });
+        }
+        else {
+            const childEl = this.state.orgs.map((org) => {
+                return React.createElement("a", {key: org.id, href: "#", className: "m2fm_a"}, org.organizaName);
+            });
+            listEl = (React.createElement("div", null, 
+                React.createElement("div", {className: "m2fm_t1"}, this.props.authState.org.organizaName), 
+                React.createElement("div", {className: "m2fm_alink"}, 
+                    childEl, 
+                    React.createElement("div", {className: "clear"}))));
+        }
         return (React.createElement("div", {className: "main2"}, 
             React.createElement(location_1.default, null), 
-            React.createElement("div", {className: "m2sfBox"}, 
-                React.createElement("strong", null, "身份证："), 
-                React.createElement("input", {type: "text", name: "", placeholder: "请输入身份证号码", className: "m2c1_int"}), 
-                React.createElement("input", {type: "submit", name: "", className: "m2submit", value: ""})), 
+            listEl, 
             React.createElement("div", {className: "m2fm_t1"}, "中共中国移动通信集团河北有限公司直属机关委员会"), 
             React.createElement("div", {className: "m2fm_alink"}, 
                 React.createElement("a", {href: "/orgs/1", className: "m2fm_a"}, "综合部党支部"), 

@@ -16,76 +16,93 @@ interface P {
 }
 
 interface S {
-  members: Array<models.Member>
+  orgs: Array<models.Org>
+  orgMap: {[index: number]: Array<models.Org>}
 }
 
 class JGPage extends React.Component<P, S> {
   constructor(props) {
     super(props)
     this.state = {
-      members: null
+      orgs: null,
+      orgMap: {}
     }
   }
 
   componentDidMount() {
-    client.members.list('14', (err: models.Error, res) => {
-      let members = []
-      if (!err && res.members) {
-        members = res.members
+    client.orgs.list(this.props.authState.member.orgID, (err: models.Error, res: {
+      orgs: Array<models.Org>
+    }) => {
+      let orgs = []
+      if (!err && res.orgs) {
+        orgs = res.orgs
       }
       this.setState({
-        members: members
+        orgs: orgs,
+        orgMap: {}
+      })
+      orgs.forEach((child: models.Org) => {
+        if (child.childrenCount > 0) {
+          client.orgs.list(this.props.authState.member.orgID, (err: models.Error, res: {
+            orgs: Array<models.Org>
+          }) => {
+            this.state.orgMap[child.id] = orgs
+            this.setState({
+              orgs: this.state.orgs,
+              orgMap: this.state.orgMap
+            })
+          });
+        }
       })
     })
   }
 
   render() {
-    if (!this.state.members || this.state.members.length == 0) return <InnerLoading />
+    if (!this.state.orgs || this.state.orgs.length == 0) return <InnerLoading />
 
-    const listEl = this.state.members.map((member: models.Member) => {
-      return (
-        <tr key={member.id}>
-          <td><input className="lay-rad" name="" type="checkbox" value="" /></td>
-          <td><span className="cor_red">丁皓</span></td>
-          <td>男</td>
-          <td>政企分公司</td>
-          <td>2011年2月</td>
-          <td>4</td>
-          <td>1300989900</td>
-          <td>
-            <Link className="m2fm_abtn" to={"/member/edit/" + member.id}>编辑</Link>
-            <a className="m2fm_abtn" href="#">转出</a><a className="m2fm_abtn" href="#">列为积极分子</a>
-          </td>
-        </tr>
-      )
+    let isLevel = false
+    this.state.orgs.forEach((org: models.Org) => {
+      if (org.childrenCount > 0){
+        isLevel = true
+      }
     })
 
-    let pager = null
-    // pager = (
-    //   <div className="m2fm_page">
-    //     <a href="#" className="m2fmPage_a">＜</a>
-    //     <a href="#" className="m2fmPage_a on">1</a>
-    //     <a href="#" className="m2fmPage_a">2</a>
-    //     <a href="#" className="m2fmPage_a">3</a>
-    //     <a href="#" className="m2fmPage_a">4</a>
-    //     <a href="#" className="m2fmPage_a">5</a>
-    //     <a href="#" className="m2fmPage_a">6</a>
-    //     <a href="#" className="m2fmPage_a">7</a>
-    //     <span className="m2fmPage_a2">...</span>
-    //     <a href="#" className="m2fmPage_a">99</a>
-    //     <a href="#" className="m2fmPage_a">100</a>
-    //     <a href="#" className="m2fmPage_a">＞</a>
-    //   </div>
-    // )
+    let listEl = null
+    if (isLevel) {
+      listEl = this.state.orgs.map((org: models.Org) => {
+        const childOrgs = this.state.orgMap[org.id]
+        const childEl = childOrgs.map((child: models.Org) => {
+          return <a key={child.id} href="#" className="m2fm_a">{child.organizaName}</a>
+        })
+        return (
+          <div key={org.id}>
+            <div className="m2fm_t1">{org.organizaName}</div>
+            <div className="m2fm_alink">
+              {childEl}
+              <div className="clear"></div>
+            </div>
+          </div>
+        )
+      })
+    } else {
+      const childEl = this.state.orgs.map((org: models.Org) => {
+        return <a key={org.id} href="#" className="m2fm_a">{org.organizaName}</a>
+      })
+      listEl = (
+        <div>
+          <div className="m2fm_t1">{this.props.authState.org.organizaName}</div>
+          <div className="m2fm_alink">
+            {childEl}
+            <div className="clear"></div>
+          </div>
+        </div>
+      )
+    }
 
     return (
       <div className="main2">
         <Location />
-        <div className="m2sfBox">
-          <strong>身份证：</strong>
-          <input type="text" name="" placeholder="请输入身份证号码" className="m2c1_int" />
-          <input type="submit" name="" className="m2submit" value="" />
-        </div>
+        {listEl}
         <div className="m2fm_t1">中共中国移动通信集团河北有限公司直属机关委员会</div>
         <div className="m2fm_alink">
           <a href="/orgs/1" className="m2fm_a">综合部党支部</a>

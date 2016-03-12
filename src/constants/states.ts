@@ -8,5 +8,6 @@ export interface AuthState {
   token: string
   user: models.User
   member: models.Member
+  org: models.Org
   isAnonymous: boolean
 }

@@ -9,6 +9,7 @@ import Header from "../containers/header"
 import Nav from "../components/nav"
 import Footer from "../components/footer"
 import * as actions from '../actions/authActions';
+import * as links from '../constants/links';
 
 interface P {
   actions?: any,
@@ -19,7 +20,7 @@ interface P {
 class App extends React.Component<P, {}> {
   componentWillMount() {
     if (this.props.authState.isAnonymous) {
-      browserHistory.push('/login')
+      browserHistory.push(links.LOGIN)
     }
   }
 

@@ -5,6 +5,7 @@ const react_router_1 = require('react-router');
 const models = require('../../../api/models');
 const utils = require('../../../lib/utils');
 const client_1 = require('../../../lib/client');
+const links = require('../../../constants/links');
 class Form extends React.Component {
     constructor(props) {
         super(props);
@@ -31,13 +32,12 @@ class Form extends React.Component {
         if (userName) {
             const member = this.state.member;
             member.userName = userName;
-            member.idCardNumber = idCardNumber;
             utils.DOM.loading(true);
             if (this.props.member) {
                 client_1.default.members.edit(member, (err, res) => {
                     utils.DOM.loading(false);
                     if (!err) {
-                        react_router_1.browserHistory.push("/members/");
+                        react_router_1.browserHistory.push(links.MEMBERS);
                     }
                     else {
                         utils.Swal.error(err);
@@ -48,7 +48,7 @@ class Form extends React.Component {
                 client_1.default.members.create(member, (err, res) => {
                     utils.DOM.loading(false);
                     if (!err) {
-                        react_router_1.browserHistory.push("/members/");
+                        react_router_1.browserHistory.push(links.MEMBERS);
                     }
                     else {
                         utils.Swal.error(err);
@@ -99,7 +99,7 @@ class Form extends React.Component {
                         React.createElement("span", {className: "m2fm_s1"}, 
                             React.createElement("strong", {className: "cor_red"}, "*"), 
                             " 身份证号："), 
-                        React.createElement("input", {ref: "idCardNumber", value: member.idCardNumber, onChange: this.onChange.bind(this, 'idCardNumber'), className: "m2fm_int", name: "", type: "text"})), 
+                        React.createElement("input", {ref: "idCardNumber", className: "m2fm_int", name: "", type: "text"})), 
                     React.createElement("li", null, 
                         React.createElement("span", {className: "m2fm_s1"}, 
                             React.createElement("strong", {className: "cor_red"}, "*"), 

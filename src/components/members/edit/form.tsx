@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router'
 import * as models from '../../../api/models';
 import * as utils from '../../../lib/utils';
 import client from '../../../lib/client';
+import * as links from '../../../constants/links';
 
 interface P {
   user?: models.User
@@ -44,14 +45,13 @@ export default class Form extends React.Component<P, S> {
     if (userName) {
       const member = this.state.member
       member.userName = userName
-      member.idCardNumber = idCardNumber
 
       utils.DOM.loading(true)
       if (this.props.member) {
         client.members.edit(member, (err, res) => {
           utils.DOM.loading(false)
           if (!err) {
-            browserHistory.push("/member")
+            browserHistory.push(links.MEMBERS)
           } else {
             utils.Swal.error(err)
           }
@@ -60,7 +60,7 @@ export default class Form extends React.Component<P, S> {
         client.members.create(member, (err, res) => {
           utils.DOM.loading(false)
           if (!err) {
-            browserHistory.push("/member")
+            browserHistory.push(links.MEMBERS)
           } else {
             utils.Swal.error(err)
           }
@@ -105,7 +105,7 @@ export default class Form extends React.Component<P, S> {
               </div></li>
             <li>
               <span className="m2fm_s1"><strong className="cor_red">*</strong> 身份证号：</span>
-              <input ref="idCardNumber" value={member.idCardNumber} onChange={this.onChange.bind(this, 'idCardNumber')} className="m2fm_int" name="" type="text" /></li>
+              <input ref="idCardNumber" className="m2fm_int" name="" type="text" /></li>
             <li>
               <span className="m2fm_s1"><strong className="cor_red">*</strong> 出生年月：</span>
               <input placeholder="2016-01-20" className="m2fm_int m2fm_int2" name="" type="text" /></li>

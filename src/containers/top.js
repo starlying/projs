@@ -5,6 +5,7 @@ const react_redux_1 = require('react-redux');
 const react_router_1 = require('react-router');
 const utils = require('../lib/utils');
 const actions = require('../actions/authActions');
+const links = require('../constants/links');
 class Top extends React.Component {
     onForgetPassword(e) {
         utils.DOM.stop(e);
@@ -13,8 +14,7 @@ class Top extends React.Component {
     onSignup(e) {
         utils.DOM.stop(e);
         this.props.actions.logout();
-        const path = `/login/`;
-        react_router_1.browserHistory.push(path);
+        react_router_1.browserHistory.push(links.LOGIN);
     }
     render() {
         if (!this.props.authState.user)

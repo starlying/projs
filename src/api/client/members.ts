@@ -26,7 +26,7 @@ export default class Members {
     this.request.get('/members/' + id, null, cb)
   }
 
-  list(orgID: string, cb?: (err: models.Error, res: {
+  list(orgID: number, cb?: (err: models.Error, res: {
     members: Array<models.Member>
   }) => void) {
     this.request.get('/members', {

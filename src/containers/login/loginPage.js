@@ -8,6 +8,7 @@ const components_1 = require('../../lib/components');
 const utils = require('../../lib/utils');
 const client_1 = require('../../lib/client');
 const actions = require('../../actions/authActions');
+const links = require('../../constants/links');
 class LoginPage extends React.Component {
     componentDidMount() {
         var userNameNode = ReactDOM.findDOMNode(this.refs["userName"]);
@@ -15,8 +16,7 @@ class LoginPage extends React.Component {
     }
     componentWillReceiveProps(props) {
         if (!props.authState.isAnonymous) {
-            const path = `/`;
-            react_router_1.browserHistory.push(path);
+            react_router_1.browserHistory.push(links.INDEX);
         }
     }
     onSubmit(e) {
@@ -28,9 +28,16 @@ class LoginPage extends React.Component {
             client_1.default.users.login(userName, password, (err, res) => {
                 utils.DOM.loading(false);
                 if (!err) {
-                    this.props.actions.login(res.token, res.user, res.member);
-                    const path = `/`;
-                    react_router_1.browserHistory.push(path);
+                    if (!res.member) {
+                        utils.Swal.error({
+                            status: 404,
+                            message: "登录失败，用户名或者密码不正确"
+                        });
+                    }
+                    else {
+                        this.props.actions.login(res.token, res.user, res.member);
+                        react_router_1.browserHistory.push(links.INDEX);
+                    }
                 }
                 else {
                     utils.Swal.error({

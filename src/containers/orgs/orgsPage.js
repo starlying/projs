@@ -1,11 +1,9 @@
 "use strict";
 const React = require('react');
-const react_router_1 = require('react-router');
 const redux_1 = require('redux');
 const react_redux_1 = require('react-redux');
 const components_1 = require('../../lib/components');
 const client_1 = require('../../lib/client');
-const models = require('../../api/models');
 const location_1 = require("../../components/location");
 const subNav_1 = require("../../components/orgs/subNav");
 const actions = require('../../actions/authActions');
@@ -14,65 +12,70 @@ class OrgPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            members: null,
+            orgs: null,
+            isWin: false,
             id: null
         };
     }
     componentDidMount() {
-        client_1.default.members.list('14', (err, res) => {
-            let members = [];
-            if (!err && res.members) {
-                members = res.members;
+        client_1.default.orgs.list(this.props.authState.member.orgID, (err, res) => {
+            let orgs = [];
+            if (!err && res.orgs) {
+                orgs = res.orgs;
             }
             this.setState({
-                members: members,
+                orgs: orgs,
+                isWin: false,
                 id: null
             });
         });
     }
     onAdd(e) {
         this.setState({
-            members: this.state.members,
-            id: "-"
+            orgs: this.state.orgs,
+            isWin: true,
+            id: 0
         });
     }
     onEdit(id, e) {
         this.setState({
-            members: this.state.members,
+            orgs: this.state.orgs,
+            isWin: true,
             id: id
         });
     }
     onClose(e) {
         this.setState({
-            members: this.state.members,
+            orgs: this.state.orgs,
+            isWin: false,
             id: null
         });
     }
     render() {
-        if (!this.state.members || this.state.members.length == 0)
+        if (!this.state.orgs || this.state.orgs.length == 0)
             return React.createElement(components_1.InnerLoading, null);
-        const listEl = this.state.members.map((member) => {
-            return (React.createElement("tr", {key: member.id}, 
+        const listEl = this.state.orgs.map((org) => {
+            return (React.createElement("tr", null, 
                 React.createElement("td", null, 
-                    React.createElement("input", {className: "lay-rad", name: "", type: "checkbox", value: ""})
+                    React.createElement("span", {className: "cor_red"}, org.organizaName)
                 ), 
+                React.createElement("td", null, org.organizaType), 
+                React.createElement("td", null, org.isCancel ? "否" : "是"), 
                 React.createElement("td", null, 
-                    React.createElement("span", {className: "cor_red"}, "丁皓")
-                ), 
-                React.createElement("td", null, "男"), 
-                React.createElement("td", null, "政企分公司"), 
-                React.createElement("td", null, "2011年2月"), 
-                React.createElement("td", null, "4"), 
-                React.createElement("td", null, "1300989900"), 
-                React.createElement("td", null, 
-                    React.createElement(react_router_1.Link, {className: "m2fm_abtn", to: "/member/edit/" + member.id}, "编辑"), 
-                    React.createElement("a", {className: "m2fm_abtn", href: "#"}, "转出"), 
-                    React.createElement("a", {className: "m2fm_abtn", href: "#"}, "列为积极分子"))));
+                    React.createElement("a", {className: "m2fm_abtn", href: "#"}, "授权"), 
+                    React.createElement("a", {className: "m2fm_abtn", href: "#"}, "删除"), 
+                    React.createElement("a", {className: "m2fm_abtn", href: "javascript:;", onClick: this.onEdit.bind(this, org.id)}, "编辑"))));
         });
         let pager = null;
         let formEl = null;
-        if (this.state.id) {
-            formEl = React.createElement(form_1.default, {member: new models.Member(), onClose: this.onClose.bind(this)});
+        if (this.state.isWin) {
+            let org = null;
+            this.state.orgs.forEach((o) => {
+                if (this.state.id === o.id) {
+                    org = o;
+                }
+            });
+            formEl = React.createElement(form_1.default, {org: org, parentID: this.props.authState.member.orgID, onClose: this.onClose.bind(this)});
         }
         return (React.createElement("div", {className: "main2"}, 
             formEl, 
@@ -109,70 +112,9 @@ class OrgPage extends React.Component {
                             React.createElement("td", {width: "25%"}, "组织类型 "), 
                             React.createElement("td", {width: "24%"}, "是否有效"), 
                             React.createElement("td", {width: "18%"}, "操作")), 
-                        React.createElement("tr", null, 
-                            React.createElement("td", null, 
-                                React.createElement("span", {className: "cor_red"}, "政企分公司党委活动")
-                            ), 
-                            React.createElement("td", null, "党委"), 
-                            React.createElement("td", null, "是"), 
-                            React.createElement("td", null, 
-                                React.createElement("a", {className: "m2fm_abtn", href: "#"}, "授权"), 
-                                React.createElement("a", {className: "m2fm_abtn", href: "#"}, "删除"), 
-                                React.createElement("a", {className: "m2fm_abtn", href: "javascript:;", onClick: this.onEdit.bind(this, "1")}, "编辑"))), 
-                        React.createElement("tr", null, 
-                            React.createElement("td", null, 
-                                React.createElement("span", {className: "cor_red"}, "政企分公司党委活动")
-                            ), 
-                            React.createElement("td", null, "党委"), 
-                            React.createElement("td", null, "是"), 
-                            React.createElement("td", null, 
-                                React.createElement("a", {className: "m2fm_abtn", href: "#"}, "授权"), 
-                                React.createElement("a", {className: "m2fm_abtn", href: "#"}, "删除"), 
-                                React.createElement("a", {className: "m2fm_abtn", href: "javascript:;", onClick: this.onEdit.bind(this, "1")}, "编辑"))), 
-                        React.createElement("tr", null, 
-                            React.createElement("td", null, 
-                                React.createElement("span", {className: "cor_red"}, "政企分公司党委活动")
-                            ), 
-                            React.createElement("td", null, "党委"), 
-                            React.createElement("td", null, "是"), 
-                            React.createElement("td", null, 
-                                React.createElement("a", {className: "m2fm_abtn", href: "#"}, "授权"), 
-                                React.createElement("a", {className: "m2fm_abtn", href: "#"}, "删除"), 
-                                React.createElement("a", {className: "m2fm_abtn", href: "javascript:;", onClick: this.onEdit.bind(this, "1")}, "编辑"))), 
-                        React.createElement("tr", null, 
-                            React.createElement("td", null, 
-                                React.createElement("span", {className: "cor_red"}, "政企分公司党委活动")
-                            ), 
-                            React.createElement("td", null, "党委"), 
-                            React.createElement("td", null, "是"), 
-                            React.createElement("td", null, 
-                                React.createElement("a", {className: "m2fm_abtn", href: "#"}, "授权"), 
-                                React.createElement("a", {className: "m2fm_abtn", href: "#"}, "删除"), 
-                                React.createElement("a", {className: "m2fm_abtn", href: "javascript:;", onClick: this.onEdit.bind(this, "1")}, "编辑"))), 
-                        React.createElement("tr", null, 
-                            React.createElement("td", null, 
-                                React.createElement("span", {className: "cor_red"}, "政企分公司党委活动")
-                            ), 
-                            React.createElement("td", null, "党委"), 
-                            React.createElement("td", null, "是"), 
-                            React.createElement("td", null, 
-                                React.createElement("a", {className: "m2fm_abtn", href: "#"}, "授权"), 
-                                React.createElement("a", {className: "m2fm_abtn", href: "#"}, "删除"), 
-                                React.createElement("a", {className: "m2fm_abtn", href: "javascript:;", onClick: this.onEdit.bind(this, "1")}, "编辑"))))
+                        listEl)
                 ), 
-                React.createElement("div", {className: "m2fm_page"}, 
-                    React.createElement("a", {href: "#", className: "m2fmPage_a"}, "＜"), 
-                    React.createElement("a", {href: "#", className: "m2fmPage_a on"}, "1"), 
-                    React.createElement("a", {href: "#", className: "m2fmPage_a"}, "2"), 
-                    React.createElement("a", {href: "#", className: "m2fmPage_a"}, "3"), 
-                    React.createElement("a", {href: "#", className: "m2fmPage_a"}, "4"), 
-                    React.createElement("a", {href: "#", className: "m2fmPage_a"}, "5"), 
-                    React.createElement("a", {href: "#", className: "m2fmPage_a"}, "6"), 
-                    React.createElement("a", {href: "#", className: "m2fmPage_a"}, "7"), 
-                    React.createElement("span", {className: "m2fmPage_a2"}, "..."), 
-                    React.createElement("a", {href: "#", className: "m2fmPage_a"}, "99"), 
-                    React.createElement("a", {href: "#", className: "m2fmPage_a"}, "100"), 
-                    React.createElement("a", {href: "#", className: "m2fmPage_a"}, "＞")))));
+                pager)));
     }
 }
 function mapStateToProps(state) {

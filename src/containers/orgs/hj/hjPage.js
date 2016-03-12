@@ -5,54 +5,52 @@ const redux_1 = require('redux');
 const react_redux_1 = require('react-redux');
 const components_1 = require('../../../lib/components');
 const client_1 = require('../../../lib/client');
-const models = require('../../../api/models');
 const location_1 = require("../../../components/location");
 const subNav_1 = require("../../../components/orgs/subNav");
 const actions = require('../../../actions/authActions');
-const form_1 = require("../../../components/orgs/add/form");
 class HJPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            members: null,
+            orgs: null,
             id: null
         };
     }
     componentDidMount() {
-        client_1.default.members.list('14', (err, res) => {
-            let members = [];
-            if (!err && res.members) {
-                members = res.members;
+        client_1.default.orgs.list(this.props.authState.member.orgID, (err, res) => {
+            let orgs = [];
+            if (!err && res.orgs) {
+                orgs = res.orgs;
             }
             this.setState({
-                members: members,
+                orgs: orgs,
                 id: null
             });
         });
     }
     onAdd(e) {
         this.setState({
-            members: this.state.members,
-            id: "-"
+            orgs: this.state.orgs,
+            id: 0
         });
     }
     onEdit(id, e) {
         this.setState({
-            members: this.state.members,
+            orgs: this.state.orgs,
             id: id
         });
     }
     onClose(e) {
         this.setState({
-            members: this.state.members,
+            orgs: this.state.orgs,
             id: null
         });
     }
     render() {
-        if (!this.state.members || this.state.members.length == 0)
+        if (!this.state.orgs || this.state.orgs.length == 0)
             return React.createElement(components_1.InnerLoading, null);
-        const listEl = this.state.members.map((member) => {
-            return (React.createElement("tr", {key: member.id}, 
+        const listEl = this.state.orgs.map((org) => {
+            return (React.createElement("tr", {key: org.id}, 
                 React.createElement("td", null, 
                     React.createElement("input", {className: "lay-rad", name: "", type: "checkbox", value: ""})
                 ), 
@@ -65,14 +63,13 @@ class HJPage extends React.Component {
                 React.createElement("td", null, "4"), 
                 React.createElement("td", null, "1300989900"), 
                 React.createElement("td", null, 
-                    React.createElement(react_router_1.Link, {className: "m2fm_abtn", to: "/member/edit/" + member.id}, "编辑"), 
+                    React.createElement(react_router_1.Link, {className: "m2fm_abtn", to: "/org/edit/" + org.id}, "编辑"), 
                     React.createElement("a", {className: "m2fm_abtn", href: "#"}, "转出"), 
                     React.createElement("a", {className: "m2fm_abtn", href: "#"}, "列为积极分子"))));
         });
         let pager = null;
         let formEl = null;
         if (this.state.id) {
-            formEl = React.createElement(form_1.default, {member: new models.Member(), onClose: this.onClose.bind(this)});
         }
         return (React.createElement("div", {className: "main2"}, 
             formEl, 

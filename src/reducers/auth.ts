@@ -6,12 +6,14 @@ import * as utils from '../lib/utils';
 const token = utils.Auth.getToken();
 const user = utils.Auth.getUser();
 const member = utils.Auth.getMember();
+const org = utils.Auth.getOrg();
 const isAnonymous = (token && user && user.id) ? false : true;
 
 const initialState: states.AuthState = {
   token: token,
   user: user,
   member: member,
+  org: org,
   isAnonymous: isAnonymous
 };
 
@@ -22,6 +24,7 @@ export default function authAppState(state = initialState, action) {
         token : action.token,
         user : action.user,
         member : action.member,
+        org: action.org,
         isAnonymous : (action.token && action.user && action.user.id) ? false : true
       });
 
@@ -30,6 +33,7 @@ export default function authAppState(state = initialState, action) {
         token : "",
         user : null,
         member : null,
+        org: null,
         isAnonymous : true
       });
 

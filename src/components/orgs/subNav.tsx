@@ -5,7 +5,7 @@ import * as links from '../../constants/links'
 
 interface P {
   params: {
-    id: string
+    id: number
   }
 }
 

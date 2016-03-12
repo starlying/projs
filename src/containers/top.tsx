@@ -9,6 +9,7 @@ import * as utils from '../lib/utils'
 import {Alert, Input} from '../lib/components'
 import * as types from '../constants/actionTypes';
 import * as actions from '../actions/authActions';
+import * as links from '../constants/links';
 
 interface P {
   actions?: any,
@@ -24,8 +25,7 @@ class Top extends React.Component<P, {}> {
   onSignup(e: React.MouseEvent) {
     utils.DOM.stop(e)
     this.props.actions.logout()
-    const path = `/login/`
-    browserHistory.push(path)
+    browserHistory.push(links.LOGIN)
   }
 
   render() {

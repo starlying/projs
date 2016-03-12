@@ -1,33 +1,33 @@
 "use strict";
-class Members {
+class Orgs {
     constructor(request) {
         this.request = request;
     }
-    create(member, cb) {
-        this.request.post('/members', member, cb);
+    create(org, cb) {
+        this.request.post('/orgs', org, cb);
     }
     delete(password, cb) {
-        this.request.delete('/members', {
+        this.request.delete('/orgs', {
             password: password
         }, cb);
     }
-    edit(member, cb) {
-        this.request.put('/members/' + member.id, member, cb);
+    edit(org, cb) {
+        this.request.put('/orgs/' + org.id, org, cb);
     }
     get(id, cb) {
-        this.request.get('/members/' + id, null, cb);
+        this.request.get('/orgs/' + id, null, cb);
     }
-    list(orgID, cb) {
-        this.request.get('/members', {
-            orgID: orgID,
+    list(parentID, cb) {
+        this.request.get('/orgs', {
+            parentID: parentID,
         }, cb);
     }
     search(idCardNumber, cb) {
-        this.request.post('/members/actions/search', {
+        this.request.post('/orgs/actions/search', {
             idCardNumber: idCardNumber,
         }, cb);
     }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = Members;
+exports.default = Orgs;
 //# sourceMappingURL=orgs.js.map

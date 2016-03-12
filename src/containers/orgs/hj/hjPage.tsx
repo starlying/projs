@@ -16,32 +16,32 @@ interface P {
   actions?: any,
   authState?: states.AuthState,
   params: {
-    id: string
+    id: number
   }
 }
 
 interface S {
-  members: Array<models.Member>
-  id: string
+  orgs: Array<models.Org>
+  id: number
 }
 
 class HJPage extends React.Component<P, S> {
   constructor(props) {
     super(props)
     this.state = {
-      members: null,
+      orgs: null,
       id: null
     }
   }
 
   componentDidMount() {
-    client.members.list('14', (err: models.Error, res) => {
-      let members = []
-      if (!err && res.members) {
-        members = res.members
+    client.orgs.list(this.props.authState.member.orgID, (err: models.Error, res) => {
+      let orgs = []
+      if (!err && res.orgs) {
+        orgs = res.orgs
       }
       this.setState({
-        members: members,
+        orgs: orgs,
         id: null
       })
     })
@@ -49,31 +49,31 @@ class HJPage extends React.Component<P, S> {
 
   onAdd(e) {
     this.setState({
-      members: this.state.members,
-      id: "-"
+      orgs: this.state.orgs,
+      id: 0
     })
   }
 
   onEdit(id, e) {
     this.setState({
-      members: this.state.members,
+      orgs: this.state.orgs,
       id: id
     })
   }
 
   onClose(e: React.MouseEvent) {
     this.setState({
-      members: this.state.members,
+      orgs: this.state.orgs,
       id: null
     })
   }
 
   render() {
-    if (!this.state.members || this.state.members.length == 0) return <InnerLoading />
+    if (!this.state.orgs || this.state.orgs.length == 0) return <InnerLoading />
 
-    const listEl = this.state.members.map((member: models.Member) => {
+    const listEl = this.state.orgs.map((org: models.Org) => {
       return (
-        <tr key={member.id}>
+        <tr key={org.id}>
           <td><input className="lay-rad" name="" type="checkbox" value="" /></td>
           <td><span className="cor_red">丁皓</span></td>
           <td>男</td>
@@ -82,7 +82,7 @@ class HJPage extends React.Component<P, S> {
           <td>4</td>
           <td>1300989900</td>
           <td>
-            <Link className="m2fm_abtn" to={"/member/edit/" + member.id}>编辑</Link>
+            <Link className="m2fm_abtn" to={"/org/edit/" + org.id}>编辑</Link>
             <a className="m2fm_abtn" href="#">转出</a>
             <a className="m2fm_abtn" href="#">列为积极分子</a>
           </td>
@@ -110,7 +110,7 @@ class HJPage extends React.Component<P, S> {
 
     let formEl = null
     if (this.state.id) {
-      formEl = <Form member={new models.Member() } onClose={this.onClose.bind(this) } />
+      //formEl = <Form org={new models.Org() } onClose={this.onClose.bind(this) } />
     }
 
     return (

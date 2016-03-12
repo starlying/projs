@@ -5,11 +5,13 @@ const utils = require('../lib/utils');
 const token = utils.Auth.getToken();
 const user = utils.Auth.getUser();
 const member = utils.Auth.getMember();
+const org = utils.Auth.getOrg();
 const isAnonymous = (token && user && user.id) ? false : true;
 const initialState = {
     token: token,
     user: user,
     member: member,
+    org: org,
     isAnonymous: isAnonymous
 };
 function authAppState(state = initialState, action) {
@@ -19,6 +21,7 @@ function authAppState(state = initialState, action) {
                 token: action.token,
                 user: action.user,
                 member: action.member,
+                org: action.org,
                 isAnonymous: (action.token && action.user && action.user.id) ? false : true
             });
         case types.AUTH_LOGOUT:
@@ -26,6 +29,7 @@ function authAppState(state = initialState, action) {
                 token: "",
                 user: null,
                 member: null,
+                org: null,
                 isAnonymous: true
             });
         default:

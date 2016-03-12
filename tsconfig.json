@@ -99,7 +99,7 @@
     "src/components/nav.tsx",
     "src/components/notFoundPage.tsx",
     "src/components/orgs/add/form.tsx",
-    "src/components/orgs/hjAdd/hjAdd.tsx",
+    "src/components/orgs/hjAdd/form.tsx",
     "src/components/orgs/subNav.tsx",
     "src/containers/app.tsx",
     "src/containers/header.tsx",

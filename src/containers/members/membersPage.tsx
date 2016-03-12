@@ -48,8 +48,8 @@ class MemberPage extends React.Component<P, S> {
       return (
         <tr key={member.id}>
           <td><input className="lay-rad" name="" type="checkbox" value="" /></td>
-          <td><span className="cor_red">丁皓</span></td>
-          <td>男</td>
+          <td><span className="cor_red">{member.userName}</span></td>
+          <td>{member.userName}</td>
           <td>政企分公司</td>
           <td>2011年2月</td>
           <td>4</td>
