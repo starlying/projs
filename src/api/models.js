@@ -9,6 +9,11 @@ class Member {
     }
 }
 exports.Member = Member;
+class Org {
+    constructor() {
+    }
+}
+exports.Org = Org;
 class Upload {
     constructor() {
     }
