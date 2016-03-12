@@ -50,7 +50,7 @@ class LoginPage extends React.Component<P, {}> {
               message: "登录失败，用户名或者密码不正确"
             })
           } else {
-            this.props.actions.login(res.token, res.user, res.member)
+            this.props.actions.login(res.token, res.user, res.member, res.org)
             browserHistory.push(links.INDEX)
           }
         } else {

@@ -26,6 +26,7 @@ export default class Users {
     token: string
     user: models.User
     member: models.Member
+    org: models.Org
   }) => void) {
     this.request.post('/users/actions/login', {
       username: username,

@@ -1,9 +1,11 @@
 "use strict";
 const React = require('react');
+const react_router_1 = require('react-router');
 const redux_1 = require('redux');
 const react_redux_1 = require('react-redux');
 const components_1 = require('../../../lib/components');
 const client_1 = require('../../../lib/client');
+const links = require('../../../constants/links');
 const location_1 = require("../../../components/location");
 const actions = require('../../../actions/authActions');
 class JGPage extends React.Component {
@@ -51,10 +53,12 @@ class JGPage extends React.Component {
             listEl = this.state.orgs.map((org) => {
                 const childOrgs = this.state.orgMap[org.id];
                 const childEl = childOrgs.map((child) => {
-                    return React.createElement("a", {key: child.id, href: "#", className: "m2fm_a"}, child.orgName);
+                    return React.createElement(react_router_1.Link, {key: child.id, to: links.INDEX + "?orgID=" + child.id, className: "m2fm_a"}, child.orgName);
                 });
                 return (React.createElement("div", {key: org.id}, 
-                    React.createElement("div", {className: "m2fm_t1"}, org.orgName), 
+                    React.createElement("div", {className: "m2fm_t1"}, 
+                        React.createElement(react_router_1.Link, {key: org.id, to: links.INDEX + "?orgID=" + org.id}, org.orgName)
+                    ), 
                     React.createElement("div", {className: "m2fm_alink"}, 
                         childEl, 
                         React.createElement("div", {className: "clear"}))));
@@ -62,75 +66,19 @@ class JGPage extends React.Component {
         }
         else {
             const childEl = this.state.orgs.map((org) => {
-                return React.createElement("a", {key: org.id, href: "#", className: "m2fm_a"}, org.orgName);
+                return React.createElement(react_router_1.Link, {key: org.id, to: links.INDEX + "?orgID=" + org.id, className: "m2fm_a"}, org.orgName);
             });
             listEl = (React.createElement("div", null, 
-                React.createElement("div", {className: "m2fm_t1"}, this.props.authState.org.orgName), 
+                React.createElement("div", {className: "m2fm_t1"}, 
+                    React.createElement(react_router_1.Link, {key: this.props.authState.org.id, to: links.INDEX + "?orgID=" + this.props.authState.org.id}, this.props.authState.org.orgName)
+                ), 
                 React.createElement("div", {className: "m2fm_alink"}, 
                     childEl, 
                     React.createElement("div", {className: "clear"}))));
         }
         return (React.createElement("div", {className: "main2"}, 
             React.createElement(location_1.default, null), 
-            listEl, 
-            React.createElement("div", {className: "m2fm_t1"}, "中共中国移动通信集团河北有限公司直属机关委员会"), 
-            React.createElement("div", {className: "m2fm_alink"}, 
-                React.createElement("a", {href: "/orgs/1", className: "m2fm_a"}, "综合部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "发展计划部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "工程部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "市场经营部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "财务部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "人力资源部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "综合部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "发展计划部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "工程部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "市场经营部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "财务部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "人力资源部党支部"), 
-                React.createElement("div", {className: "clear"})), 
-            React.createElement("div", {className: "m2fm_t1"}, "中移全通系统集成有限公司党总支"), 
-            React.createElement("div", {className: "m2fm_alink"}, 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "综合部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "发展计划部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "工程部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "市场经营部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "财务部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "人力资源部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "综合部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "发展计划部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "工程部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "市场经营部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "财务部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "人力资源部党支部"), 
-                React.createElement("div", {className: "clear"})), 
-            React.createElement("div", {className: "m2fm_t1"}, "中移全通系统集成有限公司党总支"), 
-            React.createElement("div", {className: "m2fm_alink"}, 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "综合部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "发展计划部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "工程部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "市场经营部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "财务部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "人力资源部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "综合部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "发展计划部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "工程部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "市场经营部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "财务部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "人力资源部党支部"), 
-                React.createElement("div", {className: "clear"})), 
-            React.createElement("div", {className: "m2fm_t1"}, "中移全通系统集成有限公司党总支"), 
-            React.createElement("div", {className: "m2fm_alink"}, 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "综合部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "发展计划部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "工程部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "市场经营部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "财务部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "人力资源部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "综合部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "发展计划部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "发展计划部党支部"), 
-                React.createElement("a", {href: "#", className: "m2fm_a"}, "市场经营部党支部"), 
-                React.createElement("div", {className: "clear"}))));
+            listEl));
     }
 }
 function mapStateToProps(state) {

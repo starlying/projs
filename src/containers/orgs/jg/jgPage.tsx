@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import {InnerLoading} from '../../../lib/components'
 import client from '../../../lib/client';
 import * as states from '../../../constants/states';
+import * as links from '../../../constants/links';
 import * as models from '../../../api/models';
 import * as utils from '../../../lib/utils';
 import Location from "../../../components/location"
@@ -72,11 +73,11 @@ class JGPage extends React.Component<P, S> {
       listEl = this.state.orgs.map((org: models.Org) => {
         const childOrgs = this.state.orgMap[org.id]
         const childEl = childOrgs.map((child: models.Org) => {
-          return <a key={child.id} href="#" className="m2fm_a">{child.orgName}</a>
+          return <Link key={child.id} to={links.INDEX + "?orgID=" + child.id} className="m2fm_a">{child.orgName}</Link>
         })
         return (
           <div key={org.id}>
-            <div className="m2fm_t1">{org.orgName}</div>
+            <div className="m2fm_t1"><Link key={org.id} to={links.INDEX + "?orgID=" + org.id}>{org.orgName}</Link></div>
             <div className="m2fm_alink">
               {childEl}
               <div className="clear"></div>
@@ -86,11 +87,11 @@ class JGPage extends React.Component<P, S> {
       })
     } else {
       const childEl = this.state.orgs.map((org: models.Org) => {
-        return <a key={org.id} href="#" className="m2fm_a">{org.orgName}</a>
+        return <Link key={org.id} to={links.INDEX + "?orgID=" + org.id} className="m2fm_a">{org.orgName}</Link>
       })
       listEl = (
         <div>
-          <div className="m2fm_t1">{this.props.authState.org.orgName}</div>
+          <div className="m2fm_t1"><Link key={this.props.authState.org.id} to={links.INDEX + "?orgID=" + this.props.authState.org.id}>{this.props.authState.org.orgName}</Link></div>
           <div className="m2fm_alink">
             {childEl}
             <div className="clear"></div>
@@ -103,68 +104,6 @@ class JGPage extends React.Component<P, S> {
       <div className="main2">
         <Location />
         {listEl}
-        <div className="m2fm_t1">中共中国移动通信集团河北有限公司直属机关委员会</div>
-        <div className="m2fm_alink">
-          <a href="/orgs/1" className="m2fm_a">综合部党支部</a>
-          <a href="#" className="m2fm_a">发展计划部党支部</a>
-          <a href="#" className="m2fm_a">工程部党支部</a>
-          <a href="#" className="m2fm_a">市场经营部党支部</a>
-          <a href="#" className="m2fm_a">财务部党支部</a>
-          <a href="#" className="m2fm_a">人力资源部党支部</a>
-          <a href="#" className="m2fm_a">综合部党支部</a>
-          <a href="#" className="m2fm_a">发展计划部党支部</a>
-          <a href="#" className="m2fm_a">工程部党支部</a>
-          <a href="#" className="m2fm_a">市场经营部党支部</a>
-          <a href="#" className="m2fm_a">财务部党支部</a>
-          <a href="#" className="m2fm_a">人力资源部党支部</a>
-          <div className="clear"></div>
-        </div>
-        <div className="m2fm_t1">中移全通系统集成有限公司党总支</div>
-        <div className="m2fm_alink">
-          <a href="#" className="m2fm_a">综合部党支部</a>
-          <a href="#" className="m2fm_a">发展计划部党支部</a>
-          <a href="#" className="m2fm_a">工程部党支部</a>
-          <a href="#" className="m2fm_a">市场经营部党支部</a>
-          <a href="#" className="m2fm_a">财务部党支部</a>
-          <a href="#" className="m2fm_a">人力资源部党支部</a>
-          <a href="#" className="m2fm_a">综合部党支部</a>
-          <a href="#" className="m2fm_a">发展计划部党支部</a>
-          <a href="#" className="m2fm_a">工程部党支部</a>
-          <a href="#" className="m2fm_a">市场经营部党支部</a>
-          <a href="#" className="m2fm_a">财务部党支部</a>
-          <a href="#" className="m2fm_a">人力资源部党支部</a>
-          <div className="clear"></div>
-        </div>
-        <div className="m2fm_t1">中移全通系统集成有限公司党总支</div>
-        <div className="m2fm_alink">
-          <a href="#" className="m2fm_a">综合部党支部</a>
-          <a href="#" className="m2fm_a">发展计划部党支部</a>
-          <a href="#" className="m2fm_a">工程部党支部</a>
-          <a href="#" className="m2fm_a">市场经营部党支部</a>
-          <a href="#" className="m2fm_a">财务部党支部</a>
-          <a href="#" className="m2fm_a">人力资源部党支部</a>
-          <a href="#" className="m2fm_a">综合部党支部</a>
-          <a href="#" className="m2fm_a">发展计划部党支部</a>
-          <a href="#" className="m2fm_a">工程部党支部</a>
-          <a href="#" className="m2fm_a">市场经营部党支部</a>
-          <a href="#" className="m2fm_a">财务部党支部</a>
-          <a href="#" className="m2fm_a">人力资源部党支部</a>
-          <div className="clear"></div>
-        </div>
-        <div className="m2fm_t1">中移全通系统集成有限公司党总支</div>
-        <div className="m2fm_alink">
-          <a href="#" className="m2fm_a">综合部党支部</a>
-          <a href="#" className="m2fm_a">发展计划部党支部</a>
-          <a href="#" className="m2fm_a">工程部党支部</a>
-          <a href="#" className="m2fm_a">市场经营部党支部</a>
-          <a href="#" className="m2fm_a">财务部党支部</a>
-          <a href="#" className="m2fm_a">人力资源部党支部</a>
-          <a href="#" className="m2fm_a">综合部党支部</a>
-          <a href="#" className="m2fm_a">发展计划部党支部</a>
-          <a href="#" className="m2fm_a">发展计划部党支部</a>
-          <a href="#" className="m2fm_a">市场经营部党支部</a>
-          <div className="clear"></div>
-        </div>
       </div>
     )
   }

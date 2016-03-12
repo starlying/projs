@@ -35,7 +35,7 @@ class LoginPage extends React.Component {
                         });
                     }
                     else {
-                        this.props.actions.login(res.token, res.user, res.member);
+                        this.props.actions.login(res.token, res.user, res.member, res.org);
                         react_router_1.browserHistory.push(links.INDEX);
                     }
                 }
