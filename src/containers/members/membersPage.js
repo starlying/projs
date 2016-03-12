@@ -17,7 +17,7 @@ class MemberPage extends React.Component {
         };
     }
     componentDidMount() {
-        client_1.default.members.list('14', (err, res) => {
+        client_1.default.members.list(this.props.authState.member.orgID, (err, res) => {
             let members = [];
             if (!err && res.members) {
                 members = res.members;
