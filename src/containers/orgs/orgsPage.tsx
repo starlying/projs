@@ -82,8 +82,8 @@ class OrgPage extends React.Component<P, S> {
     const listEl = this.state.orgs.map((org: models.Org) => {
       return (
         <tr>
-          <td><span className="cor_red">{org.organizaName}</span></td>
-          <td>{org.organizaType}</td>
+          <td><span className="cor_red">{org.orgName}</span></td>
+          <td>{org.orgType}</td>
           <td>{org.isCancel ? "否" : "是"}</td>
           <td>
             <a className="m2fm_abtn" href="#">授权</a>

@@ -72,11 +72,11 @@ class JGPage extends React.Component<P, S> {
       listEl = this.state.orgs.map((org: models.Org) => {
         const childOrgs = this.state.orgMap[org.id]
         const childEl = childOrgs.map((child: models.Org) => {
-          return <a key={child.id} href="#" className="m2fm_a">{child.organizaName}</a>
+          return <a key={child.id} href="#" className="m2fm_a">{child.orgName}</a>
         })
         return (
           <div key={org.id}>
-            <div className="m2fm_t1">{org.organizaName}</div>
+            <div className="m2fm_t1">{org.orgName}</div>
             <div className="m2fm_alink">
               {childEl}
               <div className="clear"></div>
@@ -86,11 +86,11 @@ class JGPage extends React.Component<P, S> {
       })
     } else {
       const childEl = this.state.orgs.map((org: models.Org) => {
-        return <a key={org.id} href="#" className="m2fm_a">{org.organizaName}</a>
+        return <a key={org.id} href="#" className="m2fm_a">{org.orgName}</a>
       })
       listEl = (
         <div>
-          <div className="m2fm_t1">{this.props.authState.org.organizaName}</div>
+          <div className="m2fm_t1">{this.props.authState.org.orgName}</div>
           <div className="m2fm_alink">
             {childEl}
             <div className="clear"></div>

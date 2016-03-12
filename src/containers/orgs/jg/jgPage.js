@@ -51,10 +51,10 @@ class JGPage extends React.Component {
             listEl = this.state.orgs.map((org) => {
                 const childOrgs = this.state.orgMap[org.id];
                 const childEl = childOrgs.map((child) => {
-                    return React.createElement("a", {key: child.id, href: "#", className: "m2fm_a"}, child.organizaName);
+                    return React.createElement("a", {key: child.id, href: "#", className: "m2fm_a"}, child.orgName);
                 });
                 return (React.createElement("div", {key: org.id}, 
-                    React.createElement("div", {className: "m2fm_t1"}, org.organizaName), 
+                    React.createElement("div", {className: "m2fm_t1"}, org.orgName), 
                     React.createElement("div", {className: "m2fm_alink"}, 
                         childEl, 
                         React.createElement("div", {className: "clear"}))));
@@ -62,10 +62,10 @@ class JGPage extends React.Component {
         }
         else {
             const childEl = this.state.orgs.map((org) => {
-                return React.createElement("a", {key: org.id, href: "#", className: "m2fm_a"}, org.organizaName);
+                return React.createElement("a", {key: org.id, href: "#", className: "m2fm_a"}, org.orgName);
             });
             listEl = (React.createElement("div", null, 
-                React.createElement("div", {className: "m2fm_t1"}, this.props.authState.org.organizaName), 
+                React.createElement("div", {className: "m2fm_t1"}, this.props.authState.org.orgName), 
                 React.createElement("div", {className: "m2fm_alink"}, 
                     childEl, 
                     React.createElement("div", {className: "clear"}))));

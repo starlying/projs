@@ -57,9 +57,9 @@ class OrgPage extends React.Component {
         const listEl = this.state.orgs.map((org) => {
             return (React.createElement("tr", null, 
                 React.createElement("td", null, 
-                    React.createElement("span", {className: "cor_red"}, org.organizaName)
+                    React.createElement("span", {className: "cor_red"}, org.orgName)
                 ), 
-                React.createElement("td", null, org.organizaType), 
+                React.createElement("td", null, org.orgType), 
                 React.createElement("td", null, org.isCancel ? "否" : "是"), 
                 React.createElement("td", null, 
                     React.createElement("a", {className: "m2fm_abtn", href: "#"}, "授权"), 

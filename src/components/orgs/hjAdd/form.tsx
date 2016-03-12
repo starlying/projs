@@ -40,7 +40,7 @@ export default class Form extends React.Component<P, S> {
     utils.DOM.prevent(e)
 
     const org = this.state.org
-    if (org.organizaName) {
+    if (org.orgName) {
       utils.DOM.loading(true)
       if (this.props.org) {
         client.orgs.edit(org, (err, res) => {
@@ -88,7 +88,7 @@ export default class Form extends React.Component<P, S> {
               </li>
               <li>
                 <span className="lay_s1">组织名称</span>
-                <input ref="organizaName" value={org.organizaName} onChange={this.onChange.bind(this, "organizaName")} type="text" className="m2fm_int m2fm_int10" name="" />
+                <input ref="organizaName" value={org.orgName} onChange={this.onChange.bind(this, "organizaName")} type="text" className="m2fm_int m2fm_int10" name="" />
               </li>
               <li>
                 <span className="lay_s1">组织属性</span>

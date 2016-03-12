@@ -25,7 +25,7 @@ class Form extends React.Component {
     onSubmit(e) {
         utils.DOM.prevent(e);
         const org = this.state.org;
-        if (org.organizaName) {
+        if (org.orgName) {
             utils.DOM.loading(true);
             if (this.props.org) {
                 client_1.default.orgs.edit(org, (err, res) => {
@@ -73,7 +73,7 @@ class Form extends React.Component {
                             React.createElement("span", {className: "lay_s1a"}, "XXXXXXX00235")), 
                         React.createElement("li", null, 
                             React.createElement("span", {className: "lay_s1"}, "组织名称"), 
-                            React.createElement("input", {ref: "organizaName", value: org.organizaName, onChange: this.onChange.bind(this, "organizaName"), type: "text", className: "m2fm_int m2fm_int10", name: ""})), 
+                            React.createElement("input", {ref: "organizaName", value: org.orgName, onChange: this.onChange.bind(this, "organizaName"), type: "text", className: "m2fm_int m2fm_int10", name: ""})), 
                         React.createElement("li", null, 
                             React.createElement("span", {className: "lay_s1"}, "组织属性"), 
                             React.createElement("div", {className: "m2fm_selContent"}, 
