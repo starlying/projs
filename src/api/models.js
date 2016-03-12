@@ -115,6 +115,7 @@ class Const {
 }
 Const.ACCESS_TOKEN = "X-Get3W-Access-Token";
 Const.USER = "X-Get3W-User";
+Const.MEMBER = "X-Get3W-Member";
 Const.FROM_LOCAL = "local";
 Const.FROM_CLOUD = "cloud";
 Const.DATA_TYPE_TEXT = "Text";

@@ -28,7 +28,7 @@ class LoginPage extends React.Component {
             client_1.default.users.login(userName, password, (err, res) => {
                 utils.DOM.loading(false);
                 if (!err) {
-                    this.props.actions.login(res.token, res.user);
+                    this.props.actions.login(res.token, res.user, res.member);
                     const path = `/`;
                     react_router_1.browserHistory.push(path);
                 }

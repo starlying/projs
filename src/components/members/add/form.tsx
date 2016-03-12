@@ -51,7 +51,7 @@ export default class Form extends React.Component<P, S> {
         client.members.edit(member, (err, res) => {
           utils.DOM.loading(false)
           if (!err) {
-            browserHistory.push("/member")
+            browserHistory.push("/members/")
           } else {
             utils.Swal.error(err)
           }
@@ -60,7 +60,7 @@ export default class Form extends React.Component<P, S> {
         client.members.create(member, (err, res) => {
           utils.DOM.loading(false)
           if (!err) {
-            browserHistory.push("/member")
+            browserHistory.push("/members/")
           } else {
             utils.Swal.error(err)
           }

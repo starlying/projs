@@ -44,7 +44,7 @@ class LoginPage extends React.Component<P, {}> {
       client.users.login(userName, password, (err, res) => {
         utils.DOM.loading(false)
         if (!err) {
-          this.props.actions.login(res.token, res.user)
+          this.props.actions.login(res.token, res.user, res.member)
           const path = `/`
           browserHistory.push(path)
         } else {

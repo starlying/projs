@@ -24,11 +24,12 @@ class Top extends React.Component<P, {}> {
   onSignup(e: React.MouseEvent) {
     utils.DOM.stop(e)
     this.props.actions.logout()
-    const path = `/login`
+    const path = `/login/`
     browserHistory.push(path)
   }
 
   render() {
+    if (!this.props.authState.user) return null;
     const display = this.props.authState.user.userName
     return (
       <div className="topBg">

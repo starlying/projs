@@ -37,7 +37,7 @@ class Form extends React.Component {
                 client_1.default.members.edit(member, (err, res) => {
                     utils.DOM.loading(false);
                     if (!err) {
-                        react_router_1.browserHistory.push("/member");
+                        react_router_1.browserHistory.push("/members/");
                     }
                     else {
                         utils.Swal.error(err);
@@ -48,7 +48,7 @@ class Form extends React.Component {
                 client_1.default.members.create(member, (err, res) => {
                     utils.DOM.loading(false);
                     if (!err) {
-                        react_router_1.browserHistory.push("/member");
+                        react_router_1.browserHistory.push("/members/");
                     }
                     else {
                         utils.Swal.error(err);

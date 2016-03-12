@@ -752,15 +752,21 @@ class Auth {
         var cookie = Page.getCookie(models.Const.USER);
         return Translate.base64IsValid(cookie) ? JSON.parse(Translate.base64ForUrlDecode(cookie)) : null;
     }
-    static cache(accessToken, user) {
+    static getMember() {
+        var cookie = Page.getCookie(models.Const.MEMBER);
+        return Translate.base64IsValid(cookie) ? JSON.parse(Translate.base64ForUrlDecode(cookie)) : null;
+    }
+    static cache(accessToken, user, member) {
         client_1.default.setToken(accessToken);
-        Page.setCookie(models.Const.ACCESS_TOKEN, accessToken, 7);
         Ajax.setHeader(accessToken);
+        Page.setCookie(models.Const.ACCESS_TOKEN, accessToken, 7);
         Page.setCookie(models.Const.USER, Translate.base64ForUrlEncode(JSON.stringify(user)), 7);
+        Page.setCookie(models.Const.MEMBER, Translate.base64ForUrlEncode(JSON.stringify(member)), 7);
     }
     static removeCache() {
         Page.removeCookie(models.Const.ACCESS_TOKEN);
         Page.removeCookie(models.Const.USER);
+        Page.removeCookie(models.Const.MEMBER);
         Ajax.setHeader('');
     }
 }

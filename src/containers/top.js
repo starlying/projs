@@ -13,10 +13,12 @@ class Top extends React.Component {
     onSignup(e) {
         utils.DOM.stop(e);
         this.props.actions.logout();
-        const path = `/login`;
+        const path = `/login/`;
         react_router_1.browserHistory.push(path);
     }
     render() {
+        if (!this.props.authState.user)
+            return null;
         const display = this.props.authState.user.userName;
         return (React.createElement("div", {className: "topBg"}, 
             React.createElement("div", {className: "wrapper"}, 

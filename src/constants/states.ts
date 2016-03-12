@@ -7,5 +7,6 @@ export interface AllState {
 export interface AuthState {
   token: string
   user: models.User
+  member: models.Member
   isAnonymous: boolean
 }

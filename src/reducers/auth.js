@@ -4,10 +4,12 @@ const types = require('../constants/actionTypes');
 const utils = require('../lib/utils');
 const token = utils.Auth.getToken();
 const user = utils.Auth.getUser();
+const member = utils.Auth.getMember();
 const isAnonymous = (token && user && user.id) ? false : true;
 const initialState = {
     token: token,
     user: user,
+    member: member,
     isAnonymous: isAnonymous
 };
 function authAppState(state = initialState, action) {
@@ -16,12 +18,14 @@ function authAppState(state = initialState, action) {
             return _.assign({}, state, {
                 token: action.token,
                 user: action.user,
+                member: action.member,
                 isAnonymous: (action.token && action.user && action.user.id) ? false : true
             });
         case types.AUTH_LOGOUT:
             return _.assign({}, state, {
                 token: "",
                 user: null,
+                member: null,
                 isAnonymous: true
             });
         default:

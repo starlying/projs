@@ -25,6 +25,7 @@ export default class Users {
   login(username: string, password: string, cb?: (err: models.Error, res: {
     token: string
     user: models.User
+    member: models.Member
   }) => void) {
     this.request.post('/users/actions/login', {
       username: username,
