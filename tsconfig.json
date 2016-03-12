@@ -20,6 +20,7 @@
     "src/actions/authActions.ts",
     "src/api/api.ts",
     "src/api/client/members.ts",
+    "src/api/client/orgs.ts",
     "src/api/client/users.ts",
     "src/api/http.ts",
     "src/api/models.ts",

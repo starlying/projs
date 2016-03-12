@@ -30,7 +30,7 @@ class MemberPage extends React.Component<P, S> {
   }
 
   componentDidMount() {
-    client.members.list('14', (err: models.Error, res) => {
+    client.members.list(this.props.authState.member.orgID, (err: models.Error, res) => {
       let members = []
       if (!err && res.members) {
         members = res.members
