@@ -48,15 +48,16 @@ class MemberPage extends React.Component<P, S> {
       return (
         <tr key={member.id}>
           <td><input className="lay-rad" name="" type="checkbox" value="" /></td>
-          <td><span className="cor_red">{member.userName}</span></td>
+          <td><a href={"/users/" + member.userName} target="_blank" className="cor_red">{member.userName}</a></td>
           <td>{member.userName}</td>
           <td>政企分公司</td>
           <td>2011年2月</td>
-          <td>4</td>
+          <td><a href="javascript:;" className="cor_red">4</a></td>
           <td>1300989900</td>
           <td>
+            <a className="m2fm_abtn" href="#">转出</a>
+            <a className="m2fm_abtn" href="#">列为积极分子</a>
             <Link className="m2fm_abtn" to={"/members/edit/" + member.id}>编辑</Link>
-            <a className="m2fm_abtn" href="#">转出</a><a className="m2fm_abtn" href="#">列为积极分子</a>
           </td>
         </tr>
       )

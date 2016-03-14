@@ -36,17 +36,19 @@ class MemberPage extends React.Component {
                     React.createElement("input", {className: "lay-rad", name: "", type: "checkbox", value: ""})
                 ), 
                 React.createElement("td", null, 
-                    React.createElement("span", {className: "cor_red"}, member.userName)
+                    React.createElement("a", {href: "/users/" + member.userName, target: "_blank", className: "cor_red"}, member.userName)
                 ), 
                 React.createElement("td", null, member.userName), 
                 React.createElement("td", null, "政企分公司"), 
                 React.createElement("td", null, "2011年2月"), 
-                React.createElement("td", null, "4"), 
+                React.createElement("td", null, 
+                    React.createElement("a", {href: "javascript:;", className: "cor_red"}, "4")
+                ), 
                 React.createElement("td", null, "1300989900"), 
                 React.createElement("td", null, 
-                    React.createElement(react_router_1.Link, {className: "m2fm_abtn", to: "/members/edit/" + member.id}, "编辑"), 
                     React.createElement("a", {className: "m2fm_abtn", href: "#"}, "转出"), 
-                    React.createElement("a", {className: "m2fm_abtn", href: "#"}, "列为积极分子"))));
+                    React.createElement("a", {className: "m2fm_abtn", href: "#"}, "列为积极分子"), 
+                    React.createElement(react_router_1.Link, {className: "m2fm_abtn", to: "/members/edit/" + member.id}, "编辑"))));
         });
         let pager = null;
         return (React.createElement("div", {className: "main2"}, 
