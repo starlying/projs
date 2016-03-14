@@ -4,16 +4,61 @@ class User {
     }
 }
 exports.User = User;
+class LearningExperiences {
+    constructor() {
+    }
+}
+exports.LearningExperiences = LearningExperiences;
+class WorkingExperiences {
+    constructor() {
+    }
+}
+exports.WorkingExperiences = WorkingExperiences;
 class Member {
     constructor() {
     }
 }
 exports.Member = Member;
+class Culturist {
+    constructor() {
+    }
+}
+exports.Culturist = Culturist;
+class Introducer {
+    constructor() {
+    }
+}
+exports.Introducer = Introducer;
+class PartyLectureRecord {
+    constructor() {
+    }
+}
+exports.PartyLectureRecord = PartyLectureRecord;
+class ArchivalRecords {
+    constructor() {
+    }
+}
+exports.ArchivalRecords = ArchivalRecords;
+class DevelopmentHistory {
+    constructor() {
+    }
+}
+exports.DevelopmentHistory = DevelopmentHistory;
 class Org {
     constructor() {
     }
 }
 exports.Org = Org;
+class OrgDynamics {
+    constructor() {
+    }
+}
+exports.OrgDynamics = OrgDynamics;
+class OrgTransfer {
+    constructor() {
+    }
+}
+exports.OrgTransfer = OrgTransfer;
 class Upload {
     constructor() {
     }
