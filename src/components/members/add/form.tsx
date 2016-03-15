@@ -20,6 +20,12 @@ interface S {
   isEdit: boolean
   isSex: boolean
   isApplyCalendar: boolean
+  isNationality: boolean
+  isEducation: boolean
+  isDegree: boolean
+  isNativePlace: boolean
+  isWorkingHours: boolean
+  isBirthDay: boolean
 }
 
 export default class Form extends React.Component<P, S> {
@@ -32,7 +38,13 @@ export default class Form extends React.Component<P, S> {
       member: member,
       isEdit: isEdit,
       isSex: false,
-      isApplyCalendar: false
+      isApplyCalendar: false,
+      isNationality: false,
+      isEducation: false,
+      isDegree: false,
+      isNativePlace: false,
+      isWorkingHours:false,
+      isBirthDay: false
     }
   }
 
@@ -44,7 +56,13 @@ export default class Form extends React.Component<P, S> {
       member: member,
       isEdit: isEdit,
       isSex: false,
-      isApplyCalendar: false
+      isApplyCalendar: false,
+      isNationality: false,
+      isEducation: false,
+      isDegree: false,
+      isNativePlace: false,
+      isWorkingHours:false,
+      isBirthDay: false
     })
   }
 
@@ -55,13 +73,21 @@ export default class Form extends React.Component<P, S> {
       user[name] = e.target.value
     }
     member[name] = e.target.value
-    this.setState({
-      user: user,
-      member: member,
-      isEdit: this.state.isEdit,
-      isSex: false,
-      isApplyCalendar: false,
-    });
+    this.state.user = user;
+    this.state.member = member;
+    this.reset()
+    this.setState(this.state);
+  }
+
+  reset() {
+    this.state.isSex = false
+    this.state.isEducation = false
+    this.state.isNationality = false
+    this.state.isApplyCalendar = false
+    this.state.isDegree = false
+    this.state.isNativePlace = false
+    this.state.isWorkingHours = false
+    this.state.isBirthDay = false
   }
 
   onValueChange(name: string, value: string, e){
@@ -71,29 +97,24 @@ export default class Form extends React.Component<P, S> {
       user[name] = value
     }
     member[name] = value
-    this.setState({
-      user: user,
-      member: member,
-      isEdit: this.state.isEdit,
-      isSex: false,
-      isApplyCalendar: false,
-    });
+    this.state.user = user;
+    this.state.member = member;
+    this.reset()
+    this.setState(this.state);
   }
 
   onCalendarSelect(name: string, value, e) {
     const user = this.state.user
     const member = this.state.member
+    const date = utils.Translate.toShortDate(new Date(value.time).toString())
     if (user) {
-      user[name] = utils.Translate.toMomentByDate(new Date(value.time)).format("YYYY-MM-DD")
+      user[name] = date
     }
-    member[name] = utils.Translate.toMomentByDate(new Date(value.time)).format("YYYY-MM-DD")
-    this.setState({
-      user: user,
-      member: member,
-      isEdit: this.state.isEdit,
-      isSex: false,
-      isApplyCalendar: false,
-    });
+    member[name] = date
+    this.state.user = user;
+    this.state.member = member;
+    this.reset()
+    this.setState(this.state);
   }
 
   onSubmit(e: React.MouseEvent) {
@@ -134,24 +155,9 @@ export default class Form extends React.Component<P, S> {
     }
   }
 
-  onSexClick(e) {
-    this.setState({
-      user: this.state.user,
-      member: this.state.member,
-      isEdit: this.state.isEdit,
-      isSex: !this.state.isSex,
-      isApplyCalendar: this.state.isApplyCalendar,
-    })
-  }
-
-  onApplyCalendarClick(e) {
-    this.setState({
-      user: this.state.user,
-      member: this.state.member,
-      isEdit: this.state.isEdit,
-      isSex: this.state.isSex,
-      isApplyCalendar: !this.state.isApplyCalendar,
-    })
+  onClick(name: string, e) {
+    this.state[name] = !this.state[name]
+    this.setState(this.state)
   }
 
   render() {
@@ -162,17 +168,19 @@ export default class Form extends React.Component<P, S> {
     if (this.state.isApplyCalendar) {
       applyCalendarEl = <RCCalendar locale={LOCALE} onSelect={this.onCalendarSelect.bind(this, 'applyPartyDate')} />
     }
-
+    let workingHoursCalendarEl = null
+    if (this.state.isWorkingHours) {
+      workingHoursCalendarEl = <RCCalendar locale={LOCALE} onSelect={this.onCalendarSelect.bind(this, 'workingHours')} />
+    }
+    let birthDayCalendarEl = null
+    if (this.state.isBirthDay) {
+      birthDayCalendarEl = <RCCalendar locale={LOCALE} onSelect={this.onCalendarSelect.bind(this, 'birthDay')} />
+    }
     const props = utils.UploadProps.getAvatarProps(user.userName, (result: {avatarUrl: string}) => {
       const user = this.state.user
       user.avatarUrl = result.avatarUrl
-      this.setState({
-        user: user,
-        member: this.state.member,
-        isEdit: this.state.isEdit,
-        isSex: false,
-        isApplyCalendar: false,
-      });
+      this.state.user = user;
+      this.setState(this.state)
     }, (message: string) => {
       utils.Swal.error({
         status: 0,
@@ -206,7 +214,7 @@ export default class Form extends React.Component<P, S> {
               <input value={user.displayName} onChange={this.onChange.bind(this, 'displayName')} className="m2fm_int" name="" type="text" /></li>
             <li>
               <span className="m2fm_s1"><strong className="cor_red">*</strong> 性  别：</span>
-              <input onClick={this.onSexClick.bind(this)} value={user.sex} placeholder="请选择" className="m2fm_int m2fm_int3" type="text" />
+              <input onClick={this.onClick.bind(this, "isSex")} value={user.sex} placeholder="请选择" className="m2fm_int m2fm_int3" type="text" />
               <div className="m2fm_selBox" style={{display: this.state.isSex ? "block" : "none"}}>
                 <dl>
                   <dd onClick={this.onValueChange.bind(this, "sex", "男")}>男</dd>
@@ -219,14 +227,16 @@ export default class Form extends React.Component<P, S> {
               <input ref="idCardNumber" className="m2fm_int" name="" type="text" /></li>
             <li>
               <span className="m2fm_s1"><strong className="cor_red">*</strong> 出生年月：</span>
-              <input placeholder="2016-01-20" className="m2fm_int m2fm_int2" name="" type="text" /></li>
+              <input value={utils.Translate.toShortDate(user.birthDay.toString())} onClick={this.onClick.bind(this,"isBirthDay")} onChange={this.onChange.bind(this, "birthDate")}  placeholder="2016-01-20" className="m2fm_int m2fm_int2" name="" type="text" />
+                 {birthDayCalendarEl}
+              </li>
             <li>
               <span className="m2fm_s1"><strong className="cor_red">*</strong> 民  族：</span>
-              <input placeholder="请选择" className="m2fm_int m2fm_int3" type="text" />
-              <div className="m2fm_selBox">
+              <input onClick={this.onClick.bind(this, "isNationality")} value={user.nationality}  placeholder="请选择" className="m2fm_int m2fm_int3" type="text" />
+              <div className="m2fm_selBox" style={{display: this.state.isNationality ? "block" : "none"}}>
                 <dl>
-                  <dd>汉</dd>
-                  <dd>维吾尔</dd>
+                  <dd onClick={this.onValueChange.bind(this, "nationality", "汉")}>汉</dd>
+                  <dd onClick={this.onValueChange.bind(this, "nationality", "维吾尔")}>维吾尔</dd>
                 </dl>
               </div>
             </li>
@@ -235,20 +245,21 @@ export default class Form extends React.Component<P, S> {
               <input className="m2fm_int" name="" type="text" /></li>
             <li>
               <span className="m2fm_s1"><strong className="cor_red">*</strong> 学  历：</span>
-              <input placeholder="大专" className="m2fm_int m2fm_int3" type="text" />
-              <div className="m2fm_selBox">
+              <input onClick={this.onClick.bind(this, "isEducation")} value={user.education}   placeholder="本科" className="m2fm_int m2fm_int3" type="text" />
+              <div className="m2fm_selBox" style={{display: this.state.isEducation ? "block" : "none"}}>
                 <dl>
-                  <dd>大专</dd>
-                  <dd>本科</dd>
+                  <dd onClick={this.onValueChange.bind(this, "education", "大专")}>大专</dd>
+                  <dd onClick={this.onValueChange.bind(this, "education", "本科")}>本科</dd>
                 </dl>
               </div></li>
             <li>
-              <span className="m2fm_s1"> 学  位：</span>
-              <input placeholder="博士" className="m2fm_int m2fm_int3" type="text" />
-              <div className="m2fm_selBox">
+              <span className="m2fm_s1"> 学  士：</span>
+              <input onClick={this.onClick.bind(this, "isDegree")} value={user.degree}  placeholder="博士" className="m2fm_int m2fm_int3" type="text" />
+              <div className="m2fm_selBox" style={{display: this.state.isDegree ? "block" : "none"}}>
                 <dl>
-                  <dd>博士</dd>
-                  <dd>博士</dd>
+                  <dd onClick={this.onValueChange.bind(this, "degree", "博士")}>博士</dd>
+                  <dd onClick={this.onValueChange.bind(this, "degree", "硕士")}>硕士</dd>
+                  <dd onClick={this.onValueChange.bind(this, "degree", "学士")}>学士</dd>
                 </dl>
               </div></li>
             <li>
@@ -262,7 +273,7 @@ export default class Form extends React.Component<P, S> {
               <input className="m2fm_int" name="" type="text" /></li>
             <li>
               <span className="m2fm_s1"> 申请入党日期：</span>
-              <input value={utils.Translate.toShortDate(member.applyPartyDate.toString())} onClick={this.onApplyCalendarClick.bind(this)} onChange={this.onChange.bind(this, "applyPartyDate")} className="m2fm_int m2fm_int2" name="" type="text" />
+              <input value={utils.Translate.toShortDate(member.applyPartyDate.toString())} onClick={this.onClick.bind(this,"isApplyCalendar")} onChange={this.onChange.bind(this, "applyPartyDate")} className="m2fm_int m2fm_int2" name="" type="text" />
               {applyCalendarEl}
             </li>
           </ul>
@@ -272,16 +283,17 @@ export default class Form extends React.Component<P, S> {
           <ul>
             <li>
               <span className="m2fm_s1"> 籍  贯：</span>
-              <input placeholder="请选择" className="m2fm_int m2fm_int3" type="text" />
-              <div className="m2fm_selBox">
+              <input onClick={this.onClick.bind(this, "isNativePlace")} value={user.nativePlace}   placeholder="请选择" className="m2fm_int m2fm_int3" type="text" />
+              <div className="m2fm_selBox" style={{display: this.state.isNativePlace ? "block" : "none"}}>
                 <dl>
-                  <dd>汉</dd>
-                  <dd>维吾尔</dd>
+                  <dd onClick={this.onValueChange.bind(this, "nativePlace", "北京")}>北京</dd>
+                  <dd onClick={this.onValueChange.bind(this, "nativePlace", "上海")}>上海</dd>
+                  <dd onClick={this.onValueChange.bind(this, "nativePlace", "广东")}>广东</dd>
                 </dl>
               </div>
             </li>
             <li>
-              <span className="m2fm_s1"><strong className="cor_red">*</strong> 工作岗位：：</span>
+              <span className="m2fm_s1"><strong className="cor_red">*</strong> 工作岗位：</span>
               <input placeholder="请选择" className="m2fm_int m2fm_int3" type="text" />
               <div className="m2fm_selBox">
                 <dl>
@@ -292,13 +304,12 @@ export default class Form extends React.Component<P, S> {
             </li>
             <li>
               <span className="m2fm_s1">参加工作日期：</span>
-              <input placeholder="2016-01-20" className="m2fm_int m2fm_int2" name="" type="text" /></li>
+              <input value={utils.Translate.toShortDate(user.workingHours.toString())} onClick={this.onClick.bind(this,"isWorkingHours")} onChange={this.onChange.bind(this, "workingHours")} placeholder="2016-01-20" className="m2fm_int m2fm_int2" name="" type="text" />
+              {workingHoursCalendarEl}
+              </li>
             <li>
               <span className="m2fm_s1">专业技术职务：</span>
               <input className="m2fm_int" name="" type="text" /></li>
-            <li>
-              <span className="m2fm_s1">工作岗位开始日期：</span>
-              <input placeholder="2016-01-20" className="m2fm_int m2fm_int2" name="" type="text" /></li>
           </ul>
           <div className="clear"></div>
         </div>
@@ -309,3 +320,9 @@ export default class Form extends React.Component<P, S> {
     )
   }
 }
+
+/*
+<li>
+  <span className="m2fm_s1">工作岗位开始日期：</span>
+  <input placeholder="2016-01-20" className="m2fm_int m2fm_int2" name="" type="text" /></li>
+*/
