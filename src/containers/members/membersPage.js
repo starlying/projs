@@ -10,7 +10,6 @@ const subNav_1 = require("../../components/members/subNav");
 const actions = require('../../actions/authActions');
 const constants = require('../../constants');
 const form_1 = require("../../components/members/lwjjfz/form");
-const form_2 = require("../../components/members/zhuanchu/form");
 class MemberPage extends React.Component {
     constructor(props) {
         super(props);
@@ -66,7 +65,7 @@ class MemberPage extends React.Component {
                 ), 
                 React.createElement("td", null, "1300989900"), 
                 React.createElement("td", null, 
-                    React.createElement("a", {onClick: this.onEdit.bind(this, constants.WinTypes.MEMBERS_ZHUANCHU, member.id), className: "m2fm_abtn", href: "#"}, "转出"), 
+                    React.createElement("a", {className: "m2fm_abtn", href: "#"}, "转出"), 
                     React.createElement("a", {onClick: this.onEdit.bind(this, constants.WinTypes.MEMBERS_LWJJFZ, member.id), className: "m2fm_abtn", href: "javascript:;"}, "列为积极分子"), 
                     React.createElement(react_router_1.Link, {className: "m2fm_abtn", to: "/members/edit/" + member.id}, "编辑"))));
         });
@@ -81,9 +80,6 @@ class MemberPage extends React.Component {
             });
             if (this.state.winType === constants.WinTypes.MEMBERS_LWJJFZ) {
                 formEl = React.createElement(form_1.default, {member: member, onClose: this.onClose.bind(this)});
-            }
-            else if (this.state.winType === constants.WinTypes.MEMBERS_ZHUANCHU) {
-                formEl = React.createElement(form_2.default, {member: member, onClose: this.onClose.bind(this)});
             }
         }
         return (React.createElement("div", {className: "main2"}, 

@@ -224,7 +224,7 @@ export default class Form extends React.Component<P, S> {
             </li>
             <li>
               <span className="m2fm_s1"><strong className="cor_red">*</strong> 身份证号：</span>
-              <input ref="idCardNumber" className="m2fm_int" name="" type="text" /></li>
+              <input value={user.idCardNumber} onChange={this.onChange.bind(this, 'idCardNumber')}  ref="idCardNumber" className="m2fm_int" name="" type="text" /></li>
             <li>
               <span className="m2fm_s1"><strong className="cor_red">*</strong> 出生年月：</span>
               <input value={utils.Translate.toShortDate(user.birthDay.toString())} onClick={this.onClick.bind(this,"isBirthDay")} onChange={this.onChange.bind(this, "birthDate")}  placeholder="2016-01-20" className="m2fm_int m2fm_int2" name="" type="text" />
@@ -242,7 +242,7 @@ export default class Form extends React.Component<P, S> {
             </li>
             <li>
               <span className="m2fm_s1"> 职  务：</span>
-              <input className="m2fm_int" name="" type="text" /></li>
+              <input value={user.administrativeDuties} onChange={this.onChange.bind(this, 'administrativeDuties')}  ref="administrativeDuties"  className="m2fm_int" name="" type="text" /></li>
             <li>
               <span className="m2fm_s1"><strong className="cor_red">*</strong> 学  历：</span>
               <input onClick={this.onClick.bind(this, "isEducation")} value={user.education}   placeholder="本科" className="m2fm_int m2fm_int3" type="text" />
@@ -264,13 +264,13 @@ export default class Form extends React.Component<P, S> {
               </div></li>
             <li>
               <span className="m2fm_s1"> 联系电话：</span>
-              <input className="m2fm_int" name="" type="text" /></li>
+              <input value={user.tel} onChange={this.onChange.bind(this, 'tel')}  ref="tel"  className="m2fm_int" name="" type="text" /></li>
             <li>
               <span className="m2fm_s1"> 手机号码：</span>
-              <input className="m2fm_int" name="" type="text" /></li>
+              <input value={user.mobile} onChange={this.onChange.bind(this, 'mobile')}  ref="mobile" className="m2fm_int" name="" type="text" /></li>
             <li>
               <span className="m2fm_s1"> 邮  箱：</span>
-              <input className="m2fm_int" name="" type="text" /></li>
+              <input value={user.email} onChange={this.onChange.bind(this, 'email')}  ref="email" className="m2fm_int" name="" type="text" /></li>
             <li>
               <span className="m2fm_s1"> 申请入党日期：</span>
               <input value={utils.Translate.toShortDate(member.applyPartyDate.toString())} onClick={this.onClick.bind(this,"isApplyCalendar")} onChange={this.onChange.bind(this, "applyPartyDate")} className="m2fm_int m2fm_int2" name="" type="text" />
@@ -309,7 +309,7 @@ export default class Form extends React.Component<P, S> {
               </li>
             <li>
               <span className="m2fm_s1">专业技术职务：</span>
-              <input className="m2fm_int" name="" type="text" /></li>
+              <input value={user.technicalPositions} onChange={this.onChange.bind(this, 'technicalPositions')}  ref="technicalPositions"  className="m2fm_int" name="" type="text" /></li>
           </ul>
           <div className="clear"></div>
         </div>

@@ -4,6 +4,11 @@ class User {
     }
 }
 exports.User = User;
+class Message {
+    constructor() {
+    }
+}
+exports.Message = Message;
 class LearningExperiences {
     constructor() {
     }
