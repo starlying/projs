@@ -98,7 +98,7 @@ class Form extends React.Component {
         const member = this.state.member;
         if (member.userName) {
             utils.DOM.loading(true);
-            client_1.default.users.edit(user, (err, res) => {
+            client_1.default.users.edit(user.userName, user, (err, res) => {
                 if (!err) {
                     if (this.state.isEdit) {
                         client_1.default.members.edit(member, (err, res) => {

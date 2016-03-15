@@ -126,7 +126,7 @@ export default class Form extends React.Component<P, S> {
     if (member.userName) {
       utils.DOM.loading(true)
 
-      client.users.edit(user, (err, res) => {
+      client.users.edit(user.userName, user, (err, res) => {
         if (!err) {
           if (this.state.isEdit) {
             client.members.edit(member, (err, res) => {
