@@ -10,7 +10,11 @@ import * as utils from '../../../lib/utils';
 import Location from "../../../components/location"
 import SubNav from "../../../components/members/subNav"
 import * as actions from '../../../actions/authActions';
-import * as links from '../../../constants/links'
+import * as constants from '../../../constants'
+import LWFZDX from "../../../components/members/lwfzdx/form"
+import ZHUANCHU from "../../../components/members/zhuanchu/form"
+import DKXXJL from "../../../components/members/dkxxjl/form"
+import FPPYR from "../../../components/members/fppyr/form"
 
 interface P {
   actions?: any,
@@ -75,13 +79,13 @@ class JJPage extends React.Component<P, S> {
           <td>政企分公司</td>
           <td>李四</td>
           <td>2011年2月</td>
-          <td><a href="javascript:;" className="cor_red">党课学习记录</a></td>
+          <td><a onClick={this.onEdit.bind(this, constants.WinTypes.MEMBERS_DKXXJL, member.id)} href="javascript:;" className="cor_red">党课学习记录</a></td>
           <td>1300989900</td>
           <td>
-            <a onClick={this.onEdit.bind(this, 'jsr', member.id)} className="m2fm_abtn" href="javascript:;">分配介绍人</a>
-            <a className="m2fm_abtn" href="#">转出</a>
-            <a className="m2fm_abtn" href="#">列为预备党员</a>
-            <Link className="m2fm_abtn" to={"/members/edit/" + member.id}>编辑</Link>
+            <a onClick={this.onEdit.bind(this, constants.WinTypes.MEMBERS_FPPYR, member.id)} href="javascript:;" className="m2fm_abtn">分配培养人</a>
+            <a onClick={this.onEdit.bind(this, constants.WinTypes.MEMBERS_ZHUANCHU, member.id)} href="javascript:;" className="m2fm_abtn">转出</a>
+            <a onClick={this.onEdit.bind(this, constants.WinTypes.MEMBERS_LWFZDX, member.id)} href="javascript:;" className="m2fm_abtn">列为发展对象</a>
+            <Link className="m2fm_abtn" to={constants.Links.MEMBERS_EDIT_ + member.id}>编辑</Link>
           </td>
         </tr>
       )
@@ -105,8 +109,28 @@ class JJPage extends React.Component<P, S> {
     //   </div>
     // )
 
+    let formEl = null
+    if (this.state.winType) {
+      let member = null
+      this.state.members.forEach((m: models.Member) => {
+        if (this.state.id === m.id) {
+          member = m
+        }
+      })
+      if (this.state.winType === constants.WinTypes.MEMBERS_DKXXJL) {
+        formEl = <DKXXJL member={member} onClose={this.onClose.bind(this)} />
+      } else if (this.state.winType === constants.WinTypes.MEMBERS_LWFZDX) {
+        formEl = <LWFZDX member={member} onClose={this.onClose.bind(this)} />
+      } else if (this.state.winType === constants.WinTypes.MEMBERS_ZHUANCHU) {
+        formEl = <ZHUANCHU member={member} onClose={this.onClose.bind(this)} />
+      } else if (this.state.winType === constants.WinTypes.MEMBERS_FPPYR) {
+        formEl = <FPPYR member={member} onClose={this.onClose.bind(this)} />
+      }
+    }
+
     return (
       <div className="main2">
+        {formEl}
         <Location />
         <SubNav />
         <div className="m2fm_stop">
@@ -117,7 +141,7 @@ class JJPage extends React.Component<P, S> {
           <span className="m2fm_ss1 m2fm_ss2">至</span>
           <input type="text" name="" className="m2fm_int m2fm_int2" placeholder="2016-01-20" />
           <input type="submit" name="" className="m2submit" value="" />
-          <Link to={links.MEMBERS_ADD} className="m2addBtn"><img src="/assets/images/m2btn.jpg" width="76" height="32" /></Link>
+          <Link to={constants.Links.MEMBERS_ADD} className="m2addBtn"><img src="/assets/images/m2btn.jpg" width="76" height="32" /></Link>
         </div>
         <div className="m2fm_tabBox m2fm_tabBox2">
           <table width="100%">

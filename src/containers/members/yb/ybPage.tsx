@@ -10,7 +10,11 @@ import * as utils from '../../../lib/utils';
 import Location from "../../../components/location"
 import SubNav from "../../../components/members/subNav"
 import * as actions from '../../../actions/authActions';
-import * as links from '../../../constants/links'
+import * as constants from '../../../constants'
+import HYJY from "../../../components/members/hyjy/form"
+import YCYBQ from "../../../components/members/ycybq/form"
+import QXZG from "../../../components/members/qxzg/form"
+import LWDY from "../../../components/members/lwdy/form"
 
 interface P {
   actions?: any,
@@ -74,17 +78,36 @@ class YBPage extends React.Component<P, S> {
           <td>男</td>
           <td>李四</td>
           <td>2011年2月</td>
-          <td><a href="javascript:;" className="cor_red">会议纪要</a></td>
+          <td><a onClick={this.onEdit.bind(this, constants.WinTypes.MEMBERS_HYJY, member.id)} href="javascript:;" className="cor_red">会议纪要</a></td>
           <td>1300989900</td>
           <td>
-            <a onClick={this.onEdit.bind(this, 'jsr', member.id)} className="m2fm_abtn" href="javascript:;">延长预备期</a>
-            <a className="m2fm_abtn" href="#">取消资格</a>
-            <a className="m2fm_abtn" href="#">列为党员</a>
-            <Link className="m2fm_abtn" to={"/members/edit/" + member.id}>编辑</Link>
+            <a onClick={this.onEdit.bind(this, constants.WinTypes.MEMBERS_YCYBQ, member.id)} className="m2fm_abtn" href="javascript:;">延长预备期</a>
+            <a onClick={this.onEdit.bind(this, constants.WinTypes.MEMBERS_QXZG, member.id)} className="m2fm_abtn" href="javascript:;">取消资格</a>
+            <a onClick={this.onEdit.bind(this, constants.WinTypes.MEMBERS_LWDY, member.id)} className="m2fm_abtn" href="javascript:;">列为党员</a>
+            <Link className="m2fm_abtn" to={constants.Links.MEMBERS_EDIT_ + member.id}>编辑</Link>
           </td>
         </tr>
       )
     })
+
+    let formEl = null
+    if (this.state.winType) {
+      let member = null
+      this.state.members.forEach((m: models.Member) => {
+        if (this.state.id === m.id) {
+          member = m
+        }
+      })
+      if (this.state.winType === constants.WinTypes.MEMBERS_HYJY) {
+        formEl = <HYJY member={member} onClose={this.onClose.bind(this)} />
+      } else if (this.state.winType === constants.WinTypes.MEMBERS_YCYBQ) {
+        formEl = <YCYBQ member={member} onClose={this.onClose.bind(this)} />
+      } else if (this.state.winType === constants.WinTypes.MEMBERS_QXZG) {
+        formEl = <QXZG member={member} onClose={this.onClose.bind(this)} />
+      } else if (this.state.winType === constants.WinTypes.MEMBERS_LWDY) {
+        formEl = <LWDY member={member} onClose={this.onClose.bind(this)} />
+      }
+    }
 
     let pager = null
     // pager = (
@@ -106,6 +129,7 @@ class YBPage extends React.Component<P, S> {
 
     return (
       <div className="main2">
+        {formEl}
         <Location />
         <SubNav />
         <div className="m2fm_stop">
@@ -116,7 +140,7 @@ class YBPage extends React.Component<P, S> {
           <span className="m2fm_ss1 m2fm_ss2">至</span>
           <input type="text" name="" className="m2fm_int m2fm_int2" placeholder="2016-01-20" />
           <input type="submit" name="" className="m2submit" value="" />
-          <Link to={links.MEMBERS_ADD} className="m2addBtn"><img src="/assets/images/m2btn.jpg" width="76" height="32" /></Link>
+          <Link to={constants.Links.MEMBERS_ADD} className="m2addBtn"><img src="/assets/images/m2btn.jpg" width="76" height="32" /></Link>
         </div>
         <div className="m2fm_tabBox m2fm_tabBox2">
           <table width="100%">

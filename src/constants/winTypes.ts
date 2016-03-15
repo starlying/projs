@@ -1,3 +1,13 @@
 export const MEMBERS_FPJSR = 'MEMBERS_FPJSR'; //分配介绍人
+export const MEMBERS_FPPYR = 'MEMBERS_FPPYR'; //分配培养人
 export const MEMBERS_LWJJFZ = 'MEMBERS_LWJJFZ'; //列为积极分子
+export const MEMBERS_LWFZDX = 'MEMBERS_LWFZDX'; //列为发展对象
+export const MEMBERS_LWYBDY = 'MEMBERS_LWYBDY'; //列为预备党员
+export const MEMBERS_LWDY = 'MEMBERS_LWDY'; //列为党员
 export const MEMBERS_ZHUANCHU = 'MEMBERS_ZHUANCHU'; //转出
+export const MEMBERS_ZSCL = 'MEMBERS_ZSCL'; //政审材料
+export const MEMBERS_GONGSHI = 'MEMBERS_GONGSHI'; //公示
+export const MEMBERS_DKXXJL = 'MEMBERS_DKXXJL'; //党课学习记录
+export const MEMBERS_HYJY = 'MEMBERS_HYJY'; //会议纪要
+export const MEMBERS_YCYBQ = 'MEMBERS_YCYBQ'; //延长预备期
+export const MEMBERS_QXZG = 'MEMBERS_QXZG'; //取消资格

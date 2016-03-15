@@ -15,7 +15,7 @@ interface S {
   member: models.Member
 }
 
-export default class FPJSR extends React.Component<P, S> {
+export default class FPPYR extends React.Component<P, S> {
   constructor(props) {
     super(props)
     this.state = {
@@ -66,7 +66,7 @@ export default class FPJSR extends React.Component<P, S> {
   render() {
     const member = this.state.member
 
-    const title = '介绍人管理'
+    const title = '培养人管理'
     return (
       <div>
         <div className="layerBg"></div>
@@ -74,6 +74,12 @@ export default class FPJSR extends React.Component<P, S> {
           <i className="layerClose" onClick={this.props.onClose.bind(this)}></i>
           <div className="layer_t">{title}</div>
           <div className="m2nadBox">
+            <div className="m2fmNav">
+             <ul>
+              <li><a href="javascript:;" className="m2fm_a1">申请人管理</a></li>
+              <li><a href="javascript:;" className="m2fm_a1">积极分子管理</a></li>
+             </ul>
+            </div>
             <ul>
               <li>
                 <span className="lay_s1">界数</span><span className="lay_s1a">XXXXXXX 组织</span>

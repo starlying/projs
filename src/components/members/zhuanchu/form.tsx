@@ -66,29 +66,13 @@ export default class ZHUANCHU extends React.Component<P, S> {
   render() {
     const member = this.state.member
 
-    const title = '是否将' + member.userName + '从本组织转出'
+    const title = '是否将' + member.displayName + '从本组织转出'
     return (
       <div>
         <div className="layerBg"></div>
         <div className="layerCon1 layerCon3 layerCon3b">
           <i className="layerClose" onClick={this.props.onClose.bind(this)}></i>
           <div className="layer_t">{title}</div>
-          <div className="m2nadBox">
-            <ul>
-              <li>
-                <span className="lay_s1">是否转出</span>
-                <div className="m2fm_selContent">
-                  <input type="text" className="m2fm_int m2fm_int3" placeholder="请选择" />
-                  <div className="m2fm_selBox" style={{display:'none'}}>
-                    <dl>
-                      <dd>党员</dd>
-                      <dd>非党员</dd>
-                    </dl>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
           <div className="m2btnBox2">
             <a href="javascript:;" className="m2btn_a1" onClick={this.onSubmit.bind(this)}>确 定</a>
             <a href="javascript:;" className="m2btn_a2" onClick={this.props.onClose.bind(this)}>取 消</a>

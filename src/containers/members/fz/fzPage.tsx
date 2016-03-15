@@ -11,7 +11,12 @@ import Location from "../../../components/location"
 import SubNav from "../../../components/members/subNav"
 import * as actions from '../../../actions/authActions';
 import * as constants from '../../../constants'
+import LWYBDY from "../../../components/members/lwybdy/form"
+import ZHUANCHU from "../../../components/members/zhuanchu/form"
+import DKXXJL from "../../../components/members/dkxxjl/form"
 import FPJSR from "../../../components/members/fpjsr/form"
+import ZSCL from "../../../components/members/zscl/form"
+import GONGSHI from "../../../components/members/gongshi/form"
 
 interface P {
   actions?: any,
@@ -75,14 +80,14 @@ class FZPage extends React.Component<P, S> {
           <td>{member.userName}</td>
           <td>政企分公司</td>
           <td>2011年2月</td>
-          <td><a href="javascript:;" className="cor_red">政审材料</a></td>
-          <td><a href="javascript:;" className="cor_red">公示</a></td>
+          <td><a onClick={this.onEdit.bind(this, constants.WinTypes.MEMBERS_ZSCL, member.id)} href="javascript:;" className="cor_red">政审材料</a></td>
+          <td><a onClick={this.onEdit.bind(this, constants.WinTypes.MEMBERS_GONGSHI, member.id)} href="javascript:;" className="cor_red">公示</a></td>
           <td>1300989900</td>
           <td>
             <a onClick={this.onEdit.bind(this, constants.WinTypes.MEMBERS_FPJSR, member.id)} className="m2fm_abtn" href="javascript:;">分配介绍人</a>
-            <a className="m2fm_abtn" href="#">转出</a>
-            <a className="m2fm_abtn" href="#">列为预备党员</a>
-            <Link className="m2fm_abtn" to={"/members/edit/" + member.id}>编辑</Link>
+            <a onClick={this.onEdit.bind(this, constants.WinTypes.MEMBERS_ZHUANCHU, member.id)} href="javascript:;" className="m2fm_abtn">转出</a>
+            <a onClick={this.onEdit.bind(this, constants.WinTypes.MEMBERS_LWYBDY, member.id)} href="javascript:;" className="m2fm_abtn">列为预备党员</a>
+            <Link className="m2fm_abtn" to={constants.Links.MEMBERS_EDIT_ + member.id}>编辑</Link>
           </td>
         </tr>
       )
@@ -96,8 +101,18 @@ class FZPage extends React.Component<P, S> {
           member = m
         }
       })
-      if (this.state.winType === constants.WinTypes.MEMBERS_FPJSR) {
+      if (this.state.winType === constants.WinTypes.MEMBERS_DKXXJL) {
+        formEl = <DKXXJL member={member} onClose={this.onClose.bind(this)} />
+      } else if (this.state.winType === constants.WinTypes.MEMBERS_LWYBDY) {
+        formEl = <LWYBDY member={member} onClose={this.onClose.bind(this)} />
+      } else if (this.state.winType === constants.WinTypes.MEMBERS_ZHUANCHU) {
+        formEl = <ZHUANCHU member={member} onClose={this.onClose.bind(this)} />
+      } else if (this.state.winType === constants.WinTypes.MEMBERS_FPJSR) {
         formEl = <FPJSR member={member} onClose={this.onClose.bind(this)} />
+      } else if (this.state.winType === constants.WinTypes.MEMBERS_ZSCL) {
+        formEl = <ZSCL member={member} onClose={this.onClose.bind(this)} />
+      } else if (this.state.winType === constants.WinTypes.MEMBERS_GONGSHI) {
+        formEl = <GONGSHI member={member} onClose={this.onClose.bind(this)} />
       }
     }
 

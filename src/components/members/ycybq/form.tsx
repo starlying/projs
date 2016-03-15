@@ -66,7 +66,7 @@ export default class FPJSR extends React.Component<P, S> {
   render() {
     const member = this.state.member
 
-    const title = '介绍人管理'
+    const title = '延长预备期'
     return (
       <div>
         <div className="layerBg"></div>
