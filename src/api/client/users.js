@@ -46,6 +46,9 @@ class Users {
             password: password
         }, cb);
     }
+    getUploadAvatarUrl(username) {
+        return this.request.getURL('/users/actions/upload_avatar/' + username);
+    }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Users;
