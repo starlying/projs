@@ -19,6 +19,11 @@ class Member {
     }
 }
 exports.Member = Member;
+class MigrantMember {
+    constructor() {
+    }
+}
+exports.MigrantMember = MigrantMember;
 class Culturist {
     constructor() {
     }
@@ -49,6 +54,16 @@ class Org {
     }
 }
 exports.Org = Org;
+class OrgLeader {
+    constructor() {
+    }
+}
+exports.OrgLeader = OrgLeader;
+class ElectionHistory {
+    constructor() {
+    }
+}
+exports.ElectionHistory = ElectionHistory;
 class OrgDynamics {
     constructor() {
     }
@@ -59,6 +74,16 @@ class OrgTransfer {
     }
 }
 exports.OrgTransfer = OrgTransfer;
+class MeetingType {
+    constructor() {
+    }
+}
+exports.MeetingType = MeetingType;
+class Meeting {
+    constructor() {
+    }
+}
+exports.Meeting = Meeting;
 class Upload {
     constructor() {
     }
