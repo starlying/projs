@@ -15,7 +15,7 @@ interface S {
   member: models.Member
 }
 
-export default class LWJJFZ extends React.Component<P, S> {
+export default class ZHUANCHU extends React.Component<P, S> {
   constructor(props) {
     super(props)
     this.state = {
@@ -66,7 +66,7 @@ export default class LWJJFZ extends React.Component<P, S> {
   render() {
     const member = this.state.member
 
-    const title = '将' + member.userName + '列为积极分子'
+    const title = '是否将' + member.userName + '从本组织转出'
     return (
       <div>
         <div className="layerBg"></div>
@@ -76,7 +76,7 @@ export default class LWJJFZ extends React.Component<P, S> {
           <div className="m2nadBox">
             <ul>
               <li>
-                <span className="lay_s1">会议名称</span>
+                <span className="lay_s1">是否转出</span>
                 <div className="m2fm_selContent">
                   <input type="text" className="m2fm_int m2fm_int3" placeholder="请选择" />
                   <div className="m2fm_selBox" style={{display:'none'}}>
@@ -86,10 +86,6 @@ export default class LWJJFZ extends React.Component<P, S> {
                     </dl>
                   </div>
                 </div>
-              </li>
-              <li>
-                <span className="lay_s1">成为积极分子时间</span>
-                <input type="text" className="m2fm_int m2fm_int2 m2fm_int10" name="" />
               </li>
             </ul>
           </div>

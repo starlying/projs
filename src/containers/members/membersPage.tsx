@@ -12,6 +12,7 @@ import * as actions from '../../actions/authActions';
 import * as states from '../../constants/states'
 import * as constants from '../../constants'
 import LWJJFZ from "../../components/members/lwjjfz/form"
+import ZHUANCHU from "../../components/members/zhuanchu/form"
 
 interface P {
   actions?: any,
@@ -78,7 +79,7 @@ class MemberPage extends React.Component<P, S> {
           <td><a href="javascript:;" className="cor_red">4</a></td>
           <td>1300989900</td>
           <td>
-            <a className="m2fm_abtn" href="#">转出</a>
+            <a onClick={this.onEdit.bind(this, constants.WinTypes.MEMBERS_ZHUANCHU, member.id)} className="m2fm_abtn" href="#">转出</a>
             <a onClick={this.onEdit.bind(this, constants.WinTypes.MEMBERS_LWJJFZ, member.id)} className="m2fm_abtn" href="javascript:;">列为积极分子</a>
             <Link className="m2fm_abtn" to={"/members/edit/" + member.id}>编辑</Link>
           </td>
@@ -114,6 +115,8 @@ class MemberPage extends React.Component<P, S> {
       })
       if (this.state.winType === constants.WinTypes.MEMBERS_LWJJFZ) {
         formEl = <LWJJFZ member={member} onClose={this.onClose.bind(this)} />
+      } else if (this.state.winType === constants.WinTypes.MEMBERS_ZHUANCHU) {
+        formEl = <ZHUANCHU member={member} onClose={this.onClose.bind(this)} />
       }
     }
 

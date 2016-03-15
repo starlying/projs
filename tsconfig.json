@@ -101,11 +101,7 @@
     "src/components/members/fpjsr/form.tsx",
     "src/components/members/lwjjfz/form.tsx",
     "src/components/members/subNav.tsx",
-<<<<<<< HEAD
-    "src/components/members/zc/form.tsx",
-=======
     "src/components/members/zhuanchu/form.tsx",
->>>>>>> 60a753e698aa2131d4169c10c6dca0cc8677849f
     "src/components/nav.tsx",
     "src/components/notFoundPage.tsx",
     "src/components/orgs/add/form.tsx",
