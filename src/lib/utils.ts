@@ -80,7 +80,7 @@ export class UploadProps {
       dataType: 'json',
       accept: accept,
       maxFileSize: 5000000, // 5 MB
-      withCredentials: true,
+      withCredentials: false,
       onStart(files) {
         DOM.loading(true)
       },

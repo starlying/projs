@@ -69,7 +69,7 @@ class UploadProps {
             dataType: 'json',
             accept: accept,
             maxFileSize: 5000000,
-            withCredentials: true,
+            withCredentials: false,
             onStart(files) {
                 DOM.loading(true);
             },

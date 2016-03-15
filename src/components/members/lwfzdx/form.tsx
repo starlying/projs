@@ -15,7 +15,7 @@ interface S {
   member: models.Member
 }
 
-export default class FPJSR extends React.Component<P, S> {
+export default class LWFZDX extends React.Component<P, S> {
   constructor(props) {
     super(props)
     this.state = {
@@ -66,33 +66,20 @@ export default class FPJSR extends React.Component<P, S> {
   render() {
     const member = this.state.member
 
-    const title = '介绍人管理'
+    const title = '将' + member.userName + '列为发展对象'
     return (
       <div>
         <div className="layerBg"></div>
-        <div className="layerCon1 layerCon3 layerCon3a">
+        <div className="layerCon1 layerCon3 layerCon3b">
           <i className="layerClose" onClick={this.props.onClose.bind(this)}></i>
           <div className="layer_t">{title}</div>
           <div className="m2nadBox">
             <ul>
               <li>
-                <span className="lay_s1">界数</span><span className="lay_s1a">XXXXXXX 组织</span>
-              </li>
-              <li>
-                <span className="lay_s1">上级组织代码</span><span className="lay_s1a">XXXXXXX00235</span>
-              </li>
-              <li>
-                <span className="lay_s1">党组织编码</span><span className="lay_s1a">XXXXXXX00235</span>
-              </li>
-              <li>
-                <span className="lay_s1">组织名称</span>
-                <input ref="memberanizaName" value={member.userName} onChange={this.onChange.bind(this, "memberanizaName")} type="text" className="m2fm_int m2fm_int10" name="" />
-              </li>
-              <li>
-                <span className="lay_s1">组织属性</span>
+                <span className="lay_s1">会议名称</span>
                 <div className="m2fm_selContent">
                   <input type="text" className="m2fm_int m2fm_int3" placeholder="请选择" />
-                  <div className="m2fm_selBox">
+                  <div className="m2fm_selBox" style={{display:'none'}}>
                     <dl>
                       <dd>党员</dd>
                       <dd>非党员</dd>
@@ -101,19 +88,7 @@ export default class FPJSR extends React.Component<P, S> {
                 </div>
               </li>
               <li>
-                <span className="lay_s1">建立日期</span>
-                <input type="text" className="m2fm_int m2fm_int2 m2fm_int10" name="" />
-              </li>
-              <li>
-                <span className="lay_s1">联系电话</span>
-                <input type="text" className="m2fm_int m2fm_int10" name="" />
-              </li>
-              <li>
-                <span className="lay_s1">通讯地址</span>
-                <input type="text" className="m2fm_int m2fm_int10" name="" />
-              </li>
-              <li>
-                <span className="lay_s1">建立日期</span>
+                <span className="lay_s1">成为积极分子时间</span>
                 <input type="text" className="m2fm_int m2fm_int2 m2fm_int10" name="" />
               </li>
             </ul>

@@ -15,7 +15,7 @@ interface S {
   member: models.Member
 }
 
-export default class FPJSR extends React.Component<P, S> {
+export default class HYJY extends React.Component<P, S> {
   constructor(props) {
     super(props)
     this.state = {
@@ -66,7 +66,7 @@ export default class FPJSR extends React.Component<P, S> {
   render() {
     const member = this.state.member
 
-    const title = '介绍人管理'
+    const title = '会议纪要'
     return (
       <div>
         <div className="layerBg"></div>

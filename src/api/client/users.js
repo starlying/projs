@@ -11,8 +11,8 @@ class Users {
             password: password
         }, cb);
     }
-    edit(data, cb) {
-        this.request.patch('/users', data, cb);
+    edit(userName, data, cb) {
+        this.request.patch('/users/' + userName, data, cb);
     }
     login(username, password, cb) {
         this.request.post('/users/actions/login', {
