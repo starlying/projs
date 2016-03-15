@@ -2,6 +2,7 @@
 exports.INDEX = '/';
 exports.LOGIN = '/login';
 exports.USERS_ = '/users/:userName';
+exports.PARTY_MEMBERS = '/partymembers/';
 exports.MEMBERS = '/members/';
 exports.MEMBERS_JJ = '/members/jj';
 exports.MEMBERS_FZ = '/members/fz';

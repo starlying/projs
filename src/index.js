@@ -19,6 +19,7 @@ const ybPage_1 = require('./containers/members/yb/ybPage');
 const userPage_1 = require('./containers/users/userPage');
 const notFoundPage_1 = require('./components/notFoundPage');
 const loginPage_1 = require('./containers/login/loginPage');
+const partyMembersPage_1 = require('./containers/partymembers/partyMembersPage');
 const links = require('./constants/links');
 utils.Page.xDomain();
 const store = configureStore_1.default();
@@ -28,6 +29,7 @@ react_dom_1.render(React.createElement(react_redux_1.Provider, {store: store},
         React.createElement(react_router_1.Route, {path: links.INDEX, component: app_1.default}, 
             React.createElement(react_router_1.IndexRoute, {component: indexPage_1.default}), 
             React.createElement(react_router_1.Route, {path: links.USERS_, component: userPage_1.default}), 
+            React.createElement(react_router_1.Route, {path: links.PARTY_MEMBERS, component: partyMembersPage_1.default}), 
             React.createElement(react_router_1.Route, {path: links.ORGS, component: orgsPage_1.default}), 
             React.createElement(react_router_1.Route, {path: links.ORGS_JG, component: jgPage_1.default}), 
             React.createElement(react_router_1.Route, {path: links.ORGS_HJ, component: hjPage_1.default}), 

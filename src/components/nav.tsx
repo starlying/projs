@@ -9,7 +9,7 @@ class Nav extends React.Component<{}, {}> {
       <div className="nav">
         <ul>
          <li><IndexLink to={links.INDEX} className="nav_a" activeClassName="on">首  页</IndexLink></li>
-         <li><a href="#" className="nav_a">党员管理</a></li>
+         <li><Link to={links.PARTY_MEMBERS} className="nav_a" activeClassName="on">党员管理</Link></li>
          <li><a href="#" className="nav_a">党委工作</a></li>
          <li><Link to={links.ORGS} className="nav_a" activeClassName="on">党组织</Link></li>
          <li><Link to={links.MEMBERS} className="nav_a" activeClassName="on">党员发展</Link></li>
