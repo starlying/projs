@@ -100,6 +100,7 @@
     "src/components/members/fpjsr/form.tsx",
     "src/components/members/lwjjfz/form.tsx",
     "src/components/members/subNav.tsx",
+    "src/components/members/zc/form.tsx",
     "src/components/nav.tsx",
     "src/components/notFoundPage.tsx",
     "src/components/orgs/add/form.tsx",
