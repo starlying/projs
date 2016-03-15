@@ -70,4 +70,8 @@ export default class Users {
       password: password
     }, cb)
   }
+
+  getUploadAvatarUrl(username: string): string {
+    return this.request.getURL('/users/actions/upload_avatar/' + username)
+  }
 }

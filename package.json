@@ -12,6 +12,7 @@
     "moment": "^2.11.2",
     "mustache": "^2.2.1",
     "node-uuid": "^1.4.7",
+    "rc-calendar": "^5.4.2",
     "rc-upload": "^1.8.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",

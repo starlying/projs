@@ -64,6 +64,44 @@ export class Component {
   }
 }
 
+export class UploadProps {
+  static getAvatarProps(username: string, success: (result: {avatarUrl: string}) => void, fail?: (message: string) => void) {
+    const url = client.users.getUploadAvatarUrl(username)
+    return UploadProps.getProps(url, false, "image/*", success, fail)
+  }
+
+  static getProps(url: string, multi: boolean, accept: string, success: (obj: any) => void, fail?: (message: string) => void, progress?: () => void) {
+    const props = {
+      action: url,
+      headers: {
+        'X-Get3W-Access-Token': Page.getCookie(models.Const.ACCESS_TOKEN)
+      },
+      multiple: multi,
+      dataType: 'json',
+      accept: accept,
+      maxFileSize: 5000000, // 5 MB
+      withCredentials: true,
+      onStart(files) {
+        DOM.loading(true)
+      },
+      onSuccess(ret) {
+        DOM.loading(false)
+        success(JSON.stringify(ret))
+      },
+      onProgress(step, file) {
+        DOM.loading(true)
+        progress && progress()
+      },
+      onError(err) {
+        console.log('onError', err);
+        DOM.loading(false)
+        fail ? fail(err.message) : Tips.error(err.message)
+      },
+    }
+    return props
+  }
+}
+
 export class DOM {
   static stop(e: React.SyntheticEvent) {
     if (e) {
@@ -530,6 +568,10 @@ export class Translate {
 
   static toMoment(str: string): moment.Moment {
     return moment(str)
+  }
+
+  static toMomentByDate(date: Date): moment.Moment {
+    return moment(date)
   }
 
   static timestampToDate(timestamp: number): Date {

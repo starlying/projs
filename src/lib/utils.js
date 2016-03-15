@@ -54,6 +54,43 @@ class Component {
     }
 }
 exports.Component = Component;
+class UploadProps {
+    static getAvatarProps(username, success, fail) {
+        const url = client_1.default.users.getUploadAvatarUrl(username);
+        return UploadProps.getProps(url, false, "image/*", success, fail);
+    }
+    static getProps(url, multi, accept, success, fail, progress) {
+        const props = {
+            action: url,
+            headers: {
+                'X-Get3W-Access-Token': Page.getCookie(models.Const.ACCESS_TOKEN)
+            },
+            multiple: multi,
+            dataType: 'json',
+            accept: accept,
+            maxFileSize: 5000000,
+            withCredentials: true,
+            onStart(files) {
+                DOM.loading(true);
+            },
+            onSuccess(ret) {
+                DOM.loading(false);
+                success(JSON.stringify(ret));
+            },
+            onProgress(step, file) {
+                DOM.loading(true);
+                progress && progress();
+            },
+            onError(err) {
+                console.log('onError', err);
+                DOM.loading(false);
+                fail ? fail(err.message) : Tips.error(err.message);
+            },
+        };
+        return props;
+    }
+}
+exports.UploadProps = UploadProps;
 class DOM {
     static stop(e) {
         if (e) {
@@ -488,6 +525,9 @@ class Translate {
     }
     static toMoment(str) {
         return moment(str);
+    }
+    static toMomentByDate(date) {
+        return moment(date);
     }
     static timestampToDate(timestamp) {
         return moment.unix(timestamp).toDate();
