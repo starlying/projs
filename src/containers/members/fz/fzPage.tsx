@@ -10,8 +10,8 @@ import * as utils from '../../../lib/utils';
 import Location from "../../../components/location"
 import SubNav from "../../../components/members/subNav"
 import * as actions from '../../../actions/authActions';
-import * as links from '../../../constants/links'
-import JSRForm from "../../../components/members/form_jsr/jsrForm"
+import * as constants from '../../../constants'
+import FPJSR from "../../../components/members/fpjsr/form"
 
 interface P {
   actions?: any,
@@ -79,7 +79,7 @@ class FZPage extends React.Component<P, S> {
           <td><a href="javascript:;" className="cor_red">公示</a></td>
           <td>1300989900</td>
           <td>
-            <a onClick={this.onEdit.bind(this, 'jsr', member.id)} className="m2fm_abtn" href="javascript:;">分配介绍人</a>
+            <a onClick={this.onEdit.bind(this, constants.WinTypes.MEMBERS_FPJSR, member.id)} className="m2fm_abtn" href="javascript:;">分配介绍人</a>
             <a className="m2fm_abtn" href="#">转出</a>
             <a className="m2fm_abtn" href="#">列为预备党员</a>
             <Link className="m2fm_abtn" to={"/members/edit/" + member.id}>编辑</Link>
@@ -96,8 +96,8 @@ class FZPage extends React.Component<P, S> {
           member = m
         }
       })
-      if (this.state.winType === 'jsr') {
-        formEl = <JSRForm member={member} onClose={this.onClose.bind(this)} />
+      if (this.state.winType === constants.WinTypes.MEMBERS_FPJSR) {
+        formEl = <FPJSR member={member} onClose={this.onClose.bind(this)} />
       }
     }
 
@@ -132,7 +132,7 @@ class FZPage extends React.Component<P, S> {
           <span className="m2fm_ss1 m2fm_ss2">至</span>
           <input type="text" name="" className="m2fm_int m2fm_int2" placeholder="2016-01-20" />
           <input type="submit" name="" className="m2submit" value="" />
-          <Link to={links.MEMBERS_ADD} className="m2addBtn"><img src="/assets/images/m2btn.jpg" width="76" height="32" /></Link>
+          <Link to={constants.Links.MEMBERS_ADD} className="m2addBtn"><img src="/assets/images/m2btn.jpg" width="76" height="32" /></Link>
         </div>
         <div className="m2fm_tabBox m2fm_tabBox2">
           <table width="100%">

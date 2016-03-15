@@ -287,3 +287,19 @@ a, area {blr:expression(this.onFocus=this.blur())}
 .m2btnBox2 { padding: 22px 0px 0px 167px; height:40px; }
 .m2btn_a1,.m2btn_a1:hover { font-size: 16px; line-height: 40px; color: #FFF; background: url(../images/m2btn3.png) no-repeat; text-align: center; display: inline-block; height: 40px; width: 117px; margin: 0px 5px; }
 .m2btn_a2,.m2btn_a2:hover { font-size: 16px; line-height: 40px; color: #FFF; background: url(../images/m2btn4.png) no-repeat; text-align: center; display: inline-block; height: 40px; width: 117px; margin: 0px 5px; }
+.m2fm_pubBtn1,.m2fm_pubBtn1:hover { font-size: 15px; line-height: 32px; color: #f8ebc8; background: url(../images/pubBtn1.png) repeat-x left top; display: inline-block; padding: 0px 14px; height: 32px; border-radius: 0.3em; }
+.m2fm_pubBtn2,.m2fm_pubBtn2:hover { font-size: 15px; line-height: 32px; color: #FFF; background: url(../images/pubBtn2.png) repeat-x left top; display: inline-block; padding: 0px 14px; height: 32px; border-radius:0.3em; }
+.m2fm_stop .m2fm_int11 { width: 100px; }
+.m2fm_stop .m2fm_sel_selBox11 { width: 120px; }
+.m2fm_stop .m2fm_pubBtn1,.m2fm_stop .m2fm_pubBtn2{margin-left:12px; float:left; display:inline; margin-top:2px;}
+.m2fm_tabSel { margin-bottom: 12px; height:38px; }
+.m2fm_tabSel .m2fm_selContent {float: left;height: 38px;position: relative;}
+.m2fm_tabSel .m2fm_selBox{right:0;}
+.layerCon3b { height: 340px; width: 518px; margin-top: -170px; margin-left: -259px; position: fixed; top: 50%; }
+.m2fmUnm { height: 162px; padding-top: 16px; }
+.m2btnBox2a { text-align: center; padding-left: 0px; }
+.m2fmUnm .m2fm_s1 { line-height: 38px; width: 150px; padding-right: 8px; font-size: 16px; }
+.m2fmUnm .m2fm_int { float: left; width: 156px; margin-right: 10px; }
+.m2fmLayer { background: #FFF; height: 149px; border: 2px solid #D9D9D9; position: absolute; width: 470px; left: 14px; top: 125px; border-radius: 0.3em; padding: 6px 8px 0px; }
+.m2fm_srcBox { height: 138px; overflow-y:auto; }
+.m2fm_srcBox ul li { line-height: 44px; float: left; height: 45px; width: 78px; border-bottom: 1px solid #E7DDC1; padding-left: 10px; overflow: hidden; font-size: 14px; color: #bf000a; }

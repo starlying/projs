@@ -8,12 +8,15 @@ const client_1 = require('../../lib/client');
 const location_1 = require("../../components/location");
 const subNav_1 = require("../../components/members/subNav");
 const actions = require('../../actions/authActions');
-const links = require('../../constants/links');
+const constants = require('../../constants');
+const form_1 = require("../../components/members/lwjjfz/form");
 class MemberPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            members: null
+            members: null,
+            winType: '',
+            id: null
         };
     }
     componentDidMount() {
@@ -23,8 +26,24 @@ class MemberPage extends React.Component {
                 members = res.members;
             }
             this.setState({
-                members: members
+                members: members,
+                winType: '',
+                id: null
             });
+        });
+    }
+    onEdit(winType, id, e) {
+        this.setState({
+            members: this.state.members,
+            winType: winType,
+            id: id
+        });
+    }
+    onClose(e) {
+        this.setState({
+            members: this.state.members,
+            winType: '',
+            id: null
         });
     }
     render() {
@@ -47,11 +66,24 @@ class MemberPage extends React.Component {
                 React.createElement("td", null, "1300989900"), 
                 React.createElement("td", null, 
                     React.createElement("a", {className: "m2fm_abtn", href: "#"}, "转出"), 
-                    React.createElement("a", {className: "m2fm_abtn", href: "#"}, "列为积极分子"), 
+                    React.createElement("a", {onClick: this.onEdit.bind(this, constants.WinTypes.MEMBERS_LWJJFZ, member.id), className: "m2fm_abtn", href: "javascript:;"}, "列为积极分子"), 
                     React.createElement(react_router_1.Link, {className: "m2fm_abtn", to: "/members/edit/" + member.id}, "编辑"))));
         });
         let pager = null;
+        let formEl = null;
+        if (this.state.winType) {
+            let member = null;
+            this.state.members.forEach((m) => {
+                if (this.state.id === m.id) {
+                    member = m;
+                }
+            });
+            if (this.state.winType === constants.WinTypes.MEMBERS_LWJJFZ) {
+                formEl = React.createElement(form_1.default, {member: member, onClose: this.onClose.bind(this)});
+            }
+        }
         return (React.createElement("div", {className: "main2"}, 
+            formEl, 
             React.createElement(location_1.default, null), 
             React.createElement(subNav_1.default, null), 
             React.createElement("div", {className: "m2fm_stop"}, 
@@ -62,7 +94,7 @@ class MemberPage extends React.Component {
                 React.createElement("span", {className: "m2fm_ss1 m2fm_ss2"}, "至"), 
                 React.createElement("input", {type: "text", name: "", className: "m2fm_int m2fm_int2", placeholder: "2016-01-20"}), 
                 React.createElement("input", {type: "submit", name: "", className: "m2submit", value: ""}), 
-                React.createElement(react_router_1.Link, {to: links.MEMBERS_ADD, className: "m2addBtn"}, 
+                React.createElement(react_router_1.Link, {to: constants.Links.MEMBERS_ADD, className: "m2addBtn"}, 
                     React.createElement("img", {src: "/assets/images/m2btn.jpg", width: "76", height: "32"})
                 )), 
             React.createElement("div", {className: "m2fm_tabBox m2fm_tabBox2"}, 

@@ -4,13 +4,14 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {InnerLoading} from '../../lib/components'
 import client from '../../lib/client';
-import * as states from '../../constants/states';
 import * as models from '../../api/models';
 import * as utils from '../../lib/utils';
 import Location from "../../components/location"
 import SubNav from "../../components/members/subNav"
 import * as actions from '../../actions/authActions';
-import * as links from '../../constants/links'
+import * as states from '../../constants/states'
+import * as constants from '../../constants'
+import LWJJFZ from "../../components/members/lwjjfz/form"
 
 interface P {
   actions?: any,
@@ -19,13 +20,17 @@ interface P {
 
 interface S {
   members: Array<models.Member>
+  winType: string
+  id: number
 }
 
 class MemberPage extends React.Component<P, S> {
   constructor(props) {
     super(props)
     this.state = {
-      members: null
+      members: null,
+      winType: '',
+      id: null
     }
   }
 
@@ -36,8 +41,26 @@ class MemberPage extends React.Component<P, S> {
         members = res.members
       }
       this.setState({
-        members: members
+        members: members,
+        winType: '',
+        id: null
       })
+    })
+  }
+
+  onEdit(winType, id, e) {
+    this.setState({
+      members: this.state.members,
+      winType: winType,
+      id: id
+    })
+  }
+
+  onClose(e: React.MouseEvent) {
+    this.setState({
+      members: this.state.members,
+      winType: '',
+      id: null
     })
   }
 
@@ -56,7 +79,7 @@ class MemberPage extends React.Component<P, S> {
           <td>1300989900</td>
           <td>
             <a className="m2fm_abtn" href="#">转出</a>
-            <a className="m2fm_abtn" href="#">列为积极分子</a>
+            <a onClick={this.onEdit.bind(this, constants.WinTypes.MEMBERS_LWJJFZ, member.id)} className="m2fm_abtn" href="javascript:;">列为积极分子</a>
             <Link className="m2fm_abtn" to={"/members/edit/" + member.id}>编辑</Link>
           </td>
         </tr>
@@ -81,8 +104,22 @@ class MemberPage extends React.Component<P, S> {
     //   </div>
     // )
 
+    let formEl = null
+    if (this.state.winType) {
+      let member = null
+      this.state.members.forEach((m: models.Member) => {
+        if (this.state.id === m.id) {
+          member = m
+        }
+      })
+      if (this.state.winType === constants.WinTypes.MEMBERS_LWJJFZ) {
+        formEl = <LWJJFZ member={member} onClose={this.onClose.bind(this)} />
+      }
+    }
+
     return (
       <div className="main2">
+        {formEl}
         <Location />
         <SubNav />
         <div className="m2fm_stop">
@@ -93,7 +130,7 @@ class MemberPage extends React.Component<P, S> {
           <span className="m2fm_ss1 m2fm_ss2">至</span>
           <input type="text" name="" className="m2fm_int m2fm_int2" placeholder="2016-01-20" />
           <input type="submit" name="" className="m2submit" value="" />
-          <Link to={links.MEMBERS_ADD} className="m2addBtn"><img src="/assets/images/m2btn.jpg" width="76" height="32" /></Link>
+          <Link to={constants.Links.MEMBERS_ADD} className="m2addBtn"><img src="/assets/images/m2btn.jpg" width="76" height="32" /></Link>
         </div>
         <div className="m2fm_tabBox m2fm_tabBox2">
           <table width="100%">

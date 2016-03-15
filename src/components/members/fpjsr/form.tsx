@@ -15,7 +15,7 @@ interface S {
   member: models.Member
 }
 
-export default class JSRForm extends React.Component<P, S> {
+export default class FPJSR extends React.Component<P, S> {
   constructor(props) {
     super(props)
     this.state = {
