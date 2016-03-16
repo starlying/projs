@@ -68,7 +68,7 @@ class YBPage extends React.Component<P, S> {
   }
 
   render() {
-    if (!this.state.members || this.state.members.length == 0) return <InnerLoading />
+    if (!this.state.members) return <InnerLoading />
 
     const listEl = this.state.members.map((member: models.Member) => {
       return (

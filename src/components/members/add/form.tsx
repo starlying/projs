@@ -106,11 +106,12 @@ export default class Form extends React.Component<P, S> {
   onCalendarSelect(name: string, value, e) {
     const user = this.state.user
     const member = this.state.member
-    const date = utils.Translate.toShortDate(new Date(value.time).toString())
+    const date = new Date(value.time)
+    const dateStr = utils.Translate.toShortDate(date && date.toString())
     if (user) {
-      user[name] = date
+      user[name] = dateStr
     }
-    member[name] = date
+    member[name] = dateStr
     this.state.user = user;
     this.state.member = member;
     this.reset()

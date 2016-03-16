@@ -40,7 +40,7 @@ class JGPage extends React.Component {
         });
     }
     render() {
-        if (!this.state.orgs || this.state.orgs.length == 0)
+        if (!this.state.orgs)
             return React.createElement(components_1.InnerLoading, null);
         let isLevel = false;
         this.state.orgs.forEach((org) => {

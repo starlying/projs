@@ -13,91 +13,100 @@ interface P {
 
 interface S {
   member: models.Member
+  winType: string
 }
 
 export default class DKXXJL extends React.Component<P, S> {
   constructor(props) {
     super(props)
     this.state = {
-      member: this.props.member
+      member: this.props.member,
+      winType: ''
     }
   }
 
   componentWillReceiveProps(nextProps: P) {
     this.setState({
-      member: nextProps.member
+      member: nextProps.member,
+      winType: ''
     })
   }
 
-  onChange(name: string, e) {
-    const member = this.state.member
-    member[name] = e.target.value
-    this.setState({ member: member });
-  }
-
-  onSubmit(e: React.MouseEvent) {
-    utils.DOM.prevent(e)
-
-    const member = this.state.member
-    if (member.userName) {
-      utils.DOM.loading(true)
-      if (this.props.member) {
-        client.members.edit(member, (err, res) => {
-          utils.DOM.loading(false)
-          if (!err) {
-            browserHistory.push(links.ORGS)
-          } else {
-            utils.Swal.error(err)
-          }
-        })
-      } else {
-        client.members.create(member, (err, res) => {
-          utils.DOM.loading(false)
-          if (!err) {
-            browserHistory.push(links.ORGS)
-          } else {
-            utils.Swal.error(err)
-          }
-        })
-      }
-    }
+  openWin(winType: string, e) {
+    this.setState({
+      member: this.state.member,
+      winType: winType
+    })
   }
 
   render() {
     const member = this.state.member
 
-    const title = '党课学习记录'
-    return (
-      <div>
-        <div className="layerBg"></div>
-        <div className="layerCon1 layerCon3 layerCon3b">
-          <i className="layerClose" onClick={this.props.onClose.bind(this)}></i>
-          <div className="layer_t">{title}</div>
-          <div className="m2nadBox">
+    let winEl = null
+    if (!this.state.winType) {
+      winEl = (
+        <div className="layerCon1 layerCon3 layerCon3b" style={{ height: "396px", width: "935px", marginLeft: "-467px", marginTop: "-196px" }}>
+          <i className="layerClose" onClick={this.props.onClose.bind(this) }></i>
+          <div className="layer_t">党课学习记录</div>
+          <div className="layer_btnBox1"><a className="m2fm_pubBtn2" href="javascript:;">新 增</a></div>
+          <div className="layer_tab3">
+            <table width="100%">
+              <tbody>
+                <tr className="layer_th3">
+                  <td>开始时间</td>
+                  <td>结束时间</td>
+                  <td>地 点</td>
+                  <td>课程名称</td>
+                  <td>课 时</td>
+                  <td>结业证书</td>
+                  <td>操 作</td>
+                </tr>
+                <tr>
+                  <td>2016-01-15</td>
+                  <td>2016-01-15</td>
+                  <td>北京</td>
+                  <td>XXXXX XXXXX XXXXXXX党课</td>
+                  <td>160</td>
+                  <td>
+                    <a href="#" className="cor_red">结业证书</a>
+                  </td>
+                  <td>
+                    <a onClick={this.openWin.bind(this)} href="javascript:;" className="m2fm_abtn">上传结业证书</a>
+                    <a href="#" className="m2fm_abtn">编辑</a>
+                    <a href="#" className="m2fm_abtn">删除</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )
+    } else if (this.state.winType === 'upload') {
+      winEl = (
+        <div className="layerCon1 layerCon3 layerCon3b" style={{ width: "518px", height: "332px", marginTop: "-166px", marginLeft: "-259px" }}>
+          <i className="layerClose" onClick={this.props.onClose.bind(this) }></i>
+          <div className="layer_t">列为预备党员</div>
+          <div className="m2nadBox" style={{ paddingTop: "40px" }}>
             <ul>
               <li>
-                <span className="lay_s1">会议名称</span>
-                <div className="m2fm_selContent">
-                  <input type="text" className="m2fm_int m2fm_int3" placeholder="请选择" />
-                  <div className="m2fm_selBox" style={{display:'none'}}>
-                    <dl>
-                      <dd>党员</dd>
-                      <dd>非党员</dd>
-                    </dl>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <span className="lay_s1">成为积极分子时间</span>
-                <input type="text" className="m2fm_int m2fm_int2 m2fm_int10" name="" />
+                <span className="lay_s1" style={{ width: "60px" }}>结业时间</span>
+                <input type="text" className="m2fm_int m2fm_int2 m2fm_int10" style={{ width: "295px" }} name="" />
               </li>
             </ul>
           </div>
-          <div className="m2btnBox2">
-            <a href="javascript:;" className="m2btn_a1" onClick={this.onSubmit.bind(this)}>确 定</a>
-            <a href="javascript:;" className="m2btn_a2" onClick={this.props.onClose.bind(this)}>取 消</a>
+          <a href="#" className="layer_btn2"></a>
+          <div className="m2btnBox2 m2btnBox2a" style={{ paddingTop: "25px" }}>
+            <a href="javascript:;" className="m2btn_a1">确 定</a>
+            <a href="javascript:;" className="m2btn_a2">取 消</a>
           </div>
         </div>
+      )
+    }
+
+    return (
+      <div>
+        <div className="layerBg"></div>
+        {winEl}
       </div>
     )
   }

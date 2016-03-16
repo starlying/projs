@@ -47,7 +47,7 @@ class HJPage extends React.Component {
         });
     }
     render() {
-        if (!this.state.orgs || this.state.orgs.length == 0)
+        if (!this.state.orgs)
             return React.createElement(components_1.InnerLoading, null);
         const listEl = this.state.orgs.map((org) => {
             return (React.createElement("tr", {key: org.id}, 

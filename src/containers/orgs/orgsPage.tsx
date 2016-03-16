@@ -77,7 +77,7 @@ class OrgPage extends React.Component<P, S> {
   }
 
   render() {
-    if (!this.state.orgs || this.state.orgs.length == 0) return <InnerLoading />
+    if (!this.state.orgs) return <InnerLoading />
 
     const listEl = this.state.orgs.map((org: models.Org) => {
       return (

@@ -48,7 +48,7 @@ class MemberPage extends React.Component {
         });
     }
     render() {
-        if (!this.state.members || this.state.members.length == 0)
+        if (!this.state.members)
             return React.createElement(components_1.InnerLoading, null);
         const listEl = this.state.members.map((member) => {
             return (React.createElement("tr", {key: member.id}, 
