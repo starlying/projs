@@ -12,7 +12,7 @@ class Users {
         }, cb);
     }
     edit(userName, data, cb) {
-        this.request.put('/users/' + userName, data, cb);
+        this.request.patch('/users/' + userName, data, cb);
     }
     login(username, password, cb) {
         this.request.post('/users/actions/login', {

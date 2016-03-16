@@ -83,7 +83,6 @@ class AddPage extends React.Component {
             resultsEl = React.createElement("div", {className: "m2c1_cer"}, usersEl);
             if (this.state.userName) {
                 this.state.users.forEach((user) => {
-                    console.log(user);
                     if (user.userName === this.state.userName) {
                         let member = null;
                         if (this.state.members && this.state.members.length > 0) {

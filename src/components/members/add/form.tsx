@@ -163,7 +163,8 @@ export default class Form extends React.Component<P, S> {
   render() {
     const user = this.state.user
     const member = this.state.member
-
+    if(!member.applyPartyDate)
+      member.applyPartyDate = new Date()
     let applyCalendarEl = null
     if (this.state.isApplyCalendar) {
       applyCalendarEl = <RCCalendar locale={LOCALE} onSelect={this.onCalendarSelect.bind(this, 'applyPartyDate')} />

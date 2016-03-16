@@ -137,6 +137,8 @@ class Form extends React.Component {
     render() {
         const user = this.state.user;
         const member = this.state.member;
+        if (!member.applyPartyDate)
+            member.applyPartyDate = new Date();
         let applyCalendarEl = null;
         if (this.state.isApplyCalendar) {
             applyCalendarEl = React.createElement(RCCalendar, {locale: LOCALE, onSelect: this.onCalendarSelect.bind(this, 'applyPartyDate')});

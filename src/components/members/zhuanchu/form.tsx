@@ -42,16 +42,8 @@ export default class ZHUANCHU extends React.Component<P, S> {
     if (member.userName) {
       utils.DOM.loading(true)
       if (this.props.member) {
+        member.orgID = 0
         client.members.edit(member, (err, res) => {
-          utils.DOM.loading(false)
-          if (!err) {
-            browserHistory.push(links.ORGS)
-          } else {
-            utils.Swal.error(err)
-          }
-        })
-      } else {
-        client.members.create(member, (err, res) => {
           utils.DOM.loading(false)
           if (!err) {
             browserHistory.push(links.ORGS)
