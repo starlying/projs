@@ -19,7 +19,7 @@ export default class Users {
   }
 
   edit(userName: string, data: Object, cb?: (err: models.Error, res: models.User) => void) {
-    this.request.patch('/users/' + userName, data, cb)
+    this.request.put('/users/' + userName, data, cb)
   }
 
   login(username: string, password: string, cb?: (err: models.Error, res: {

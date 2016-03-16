@@ -10,12 +10,9 @@ class Nav extends React.Component {
                     React.createElement(react_router_1.IndexLink, {to: links.INDEX, className: "nav_a", activeClassName: "on"}, "首  页")
                 ), 
                 React.createElement("li", null, 
-<<<<<<< HEAD
-=======
                     React.createElement(react_router_1.Link, {to: links.PARTY_MEMBERS, className: "nav_a", activeClassName: "on"}, "党员管理")
                 ), 
                 React.createElement("li", null, 
->>>>>>> f40ddf6a515f0f60d734d0a87a7de45bdb4162a9
                     React.createElement("a", {href: "#", className: "nav_a"}, "党委工作")
                 ), 
                 React.createElement("li", null, 
