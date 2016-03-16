@@ -48,7 +48,7 @@ export default class DKXXJL extends React.Component<P, S> {
         <div className="layerCon1 layerCon3 layerCon3b" style={{ height: "396px", width: "935px", marginLeft: "-467px", marginTop: "-196px" }}>
           <i className="layerClose" onClick={this.props.onClose.bind(this) }></i>
           <div className="layer_t">党课学习记录</div>
-          <div className="layer_btnBox1"><a className="m2fm_pubBtn2" href="javascript:;">新 增</a></div>
+          <div className="layer_btnBox1"><a onClick={this.openWin.bind(this, 'new') } href="javascript:;" className="m2fm_pubBtn2">新 增</a></div>
           <div className="layer_tab3">
             <table width="100%">
               <tbody>
@@ -71,7 +71,7 @@ export default class DKXXJL extends React.Component<P, S> {
                     <a href="#" className="cor_red">结业证书</a>
                   </td>
                   <td>
-                    <a onClick={this.openWin.bind(this, 'upload')} href="javascript:;" className="m2fm_abtn">上传结业证书</a>
+                    <a onClick={this.openWin.bind(this, 'upload') } href="javascript:;" className="m2fm_abtn">上传结业证书</a>
                     <a href="#" className="m2fm_abtn">编辑</a>
                     <a href="#" className="m2fm_abtn">删除</a>
                   </td>
@@ -97,7 +97,47 @@ export default class DKXXJL extends React.Component<P, S> {
           <a href="#" className="layer_btn2"></a>
           <div className="m2btnBox2 m2btnBox2a" style={{ paddingTop: "25px" }}>
             <a href="javascript:;" className="m2btn_a1">确 定</a>
-            <a onClick={this.openWin.bind(this, '')} href="javascript:;" className="m2btn_a2">取 消</a>
+            <a onClick={this.openWin.bind(this, '') } href="javascript:;" className="m2btn_a2">取 消</a>
+          </div>
+        </div>
+      )
+    } else if (this.state.winType === 'new') {
+      winEl = (
+        <div className="layerCon1" style={{ width: "518px", height: "494px", marginLeft: "-259px", marginTop: "-2 47px" }}>
+          <i className="layerClose" onClick={this.props.onClose.bind(this) }></i>
+          <div className="layer_t">新增党课学习记录</div>
+          <div className="m2nadBox" style= {{ paddingTop: "3 0px" }}>
+            <ul>
+              <li>
+                <span className="lay_s1">开始时间</span>
+                <input type="text" className="m2fm_int m2fm_int2 m2fm_int10" name="" />
+              </li>
+              <li>
+                <span className="lay_s1">结束时间</span>
+                <input type="text" className="m2fm_int m2fm_int2 m2fm_int10" name="" />
+              </li>
+              <li>
+                <span className="lay_s1">地 点</span>
+                <input type="text" className="m2fm_int m2fm_int10" name="" />
+              </li>
+              <li>
+                <span className="lay_s1">课程名称</span>
+                <input type="text" className="m2fm_int m2fm_int10" name="" />
+              </li>
+              <li>
+                <span className="lay_s1">课 时</span>
+                <input type="text" className="m2fm_int m2fm_int10" name="" />
+              </li>
+              <li>
+                <span className="lay_s1">结业证书</span>
+                <input type="text" className="m2fm_int m2fm_int10 fl" name="" style={ { width: "183px", marginRight: "10px" }} />
+                <a href="#" className="lay_upload fl">上传</a>
+              </li>
+            </ul>
+          </div>
+          <div className="m2btnBox2">
+            <a href="javascript:;" className="m2btn_a1">确 定</a>
+            <a onClick={this.openWin.bind(this, '') } href="javascript:;" className="m2btn_a2">取 消</a>
           </div>
         </div>
       )
