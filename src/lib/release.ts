@@ -3,6 +3,7 @@
   static rootDestination: string = 'g3.com:99';
   static domain: string = 'http://g3.com:99';
   static domainAPI: string = 'http://118.26.238.245/webapi/api';
+  static domainUpload: string = 'http://118.26.238.245/webapi';
   //static domainAPI: string = 'http://localhost:7373';
   static domainCDN: string = 'http://cdn.g3.com:99';
 }

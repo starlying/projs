@@ -99,6 +99,7 @@ export default class AddPage extends React.Component<{}, S> {
 
       if (this.state.userName) {
         this.state.users.forEach((user: models.User) => {
+          console.log(user)
           if (user.userName === this.state.userName) {
             let member = null
             if (this.state.members && this.state.members.length > 0) {

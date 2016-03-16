@@ -176,9 +176,9 @@ export default class Form extends React.Component<P, S> {
     if (this.state.isBirthDay) {
       birthDayCalendarEl = <RCCalendar locale={LOCALE} onSelect={this.onCalendarSelect.bind(this, 'birthDay')} />
     }
-    const props = utils.UploadProps.getAvatarProps(user.userName, (result: {avatarUrl: string}) => {
+    const props = utils.UploadProps.getAvatarProps(user.userName, (res: {avatarUrl: string}) => {
       const user = this.state.user
-      user.avatarUrl = result.avatarUrl
+      user.avatarUrl = res.avatarUrl
       this.state.user = user;
       this.setState(this.state)
     }, (message: string) => {
@@ -188,13 +188,11 @@ export default class Form extends React.Component<P, S> {
       })
     })
 
-    const avatarUrl = user.avatarUrl || "/assets/images/headImg.jpg"
-
     return (
       <div className="m2con2">
         <div className="m2c2_t">基础资料表单</div>
         <div className="m2upLaod">
-          <div className="m2pImg"><img src={avatarUrl} width="120" height="120" /></div>
+          <div className="m2pImg"><img src={utils.Addr.getAvatarUrl(user.avatarUrl)} width="120" height="120" /></div>
           <div className="m2pTxt">
             <Upload {...props}><a href='javascript:void(0)' className="m2Btn"></a></Upload>
             支持为jpg、精品个、gif、png格式，大小在2M以内的图片上传

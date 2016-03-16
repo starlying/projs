@@ -65,7 +65,7 @@ export class Component {
 }
 
 export class UploadProps {
-  static getAvatarProps(username: string, success: (result: {avatarUrl: string}) => void, fail?: (message: string) => void) {
+  static getAvatarProps(username: string, success: (res: {avatarUrl: string}) => void, fail?: (message: string) => void) {
     const url = client.users.getUploadAvatarUrl(username)
     return UploadProps.getProps(url, false, "image/*", success, fail)
   }
@@ -86,7 +86,7 @@ export class UploadProps {
       },
       onSuccess(ret) {
         DOM.loading(false)
-        success(JSON.stringify(ret))
+        success(ret)
       },
       onProgress(step, file) {
         DOM.loading(true)
@@ -830,9 +830,9 @@ export class Addr {
     return Addr.getUrl('error.html')
   }
 
-  static getAvatarUrl(user: models.User): string {
-    if (!user || !user.avatarUrl) return Addr.getImgUrl('avatar.png')
-    return "http://avatars.assets." + release.rootDestination + "/" + user.avatarUrl
+  static getAvatarUrl(avatarUrl: string): string {
+    if (!avatarUrl) return "/assets/images/headImg.jpg"
+    return release.domainUpload + avatarUrl
   }
 
   static getPath(owner: string, name: string){

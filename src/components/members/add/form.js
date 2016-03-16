@@ -149,9 +149,9 @@ class Form extends React.Component {
         if (this.state.isBirthDay) {
             birthDayCalendarEl = React.createElement(RCCalendar, {locale: LOCALE, onSelect: this.onCalendarSelect.bind(this, 'birthDay')});
         }
-        const props = utils.UploadProps.getAvatarProps(user.userName, (result) => {
+        const props = utils.UploadProps.getAvatarProps(user.userName, (res) => {
             const user = this.state.user;
-            user.avatarUrl = result.avatarUrl;
+            user.avatarUrl = res.avatarUrl;
             this.state.user = user;
             this.setState(this.state);
         }, (message) => {
@@ -160,12 +160,11 @@ class Form extends React.Component {
                 message: message
             });
         });
-        const avatarUrl = user.avatarUrl || "/assets/images/headImg.jpg";
         return (React.createElement("div", {className: "m2con2"}, 
             React.createElement("div", {className: "m2c2_t"}, "基础资料表单"), 
             React.createElement("div", {className: "m2upLaod"}, 
                 React.createElement("div", {className: "m2pImg"}, 
-                    React.createElement("img", {src: avatarUrl, width: "120", height: "120"})
+                    React.createElement("img", {src: utils.Addr.getAvatarUrl(user.avatarUrl), width: "120", height: "120"})
                 ), 
                 React.createElement("div", {className: "m2pTxt"}, 
                     React.createElement(Upload, React.__spread({}, props), 

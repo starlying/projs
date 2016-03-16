@@ -75,7 +75,7 @@ class UploadProps {
             },
             onSuccess(ret) {
                 DOM.loading(false);
-                success(JSON.stringify(ret));
+                success(ret);
             },
             onProgress(step, file) {
                 DOM.loading(true);
@@ -755,10 +755,10 @@ class Addr {
     static getErrorUrl() {
         return Addr.getUrl('error.html');
     }
-    static getAvatarUrl(user) {
-        if (!user || !user.avatarUrl)
-            return Addr.getImgUrl('avatar.png');
-        return "http://avatars.assets." + release_1.default.rootDestination + "/" + user.avatarUrl;
+    static getAvatarUrl(avatarUrl) {
+        if (!avatarUrl)
+            return "/assets/images/headImg.jpg";
+        return release_1.default.domainUpload + avatarUrl;
     }
     static getPath(owner, name) {
         return owner + "/" + name;
