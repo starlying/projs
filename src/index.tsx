@@ -18,6 +18,7 @@ import YBPage from './containers/members/yb/ybPage'
 import UserPage from './containers/users/userPage'
 import NotFoundPage from './components/notFoundPage';
 import LoginPage from './containers/login/loginPage'
+import PartyMembersPage from './containers/partymembers/partyMembersPage'
 import * as links from './constants/links'
 
 utils.Page.xDomain()
@@ -29,6 +30,7 @@ render(
       <Route path={links.INDEX} component={App}>
         <IndexRoute component={IndexPage} />
         <Route path={links.USERS_} component={UserPage}/>
+        <Route path={links.PARTY_MEMBERS} component={PartyMembersPage}/>
         <Route path={links.ORGS} component={OrgsPage}/>
         <Route path={links.ORGS_JG} component={JGPage}/>
         <Route path={links.ORGS_HJ} component={HJPage}/>

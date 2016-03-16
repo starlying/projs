@@ -3,6 +3,8 @@ export const LOGIN = '/login';
 
 export const USERS_ = '/users/:userName';
 
+export const PARTY_MEMBERS = '/partymembers/';
+
 export const MEMBERS = '/members/';
 export const MEMBERS_JJ = '/members/jj';
 export const MEMBERS_FZ = '/members/fz';
