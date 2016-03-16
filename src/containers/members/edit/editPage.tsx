@@ -1,11 +1,17 @@
 import * as React from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import {InnerLoading} from '../../../lib/components'
 import * as models from '../../../api/models';
 import * as utils from '../../../lib/utils';
 import client from '../../../lib/client';
-import Form from "./form"
+import * as actions from '../../../actions/authActions';
+import * as states from '../../../constants/states'
+import Form from "../../../components/members/edit/form"
 
 interface P {
+  actions?: any,
+  authState?: states.AuthState,
   params: {
     id: string
   }
@@ -16,7 +22,7 @@ interface S {
   member: models.Member
 }
 
-export default class AddPage extends React.Component<P, S> {
+class EditPage extends React.Component<P, S> {
   constructor(props) {
     super(props)
     this.state = {
@@ -75,3 +81,20 @@ export default class AddPage extends React.Component<P, S> {
     )
   }
 }
+
+function mapStateToProps(state: states.AllState) {
+  return {
+    authState: state.authState
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditPage);

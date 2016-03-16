@@ -71,7 +71,7 @@ export default class DKXXJL extends React.Component<P, S> {
                     <a href="#" className="cor_red">结业证书</a>
                   </td>
                   <td>
-                    <a onClick={this.openWin.bind(this)} href="javascript:;" className="m2fm_abtn">上传结业证书</a>
+                    <a onClick={this.openWin.bind(this, 'upload')} href="javascript:;" className="m2fm_abtn">上传结业证书</a>
                     <a href="#" className="m2fm_abtn">编辑</a>
                     <a href="#" className="m2fm_abtn">删除</a>
                   </td>
@@ -85,7 +85,7 @@ export default class DKXXJL extends React.Component<P, S> {
       winEl = (
         <div className="layerCon1 layerCon3 layerCon3b" style={{ width: "518px", height: "332px", marginTop: "-166px", marginLeft: "-259px" }}>
           <i className="layerClose" onClick={this.props.onClose.bind(this) }></i>
-          <div className="layer_t">列为预备党员</div>
+          <div className="layer_t">上传结业证书</div>
           <div className="m2nadBox" style={{ paddingTop: "40px" }}>
             <ul>
               <li>
@@ -97,7 +97,7 @@ export default class DKXXJL extends React.Component<P, S> {
           <a href="#" className="layer_btn2"></a>
           <div className="m2btnBox2 m2btnBox2a" style={{ paddingTop: "25px" }}>
             <a href="javascript:;" className="m2btn_a1">确 定</a>
-            <a href="javascript:;" className="m2btn_a2">取 消</a>
+            <a onClick={this.openWin.bind(this, '')} href="javascript:;" className="m2btn_a2">取 消</a>
           </div>
         </div>
       )
